@@ -1,0 +1,50 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+  install:
+    commands:
+      - pip3 install awscli --upgrade --user
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain dev-it-palaceresorts --domain-owner 427784172992 --query authorizationToken --output text`
+      - echo $CODEARTIFACT_AUTH_TOKEN
+      - echo $ENVIRONMENT
+      - npm install
+      #- yarn install
+  build:
+    commands:
+      - node -v
+      - echo "Generando versión"
+      - echo "export default {" > $CODEBUILD_SRC_DIR/build.ts
+      - echo "current:" >> $CODEBUILD_SRC_DIR/build.ts
+      - echo "$CODEBUILD_BUILD_NUMBER" >> $CODEBUILD_SRC_DIR/build.ts
+      - echo "};" >> $CODEBUILD_SRC_DIR/build.ts
+      - cp .env.$ENVIRONMENT .env
+      # - yarn build --mode $ENVIRONMENT
+      - npm run generate
+      - echo "Build completed"
+      - ls -l
+      - ls -l ./dist
+      - sleep 25
+      - ls -l ./dist
+      - echo "Validando si existe index.html"
+      # Valida si se genra el archivo index.html
+      - if ! [ -f "dist/index.html" ]; then echo "no existe"; exit -1; fi
+      - echo $(date +'%Y/%m/%d-%R')
+      # se crea la carpeta de respaldo con el build generado
+      - aws s3 sync ./dist $S3_BUCKET$(date +'%Y-%m-%d:%R')
+      # se copian los archivos nuevos y se elinan los archivos diferentes al origen
+      - aws s3 sync ./dist ${S3_BUCKET}current --delete
+      - echo "Invalidando cache de Cloudfront"
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT --paths '/*'
+# Include only the files required for your application to run.
+artifacts:
+  files:
+    - public/**/*
+    - src/**/*
+    - package.json
+
+cache:
+  paths:
+    - '/root/.yarn-cache/**/*'
+    - 'node_modules/**/*'

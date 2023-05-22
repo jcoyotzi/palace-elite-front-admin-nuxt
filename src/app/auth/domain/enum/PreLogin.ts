@@ -1,0 +1,7 @@
+export enum PreLoginStatus {
+  REGISTERED = 1,
+  NOT_REGISTERED = 2,
+  LEGACY_SYSTEM = 3,
+  NOT_FOUND = 4,
+  MEMBERSHIP_PERMANENTLY_CANCELED = 5
+}

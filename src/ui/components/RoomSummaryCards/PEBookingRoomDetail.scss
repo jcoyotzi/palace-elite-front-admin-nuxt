@@ -1,0 +1,58 @@
+.giga-blur {
+  filter: blur(5px);
+}
+
+.unavailable-phone {
+  width: 100%;
+  display: flex;
+  font-size: 1.4em;
+}
+.bg-unavailable {
+  background: #363636;
+}
+
+.grid button {
+  padding: 16px 24px;
+  max-height: 66px;
+}
+
+::v-deep span.checkmark {
+  background: #272527;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #90afc5;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #274c69;
+}
+
+.tooltip-referrals {
+  background: #2e2d2e;
+  border: #333 solid 1px;
+  border-radius: 5px;
+}
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  //right: 120px;
+  right: 20%;
+}
+.has-tooltip:hover .tooltip {
+  visibility: visible;
+  z-index: 9999999999;
+}

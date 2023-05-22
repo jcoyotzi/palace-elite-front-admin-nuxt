@@ -1,0 +1,3482 @@
+{
+  "d": [
+    {
+      "__type": "PalaceResorts.Messages.CreditoCobranzaReserva.CLVBECalendarRatesResponse",
+      "room_type_category": "LV",
+      "room_description": "Superior Deluxe Lagoon View",
+      "max_ocupancy": 4,
+      "max_children": 3,
+      "include_kids": true,
+      "rates": [
+        {
+          "date_from": "2022-09-20",
+          "date_to": "2022-09-24",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 122.49,
+              "amount_final": 122.49,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-09-25",
+          "date_to": "2022-09-27",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 114.91,
+              "amount_final": 114.91,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-09-28",
+          "date_to": "2022-09-30",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 118.7,
+              "amount_final": 118.7,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-01",
+          "date_to": "2022-10-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 122.49,
+              "amount_final": 122.49,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-03",
+          "date_to": "2022-10-03",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 118.7,
+              "amount_final": 118.7,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-04",
+          "date_to": "2022-10-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 114.91,
+              "amount_final": 114.91,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-05",
+          "date_to": "2022-10-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 317.5,
+              "amount_final": 317.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 317.5,
+              "amount_final": 317.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 111.13,
+              "amount_final": 111.13,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-06",
+          "date_to": "2022-10-06",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 122.49,
+              "amount_final": 122.49,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-07",
+          "date_to": "2022-10-08",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.8,
+              "amount_final": 360.8,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.8,
+              "amount_final": 360.8,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.28,
+              "amount_final": 126.28,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-09",
+          "date_to": "2022-10-10",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 339.15,
+              "amount_final": 339.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 118.7,
+              "amount_final": 118.7,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-11",
+          "date_to": "2022-10-11",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 349.98,
+              "amount_final": 349.98,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 122.49,
+              "amount_final": 122.49,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-12",
+          "date_to": "2022-10-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.8,
+              "amount_final": 360.8,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.8,
+              "amount_final": 360.8,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.28,
+              "amount_final": 126.28,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-16",
+          "date_to": "2022-10-16",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-17",
+          "date_to": "2022-10-17",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-18",
+          "date_to": "2022-10-19",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 124.43,
+              "amount_final": 124.43,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-20",
+          "date_to": "2022-10-23",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-24",
+          "date_to": "2022-10-25",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 124.43,
+              "amount_final": 124.43,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-10-26",
+          "date_to": "2022-11-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-03",
+          "date_to": "2022-11-03",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-04",
+          "date_to": "2022-11-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 137.16,
+              "amount_final": 137.16,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-05",
+          "date_to": "2022-11-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 404,
+              "amount_final": 404,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 404,
+              "amount_final": 404,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 141.4,
+              "amount_final": 141.4,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-06",
+          "date_to": "2022-11-06",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 137.16,
+              "amount_final": 137.16,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-07",
+          "date_to": "2022-11-08",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-09",
+          "date_to": "2022-11-09",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-10",
+          "date_to": "2022-11-12",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-13",
+          "date_to": "2022-11-14",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-15",
+          "date_to": "2022-11-17",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 124.43,
+              "amount_final": 124.43,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-18",
+          "date_to": "2022-11-18",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-19",
+          "date_to": "2022-11-19",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 467.82,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 467.82,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 163.73,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-20",
+          "date_to": "2022-11-20",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 483.24,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 483.24,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 169.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-21",
+          "date_to": "2022-11-24",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 467.82,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 467.82,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 163.73,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-25",
+          "date_to": "2022-11-26",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 452.4,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 452.4,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 124.43,
+              "amount_final": 158.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-11-27",
+          "date_to": "2022-12-01",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 355.52,
+              "amount_final": 355.52,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 124.43,
+              "amount_final": 124.43,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-02",
+          "date_to": "2022-12-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-03",
+          "date_to": "2022-12-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-05",
+          "date_to": "2022-12-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 137.16,
+              "amount_final": 137.16,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-06",
+          "date_to": "2022-12-08",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-09",
+          "date_to": "2022-12-13",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 367.64,
+              "amount_final": 367.64,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 128.67,
+              "amount_final": 128.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-14",
+          "date_to": "2022-12-14",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 379.76,
+              "amount_final": 379.76,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 132.92,
+              "amount_final": 132.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-15",
+          "date_to": "2022-12-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 391.88,
+              "amount_final": 391.88,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 137.16,
+              "amount_final": 137.16,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-16",
+          "date_to": "2022-12-23",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 404,
+              "amount_final": 404,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 404,
+              "amount_final": 404,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 141.4,
+              "amount_final": 141.4,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2022-12-24",
+          "date_to": "2023-01-01",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 571.2,
+              "amount_final": 571.2,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 571.2,
+              "amount_final": 571.2,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 199.92,
+              "amount_final": 199.92,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 75,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-02",
+          "date_to": "2023-01-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 554.06,
+              "amount_final": 419.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 554.06,
+              "amount_final": 419.15,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 193.92,
+              "amount_final": 146.7,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 75,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-03",
+          "date_to": "2023-01-03",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 536.93,
+              "amount_final": 406.19,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 536.93,
+              "amount_final": 406.19,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 187.92,
+              "amount_final": 142.16,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 75,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-04",
+          "date_to": "2023-01-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 412.85,
+              "amount_final": 412.85,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 412.85,
+              "amount_final": 412.85,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 144.5,
+              "amount_final": 144.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-06",
+          "date_to": "2023-01-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 399.67,
+              "amount_final": 399.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 399.67,
+              "amount_final": 399.67,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 139.89,
+              "amount_final": 139.89,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-16",
+          "date_to": "2023-01-20",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 135.27,
+              "amount_final": 135.27,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-21",
+          "date_to": "2023-01-22",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-23",
+          "date_to": "2023-01-23",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 135.27,
+              "amount_final": 135.27,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-24",
+          "date_to": "2023-01-29",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-01-30",
+          "date_to": "2023-01-31",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-01",
+          "date_to": "2023-02-01",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-02",
+          "date_to": "2023-02-07",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-08",
+          "date_to": "2023-02-13",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-14",
+          "date_to": "2023-02-17",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-18",
+          "date_to": "2023-02-19",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 425.22,
+              "amount_final": 425.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 425.22,
+              "amount_final": 425.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 148.83,
+              "amount_final": 148.83,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-20",
+          "date_to": "2023-02-22",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 439.71,
+              "amount_final": 439.71,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 439.71,
+              "amount_final": 439.71,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 153.9,
+              "amount_final": 153.9,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-23",
+          "date_to": "2023-02-24",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 425.22,
+              "amount_final": 425.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 425.22,
+              "amount_final": 425.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 148.83,
+              "amount_final": 148.83,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-25",
+          "date_to": "2023-02-27",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-02-28",
+          "date_to": "2023-03-03",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-04",
+          "date_to": "2023-03-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-06",
+          "date_to": "2023-03-07",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-08",
+          "date_to": "2023-03-17",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-18",
+          "date_to": "2023-03-19",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-20",
+          "date_to": "2023-03-20",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-21",
+          "date_to": "2023-03-22",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-03-23",
+          "date_to": "2023-03-31",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-01",
+          "date_to": "2023-04-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-05",
+          "date_to": "2023-04-08",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-09",
+          "date_to": "2023-04-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-16",
+          "date_to": "2023-04-27",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-28",
+          "date_to": "2023-04-29",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-04-30",
+          "date_to": "2023-05-24",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-05-25",
+          "date_to": "2023-05-27",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-05-28",
+          "date_to": "2023-06-01",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-02",
+          "date_to": "2023-06-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-05",
+          "date_to": "2023-06-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-06",
+          "date_to": "2023-06-08",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-09",
+          "date_to": "2023-06-12",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 135.27,
+              "amount_final": 135.27,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-13",
+          "date_to": "2023-06-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-16",
+          "date_to": "2023-06-16",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 386.5,
+              "amount_final": 386.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 135.27,
+              "amount_final": 135.27,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-17",
+          "date_to": "2023-06-17",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 373.32,
+              "amount_final": 373.32,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 130.66,
+              "amount_final": 130.66,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-18",
+          "date_to": "2023-06-21",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 360.14,
+              "amount_final": 360.14,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 126.05,
+              "amount_final": 126.05,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-06-22",
+          "date_to": "2023-06-30",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-07-01",
+          "date_to": "2023-07-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-07-03",
+          "date_to": "2023-07-04",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-07-05",
+          "date_to": "2023-07-05",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 410.72,
+              "amount_final": 410.72,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 143.75,
+              "amount_final": 143.75,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-07-06",
+          "date_to": "2023-08-19",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 396.22,
+              "amount_final": 396.22,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 138.68,
+              "amount_final": 138.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-08-20",
+          "date_to": "2023-08-23",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-08-24",
+          "date_to": "2023-08-24",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 107.34,
+              "amount_final": 107.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-08-25",
+          "date_to": "2023-08-26",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 328.33,
+              "amount_final": 328.33,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 114.91,
+              "amount_final": 114.91,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-08-27",
+          "date_to": "2023-08-27",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 317.5,
+              "amount_final": 317.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 317.5,
+              "amount_final": 317.5,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 111.13,
+              "amount_final": 111.13,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-08-28",
+          "date_to": "2023-08-31",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-01",
+          "date_to": "2023-09-02",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 107.34,
+              "amount_final": 107.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-03",
+          "date_to": "2023-09-13",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-14",
+          "date_to": "2023-09-16",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 107.34,
+              "amount_final": 107.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-17",
+          "date_to": "2023-09-20",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-21",
+          "date_to": "2023-09-21",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 107.34,
+              "amount_final": 107.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-22",
+          "date_to": "2023-09-26",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-27",
+          "date_to": "2023-09-29",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 306.68,
+              "amount_final": 306.68,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 107.34,
+              "amount_final": 107.34,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-09-30",
+          "date_to": "2023-10-15",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 295.86,
+              "amount_final": 295.86,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 103.55,
+              "amount_final": 103.55,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        },
+        {
+          "date_from": "2023-10-16",
+          "date_to": "2023-10-20",
+          "prices": [
+            {
+              "pax_type": "SGL",
+              "group_pax": "ADULT",
+              "amount_base": 331.28,
+              "amount_final": 331.28,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "DBL",
+              "group_pax": "ADULT",
+              "amount_base": 331.28,
+              "amount_final": 331.28,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "EXT",
+              "group_pax": "EXTRA",
+              "amount_base": 115.95,
+              "amount_final": 115.95,
+              "rate_exists": true
+            },
+            {
+              "pax_type": "CHL",
+              "group_pax": "CHILD",
+              "amount_base": 70,
+              "amount_final": 0,
+              "rate_exists": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
