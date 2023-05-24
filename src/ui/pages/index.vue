@@ -1,8 +1,14 @@
-<script lang="ts">
-import SlugBasePage from './_.vue';
-import { BasePageSlugs } from '~/src/app/Strapi/StrapiConfiguration';
+<template>
+  <div></div>
+</template>
 
-export default class IndexPage extends SlugBasePage {
-  public slugPage: string = BasePageSlugs.Home;
+<script lang="ts">
+import { Component } from 'vue-property-decorator'
+import DashboardPage from './dashboard.vue'
+
+@Component({
+  name: 'IndexPage',
+})
+export default class IndexPage extends DashboardPage {
+  //
 }
-</script>

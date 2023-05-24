@@ -1,5 +1,5 @@
 import {resolve} from 'path'
-import appMessages from './src/ui/i18n/appMessages'
+import i18n from './src/ui/i18n/i18n'
 
 require('dotenv').config()
 
@@ -8,21 +8,7 @@ export default {
   target: 'static',
   ssr: true,
   env: {
-    affiliationApiUrl: process.env.AFFILIATION_API_URL,
-    userApiUrl: process.env.USER_API_URL,
-    jsonApiUrl: process.env.VUE_APP_BASE_JSON,
-    apiUrl: process.env.ENDPOINT_PRELOGIN,
-    ratesCleverApiUrl: process.env.RATES_CLEVER_API_URL,
-    ratesApiUrl: process.env.RATES_API_URL,
-    intelligenceXApiUrl: process.env.INTELLIGENCEX_API_URL,
-    strapiUrl: process.env.STRAPI_URL,
-    strapiToken: process.env.STRAPI_TOKEN,
-    LEGACY_URL: process.env.LEGACY_URL,
-    baseURL: process.env.BASE_URL,
-    baglioni: process.env.BAGLIONI,
-    GTM_ID: process.env.GTM_ID,
-    GTM_ENABLE: process.env.GTM_ENABLE,
-    INSPECTLET_ID: process.env.INSPECTLET_ID
+    //
   },
   publicRuntimeConfig: {
     awsAmplifyConfig: {
@@ -30,11 +16,8 @@ export default {
       region: process.env.COGNITO_REGION,
       userPoolId: process.env.COGNITO_USER_POOL_ID,
       userPoolWebClientId: process.env.COGNITO_USER_POOL_CLIENT_WEB_ID,
-      baseURL: process.env.NUXT_BASE_URL
     },
-    baglioni: process.env.BAGLIONI,
-    GTM_ID: process.env.GTM_ID,
-    GTM_ENABLE: process.env.GTM_ENABLE
+    baseURL: process.env.NUXT_BASE_URL
   },
   privateRuntimeConfig: {},
 
@@ -42,7 +25,7 @@ export default {
     // fallback: true,
     crawler: false,
     devtools: true,
-    exclude: [/^\/benefits/, /^\/membership/, /^\/Booking/, /^\/es/],
+    exclude: [/^\/es/],
     routes: ['/', '/test']
     /*
     minify: {
@@ -99,12 +82,8 @@ export default {
     {src: '~/plugins/vue-class-components', mode: 'client'},
     {src: '~/plugins/amplify', mode: 'client'},
     {src: '~/plugins/prcomponents', mode: 'client'},
-    {src: '~/plugins/currencie', mode: 'client'},
+    {src: '~/plugins/authSSO', mode: 'client'},
     {src: '~/plugins/authRouteBeforeEnter', mode: 'client'},
-    {src: '~/plugins/vuehtml2pdf', mode: 'client'},
-    {src: '~/plugins/i18n'},
-    {src: '~/plugins/strapi-i18n-routes', mode: 'server'},
-    // { src: '~/plugins/vee-validate' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -131,7 +110,7 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/gtm'
   ],
-  i18n: appMessages,
+  i18n,
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -281,15 +260,6 @@ export default {
       runInNewContext: false
     }
   },
-  gtm: {
-    id: process.env.GTM_ID || 'GTM-XXXXXXX',
-    // enabled: true,
-    // debug: true,
-    pageTracking: true,
-    pageViewEventName: 'virtualPageView',
-    scriptDefer: true,
-    autoInit: process.env.GTM_ENABLE === 'true'
-  },
 
   router: {
     extendRoutes(routes) {
@@ -302,7 +272,8 @@ export default {
         //   route.path.length > 1 ? `${normalizedRoute}.html` : '/index.html'
         route.alias = alias
       })
-    }
+    },
+    middleware: ['requiredAuth'],
   }
 }
 

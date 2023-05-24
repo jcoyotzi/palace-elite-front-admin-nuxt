@@ -1,65 +1,111 @@
 <template>
-  <div>
-    <CommonHeroWidget
-      v-if="components"
-      :booking-attrs="bookingAttrs"
-      :calendar-data="calendarData"
-      :hero-attrs="heroAttrs"
-      :is-authenticated="userIsAuthenticated"
-    />
-    <ContentBlockManager :blocks="components" />
-    <div class="pe-w-11/12 pe-m-auto lg:pe-w-2/4 pe-mb-10">
-        <PELoginForm :external-error-message="externalErrorMessage" :loading="loading" is-login-page @submitLogin="signIn"/>
+  <div class="ms-min-h-screen ms-flex">
+    <div class="ms-hidden lg:ms-block xl:ms-w-3/4 login-bg">
+    </div>
+    <div class="ms-flex ms-justify-center ms-w-full xl:ms-w-1/4">
+      <FormLoginMicroSite
+        v-bind="formLoginMicroSiteProps"
+        :locales="locales"
+        :locale="locale"
+        url-image="../assets/img/intelligence.svg"
+        class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
+        @clicked-forgot-your-password="clickedForgotYourPassword"
+        @clicked-create-an-account="clickedCreateAnAccount"
+        @clicked-login-button="clickedLoginButton"
+        @changed-locale="changedLocale"
+      >
+      </FormLoginMicroSite>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Mixins} from 'vue-property-decorator'
-import BookingWidgetMixin from '../mixins/Common/BookingWidgetMixin'
-import {UseAuth} from '../store/auth'
-import BasePageStrapiMixin from '../mixins/BasePageStrapiMixin'
-import { BasePageSlugs } from '~/src/app/Strapi/StrapiConfiguration'
+import { Component, Vue } from 'vue-property-decorator'
+import { AuthStore } from '../store/auth';
+import i18n from '~/src/ui/i18n/messages/login'
+import { FormLoginMicroSite, LoginForm } from '~/src/app/auth/domain/entities/loginForm';
+import { Locale } from '~/src/app/auth/domain/entities/locale';
 
 @Component({
   name: 'LoginPage',
-  layout: 'default'
+  i18n,
 })
-export default class LoginPage extends Mixins(BookingWidgetMixin, BasePageStrapiMixin) {
+export default class LoginPage extends Vue {
 
-  public authStore = new UseAuth()
+  public authStore = new AuthStore();
 
-  externalErrorMessage = ''
-  loading: boolean = false
-  redirectTo: any = null
-
-  get userIsAuthenticated() {
-    return this.authStore.isAuthenticated
+  public formLoginMicroSiteProps: FormLoginMicroSite = {
+    labels: {
+      login: this.$t('login'),
+      welcome: this.$t('welcome'),
+      usernamePlaceholder: this.$t('usernamePlaceholder'),
+      passwordPlaceholder: this.$t('passwordPlaceholder'),
+      loginButton: this.$t('loginButton'),
+      forgotYourPassword: this.$t('forgotYourPassword'),
+      newUser: this.$t('newUser?'),
+      createAnAccount: this.$t('createAnAccount'),
+    },
+    loadingButtonLogin: false,
   }
 
-  get userId() {
-    return this.authStore.userAffiliationId
+  get locales(): Locale[] {
+    return this.$i18n.locales.map((locale: any) => ({
+      code: locale.code,
+      label: locale.short,
+    }))
   }
 
-  async beforeMount() {
-    await this.loadStrapiPageData(BasePageSlugs.Login);
+  get locale() {
+    return this.locales.find((locale: Locale) => locale.code === this.$i18n.locale)
   }
 
   mounted() {
-    if (this.$route.query.redirectTo) 
-      this.authStore.customRouteToLogin = this.$route.query.redirectTo
+    //
   }
 
-  async signIn(form: any) {
-    try {
-      this.loading = true
-      this.externalErrorMessage = ''
-      await this.authStore.signIn(form.email, form.password)
-    } catch (error: any) {
-      this.externalErrorMessage = (error.message + '') as string
-    } finally {
-      this.loading = false
+  clickedForgotYourPassword() {
+    console.log('Forgot your password was clicked');
+  }
+
+  clickedCreateAnAccount() {
+    console.log('Create an account was clicked');
+  }
+
+  async clickedLoginButton(form: LoginForm) {
+
+    if (!form.username.trim().length || !form.password.trim().length) {
+      return;
     }
+
+    this.formLoginMicroSiteProps.loadingButtonLogin = true;
+
+    await this.authStore.signIn(form);
+
+    console.log('this.authStore.isAuthenticated', this.authStore.isAuthenticated)
+
+    if (this.authStore.isAuthenticated)
+      return this.$router.push(this.localePath('/dashboard'));
+
+    window.alert(this.authStore.message)
+
+    this.formLoginMicroSiteProps.loadingButtonLogin = false;
+  }
+
+  changedLocale(locale: Locale) {
+    this.$router.push(this.$nuxt.switchLocalePath(locale.code));
   }
 }
 </script>
+
+<style scoped>
+.login-bg {
+  background-image: url('../assets/img/login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left top;
+}
+
+.custom-form-login::v-deep input:-webkit-autofill {
+  -webkit-text-fill-color: gray !important;
+}
+</style>
