@@ -8,7 +8,10 @@ export default {
   target: 'static',
   ssr: true,
   env: {
-    //
+    apiUrl: process.env.ENDPOINT_PRELOGIN,
+    strapiUrl: process.env.STRAPI_URL,
+    strapiToken: process.env.STRAPI_TOKEN,
+    baseURL: process.env.BASE_URL,
   },
   publicRuntimeConfig: {
     awsAmplifyConfig: {
@@ -16,8 +19,8 @@ export default {
       region: process.env.COGNITO_REGION,
       userPoolId: process.env.COGNITO_USER_POOL_ID,
       userPoolWebClientId: process.env.COGNITO_USER_POOL_CLIENT_WEB_ID,
+      baseURL: process.env.COGNITO_BASE_URL,
     },
-    baseURL: process.env.NUXT_BASE_URL
   },
   privateRuntimeConfig: {},
 
@@ -271,9 +274,16 @@ export default {
         // const alias =
         //   route.path.length > 1 ? `${normalizedRoute}.html` : '/index.html'
         route.alias = alias
+
+        if (route.path === '/') {
+          route.redirect = '/home'
+        }
       })
     },
-    middleware: ['requiredAuth'],
+    middleware: [
+      'requiredAuth',
+      'setBreadcrumb',
+    ],
   }
 }
 

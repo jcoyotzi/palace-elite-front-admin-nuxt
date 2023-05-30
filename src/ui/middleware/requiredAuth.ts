@@ -1,5 +1,5 @@
 import { Middleware } from '@nuxt/types'
-import { AuthStore } from '../store/auth'
+import { AuthStore } from '../store/authStore'
 
 const isAuthenticated = async () => {
   const authStore = new AuthStore()
@@ -27,7 +27,7 @@ export const requiredAuth: Middleware = async ({app, redirect, route}) => {
   }
 
   if (route.name?.startsWith('login__') && isAuth) {
-    return redirect({path: app.localePath('/dashboard')})
+    return redirect({path: app.localePath('/home')})
   }
 }
 

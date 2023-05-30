@@ -1,4 +1,4 @@
-import messages from './messages/messages'
+import messages from './messages/messages.lang'
 
 export default {
   strategy: 'prefix_except_default',
@@ -6,12 +6,10 @@ export default {
   locales: [
     {
       code: 'en',
-      short: 'EN',
       name: 'English',
     },
     {
       code: 'es',
-      short: 'ES',
       name: 'Español',
     }
   ],
@@ -27,9 +25,12 @@ export default {
     cookieKey: 'i18n_redirected',
     cookieSecure: true,
   },
-  parsePages: true,
+  parsePages: false,
   pages: {
-    //
+    'index': {
+      en: '/',
+      es: '/',
+    },
   },
   vueI18n: {
     fallbackLocale: 'en',

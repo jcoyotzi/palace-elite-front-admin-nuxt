@@ -23,7 +23,7 @@ declare module '@nuxt/types' {
 
 export default (ctx: any, inject: any) => {
   const loginCognito = new LoginCognito({
-    baseURL: "https://auth-api.palaceresorts-dev.com",
+    baseURL: ctx.$config.awsAmplifyConfig.baseURL,
     cognitoConfig: ctx.$config.awsAmplifyConfig,
     cors: ''
   })

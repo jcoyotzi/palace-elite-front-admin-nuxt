@@ -1,5 +1,5 @@
 import { Plugin } from '@nuxt/types'
-import { AuthStore } from '../store/auth'
+import { AuthStore } from '../store/authStore'
 
 const isAuthenticated = async () => {
   const authStore = new AuthStore()
