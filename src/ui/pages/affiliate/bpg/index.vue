@@ -789,7 +789,11 @@ export default class BPGPage extends Mixins(
   }
 
   public async getMinStay() {
-    this.minStay = await this.bookingStore.getMinStay(this.applicationUserMember ?? '')
+    try {
+      this.minStay = await this.bookingStore.getMinStay(this.applicationUserMember ?? '')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public validateResidenceSuitesExclusives(description: string) {

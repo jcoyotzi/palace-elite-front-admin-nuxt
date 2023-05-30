@@ -33,6 +33,9 @@ import { Locale } from '~/src/app/auth/domain/entities/locale';
 
 @Component({
   name: 'LoginPage',
+  meta: {
+    auth: false,
+  },
   i18n,
 })
 export default class LoginPage extends Vue {
@@ -91,7 +94,7 @@ export default class LoginPage extends Vue {
     await this.authStore.signIn(form);
 
     if (this.authStore.isAuthenticated)
-      return this.$router.push(this.localePath('/home'));
+      return this.$router.push(this.localePath('/affiliate-search'));
 
     window.alert(this.authStore.message)
 

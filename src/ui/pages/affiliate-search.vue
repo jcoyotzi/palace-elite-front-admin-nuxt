@@ -13,14 +13,20 @@
         {{ $t('affiliatesSearch') }}
       </p>
       <div class="ms-flex ms-justify-between ms-mt-6 lg:ms-mt-8">
-        <PEInput
-          v-model="form.affiliationNumber"
-          color="microsite"
-          class="border border-gray-light rounded-[5px] !text-gray-light"
-          :label="$t('affiliationNumber')"
-        />
+        <div>
+          <PEInput
+            v-model="form.affiliationNumber"
+            color="microsite"
+            class="border border-gray-light rounded-[5px] !text-gray-light"
+            :label="$t('affiliationNumber')"
+          />
+          <p
+            v-if="form.affiliationNumberError"
+            class="ms-text-red-500 ms-text-sm ms-mt-2"
+          >{{ form.affiliationNumberError }}</p>
+        </div>
         <PEButton
-          class="w-[200px] lg:w-[300px] ms-uppercase"
+          class="w-[200px] lg:w-[300px] lg:ms-max-h-[60px] ms-uppercase"
           solid
           :loading="form.loading"
           @click="searchAffiliate"
@@ -63,6 +69,7 @@ export default class AffiliateSearchPage extends Vue {
 
   public form: any = {
     affiliationNumber: '',
+    affiliationNumberError: '',
     loading: false,
   }
 
@@ -75,18 +82,27 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   get cardAffiliationProps() {
+    const language = this.$t('languageCode' + this.searchedAffiliate.lang)
+
     return {
       name: this.searchedAffiliate.name,
       number: `${this.$t('affiliationNumber')}: ${this.searchedAffiliate.application}`,
-      status: 'PENDIENTE DE FIRMA',
-      email: 'Email: bwayne@mail.com',
-      role: 'Propietario',
-      language: 'Language: Inglés',
+      status: this.$t('pendingSignature'),
+      email: `Email: ${this.searchedAffiliate.email}`,
+      role: this.$t('owner'),
+      language: `${this.$t('language')}: ${language}`,
       textMoreDetails: this.$t('moreDetails'),
     }
   }
 
   async searchAffiliate() {
+    this.form.affiliationNumberError = '';
+
+    if (!this.form.affiliationNumber.trim()) {
+      this.form.affiliationNumberError = this.$t('affiliateNumberIsRequired');
+      return
+    }
+
     this.form.loading = true;
 
     await this.bpgStore.getAffiliateInfo(this.form.affiliationNumber);

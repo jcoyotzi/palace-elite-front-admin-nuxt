@@ -1,11 +1,13 @@
 <template>
   <main>
-    <Navbar></Navbar>
-    <div class="ms-bg-white ms-grow ms-pb-10 ms-px-4 md:ms-px-6 lg:ms-px-8 xl:ms-px-[165px]">
-      <Breadcrum></Breadcrum>
-      <Nuxt />
-    </div>
-    <Footer></Footer>
+    <client-only>
+      <Navbar></Navbar>
+      <div class="ms-bg-white ms-grow ms-pb-10 ms-px-4 md:ms-px-6 lg:ms-px-8 xl:ms-px-[165px]">
+        <Breadcrum></Breadcrum>
+        <Nuxt />
+      </div>
+      <Footer></Footer>
+    </client-only>
   </main>
 </template>
 
