@@ -32,7 +32,7 @@ const plugin: Plugin = function plugin({app, route}) {
       const isAuth = await isAuthenticated()
 
       if (isAuth) {
-        return next({path: app.localePath('/')})
+        return next({path: app.localePath('/affiliate-search')})
       }
     }
 

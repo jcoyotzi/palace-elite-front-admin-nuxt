@@ -276,7 +276,7 @@ export default {
         route.alias = alias
 
         if (route.path === '/') {
-          route.redirect = '/home'
+          route.redirect = '/affiliate-search'
         }
       })
     },
