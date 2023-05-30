@@ -27,7 +27,7 @@ export const requiredAuth: Middleware = async ({app, redirect, route}) => {
   }
 
   if (route.name?.startsWith('login__') && isAuth) {
-    return redirect({path: app.localePath('/home')})
+    return redirect({path: app.localePath('/affiliate-search')})
   }
 }
 
