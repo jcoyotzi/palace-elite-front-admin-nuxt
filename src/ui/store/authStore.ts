@@ -65,9 +65,7 @@ export class AuthStore extends Pinia {
         authType: 'ldap'
       },
       clientMetadata: {
-        affiliationNumber: '4084532',
-        isNational: 'false',
-        company: '5'
+        //
       },
       locale: Locale['es-MX']
     }).then(async (session: any) => {
