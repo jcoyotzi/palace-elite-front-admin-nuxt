@@ -9,6 +9,8 @@ const messages = {
       forgotYourPassword: 'Forgot your password?',
       'newUser?': 'New user?',
       createAnAccount: 'Create an account',
+      usernameRequired: 'Username is required',
+      passwordRequired: 'Password is required',
     },
     es: {
       login: 'Iniciar sesión',
@@ -19,6 +21,8 @@ const messages = {
       forgotYourPassword: '¿Olvidaste tu contraseña?',
       'newUser?': '¿Nuevo usuario?',
       createAnAccount: 'Crear una cuenta',
+      usernameRequired: 'El nombre de usuario es requerido',
+      passwordRequired: 'La contraseña es requerida',
     }
   }
 }

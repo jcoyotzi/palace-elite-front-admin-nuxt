@@ -1,11 +1,12 @@
-import {Store, Pinia} from 'pinia-class-component'
+import { Store, Pinia } from 'pinia-class-component'
 import { Auth } from 'aws-amplify'
-import {User} from '~/src/app/auth/domain/entities/user'
+import { User } from '~/src/app/auth/domain/entities/user'
 import { SessionStorageKeys } from '~/src/app/common/infrastructure/persistence/domain/enums/SessionStorageKeys'
 import { lazyInject } from '~/src/container'
 import persistenceTypes from '~/src/app/common/infrastructure/persistence/types'
 import { Persistence } from '~/src/app/common/infrastructure/persistence/domain/entities/Persistence'
 import { StorageKeys } from '~/src/app/common/infrastructure/persistence/domain/enums/StorageKeys'
+import { LoginForm } from '~/src/app/auth/domain/entities/loginForm'
 
 export enum Locale {
   'es-MX' = "es-MX",
@@ -13,7 +14,7 @@ export enum Locale {
 }
 
 @Store({
-  name: 'authStore'
+  name: 'AuthStore'
 })
 export class AuthStore extends Pinia {
 
@@ -23,7 +24,8 @@ export class AuthStore extends Pinia {
   public isAuthenticated: boolean = false
   public user: User | null = null
   public profile: any = null
-  public error: boolean = false
+  public hasError: boolean = false
+  public errorCode: string = ''
   public message: string = ''
   
   async init() {
@@ -43,34 +45,40 @@ export class AuthStore extends Pinia {
     }
   }
 
-  logout() {
+  async logout() {
+    await Auth.signOut()
     this.isAuthenticated = false
     this.user = null
     this.profile = null
-
     this.localStorage.clear()
   }
 
-  async signIn({ username, password }: { username: string, password: string }) {
-    this.error = false
+  async signIn(form: LoginForm) {
+    this.hasError = false
+    this.errorCode = ''
     this.message = ''
 
-    try {
-      await this.$nuxt.$LoginCognito.signIn({
-        signInCredentials: {
-          username: username.trim().toLowerCase(),
-          password,
-          authType: 'ldap'
-        },
-        locale: Locale['es-MX']
-      }).then(async (_session: any) => {
+    await this.$nuxt.$LoginCognito.signIn({
+      signInCredentials: {
+        username: form.username.trim().toLowerCase(),
+        password: form.password.trim(),
+        authType: 'ldap'
+      },
+      clientMetadata: {
+        affiliationNumber: '4084532',
+        isNational: 'false',
+        company: '5'
+      },
+      locale: Locale['es-MX']
+    }).then(async (session: any) => {
+      if (session) {
         await this.setAuthTokens();
-      })
-    } catch (error: any) {
-      this.error = true
+      }
+    }).catch((error: any) => {
+      this.hasError = true
+      this.errorCode = error._code
       this.message = error.message
-      throw error
-    }
+    })
   }
 
   async setAuthTokens() {

@@ -14,6 +14,11 @@
         @clicked-login-button="clickedLoginButton"
         @changed-locale="changedLocale"
       >
+        <template #image>
+          <figure class="ms-flex ms-justify-center">
+            <img src="../assets/img/intelligence.svg" alt="Intelligence Logo">
+          </figure>
+        </template>
       </FormLoginMicroSite>
     </div>
   </div>
@@ -21,8 +26,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { AuthStore } from '../store/auth';
-import i18n from '~/src/ui/i18n/messages/login'
+import { AuthStore } from '../store/authStore';
+import i18n from '~/src/ui/i18n/messages/login.lang'
 import { FormLoginMicroSite, LoginForm } from '~/src/app/auth/domain/entities/loginForm';
 import { Locale } from '~/src/app/auth/domain/entities/locale';
 
@@ -46,12 +51,14 @@ export default class LoginPage extends Vue {
       createAnAccount: this.$t('createAnAccount'),
     },
     loadingButtonLogin: false,
+    usernameErrors: [],
+    passwordErrors: [],
   }
 
   get locales(): Locale[] {
     return this.$i18n.locales.map((locale: any) => ({
       code: locale.code,
-      label: locale.short,
+      label: locale.name,
     }))
   }
 
@@ -73,7 +80,9 @@ export default class LoginPage extends Vue {
 
   async clickedLoginButton(form: LoginForm) {
 
-    if (!form.username.trim().length || !form.password.trim().length) {
+    const isValidForm = this.isValidForm(form);
+
+    if (!isValidForm) {
       return;
     }
 
@@ -81,14 +90,29 @@ export default class LoginPage extends Vue {
 
     await this.authStore.signIn(form);
 
-    console.log('this.authStore.isAuthenticated', this.authStore.isAuthenticated)
-
     if (this.authStore.isAuthenticated)
-      return this.$router.push(this.localePath('/dashboard'));
+      return this.$router.push(this.localePath('/home'));
 
     window.alert(this.authStore.message)
 
     this.formLoginMicroSiteProps.loadingButtonLogin = false;
+  }
+
+  public isValidForm(form: LoginForm): boolean {
+    this.formLoginMicroSiteProps.usernameErrors = [];
+    this.formLoginMicroSiteProps.passwordErrors = [];
+
+    if (!form.username.trim().length) {
+      this.formLoginMicroSiteProps.usernameErrors = [this.$t('usernameRequired')];
+      return false;
+    }
+    
+    if (!form.password.trim().length) {
+      this.formLoginMicroSiteProps.passwordErrors = [this.$t('passwordRequired')];
+      return false;
+    }
+  
+    return true;
   }
 
   changedLocale(locale: Locale) {
