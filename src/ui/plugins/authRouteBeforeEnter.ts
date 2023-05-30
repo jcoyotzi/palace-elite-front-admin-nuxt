@@ -1,41 +1,44 @@
-import {Plugin} from '@nuxt/types'
-import {UseAuth} from '../store/auth'
-import {REDIRECT_ROUTES} from './redirectsRoutes'
+import { Plugin } from '@nuxt/types'
+import { AuthStore } from '../store/authStore'
 
-const plugin: Plugin = function plugin({app, route, redirect}) {
-  const store = new UseAuth()
+const isAuthenticated = async () => {
+  const authStore = new AuthStore()
 
-  // @ts-ignore
-  app.router.beforeEach(async (to, from, next) => {
-    // @ts-ignore
-    const needAuth = route.meta.reduce((auth, meta) => meta.auth || auth, false)
+  if (!authStore.isAuthenticated) {
+    await authStore.init()
+  }
 
-    const requiredRedirect = REDIRECT_ROUTES.find((item: any) => item.path === to.fullPath)
+  return authStore.isAuthenticated
+}
 
-    if (requiredRedirect) next(requiredRedirect.redirect)
+const plugin: Plugin = function plugin({app, route}) {
+  app.router?.beforeEach(async (to, _from, next) => {
+    const needAuth = route.meta?.reduce((auth: boolean, meta: any) => meta.auth || auth, false) || false
 
     if (needAuth) {
-      const userInfo = localStorage.getItem('userInfo')
-
-      if (!userInfo) {
-        // console.log('limpiando sesión 🐸')
-        await store.clearSession()
-        if(to.path !== '/login') return next({ path:'/login', query: { redirectTo: to.fullPath }})
-      }
-
-      const isAuth = store.isAuthenticated
+      const isAuth = await isAuthenticated()
 
       if (!isAuth) {
-        await store.init()
-        return next()
-      } else {
-        return next()
+        route = {
+          ...route,
+          meta: [{auth: false}]
+        }
+
+        return next({path: app.localePath('/login')})
       }
     }
 
-    await store.init()
+    if (to.name?.startsWith('login__')) {
+      const isAuth = await isAuthenticated()
 
-    return next()
+      if (isAuth) {
+        return next({path: app.localePath('/')})
+      }
+    }
+
+    await isAuthenticated()
+    next()
   })
 }
+
 export default plugin
