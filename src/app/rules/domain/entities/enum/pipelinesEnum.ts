@@ -6,7 +6,8 @@ export const enum PipelinesEnum {
   WHOLESALER_RESERVATIONS_RESTRICTED = 'wholesaler_reservations_restricted',
   IMPERIAL_POLICY = 'imperialPolicy',
   CANCELATIONS = 'cancelations',
-  BAGLIONI_PAXES = 'baglioni_paxes'
+  BAGLIONI_PAXES = 'baglioni_paxes',
+  incentivePolicies = "incentivePolicies"
 }
 
 export const enum EnumReservationCategory {

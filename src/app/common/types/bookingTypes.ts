@@ -6,5 +6,6 @@ export default {
   getProvitions: Symbol('getProvitions'),
   getImperialProvitions: Symbol('getImperialProvitions'),
   getReservationUseCase: Symbol('getReservationUseCase'),
-  getMinimumStay: Symbol('getMinimumStay')
+  getMinimumStay: Symbol('getMinimumStay'),
+  getProductsAndPaymentUseCase: Symbol('getProductsAndPaymentUseCase')
 }
