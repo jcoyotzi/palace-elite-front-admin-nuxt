@@ -5,6 +5,7 @@ import AffiliateSearchPage from './affiliate-search.vue';
 @Component({
   name: 'HomePage',
   meta: {
+    auth: true,
     breadcrumb: ['home'],
   }
 })
