@@ -62,7 +62,7 @@ export default {
       weeks: 'Semanas',
       nightsImperials: 'Noches Imperiales',
       weeksImperials: 'Semanas Imperiales',
-      andOr: 'and/or',
+      andOr: 'y/o',
       yearsAndVigencyTotal:
         'Los accesos en total indicados en su Contrato son válidos hasta el <b>{VIGENCY}</b>, y deben usarse <b>({ACCESS_YEAR})</b> por año.',
       yearsAndVigencyYear:
@@ -70,9 +70,11 @@ export default {
       notFound: 'NO ENCONTRADO.',
       notFoundMessage: 'No se encontró acceso para esta propiedad.',
       minStaysBaglioni: '* Aplican las estancias mínimas vigentes al momento de reservar.',
-      bpgSecurity: 'La información en esta pagina es exclusivamente para miembros nuevos.'
+      bpgSecurity: 'La información en esta pagina es exclusivamente para miembros nuevos.',
+      loading: 'Cargando...'
     },
     en: {
+      loading: 'Loading...',
       bpgSecurity: 'The information on this page is exclusively for new members.',
       diamondPresidential: 'Diamond Presidential',
       minStaysBaglioni: '* Hotel´s minimum stays apply at the time of booking.',
@@ -82,7 +84,7 @@ export default {
         'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
       yearsAndVigencyYear:
         'Each access in the <b>{level}</b> applies <b>({ACCESS_YEAR})</b> per year and is valid until <b>( {VIGENCY} )</b>.',
-      andOr: 'y/o',
+      andOr: 'and/or',
       nights: 'Nights',
       weeks: 'Weeks',
       nightsImperials: 'Imperials Nights',
@@ -145,6 +147,8 @@ export default {
       suitesToChoose: 'Suites to Choose'
     },
     pt: {
+      andOr: 'e/ou',
+      loading: 'Carregando...',
       bpgSecurity: 'A informação nesta página é exclusivamente para miembros novos.',
       termsAndConditions: 'Termos e Condições',
       accessPerYear: '({access}) por ano',

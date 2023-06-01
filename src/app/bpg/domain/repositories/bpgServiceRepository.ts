@@ -7,6 +7,7 @@ import GolfAccess from '../entities/golfAccess'
 import {ExtraFeeGolfDto} from '../dto/extraFeeGolf'
 import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
+import MinimumStay from '../entities/minimumStay'
 
 @injectable()
 export default class BPGServiceRepository implements BPGRepository {
@@ -43,6 +44,10 @@ export default class BPGServiceRepository implements BPGRepository {
 
   getInfoAffiliation(application: string): Promise<Response<any>> {
     return this.httpApi.get(`/membership/api/v1/admin/info?application=${application}`)
+  }
+
+  getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>> {
+    return this.httpApi.get(`/membership/api/v1/admin/minimum-stay?application=${application}`)
   }
 
   getAccessGolf(application: string): Promise<Response<Response<GolfAccess>>> {
