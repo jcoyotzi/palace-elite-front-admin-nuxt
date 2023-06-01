@@ -3,6 +3,7 @@ import GolfAccess from '../entities/golfAccess'
 import {ExtraFeeGolfDto} from '../dto/extraFeeGolf'
 import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '../dto/getBenefitsAdditionalsDto'
+import MinimumStay from '../entities/minimumStay'
 
 export interface BPGRepository {
   getCategorysByProperty(application: string): Promise<Response<any>>
@@ -17,4 +18,5 @@ export interface BPGRepository {
   getEliteProductsGolf(application: string): Promise<Response<Response<EliteProductsGolf[]>>>
   getTermsAndConditions(application: string): Promise<Response<Response<any>>>
   getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>>
+  getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>>
 }
