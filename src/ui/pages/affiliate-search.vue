@@ -96,19 +96,23 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   async searchAffiliate() {
-    this.form.affiliationNumberError = '';
+    try {
+      this.form.affiliationNumberError = '';
 
-    if (!this.form.affiliationNumber.trim()) {
-      this.form.affiliationNumberError = this.$t('affiliateNumberIsRequired');
-      return
-    }
+      if (!this.form.affiliationNumber.trim()) {
+        this.form.affiliationNumberError = this.$t('affiliateNumberIsRequired');
+        return
+      }
 
-    this.form.loading = true;
+      this.form.loading = true;
 
-    await this.bpgStore.getAffiliateInfo(this.form.affiliationNumber);
+      await this.bpgStore.getAffiliateInfo(this.form.affiliationNumber);
 
-    if (this.showAffiliateCard) {
-      this.form.affiliationNumber = '';
+      if (this.showAffiliateCard) {
+        this.form.affiliationNumber = '';
+      }
+    } catch (error: any) {
+      console.log(error)
     }
 
     this.form.loading = false;

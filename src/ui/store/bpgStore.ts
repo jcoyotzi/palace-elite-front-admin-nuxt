@@ -5,24 +5,20 @@ import {HeaderTable} from '~/src/app/bpg/domain/dto/cardCategoryTabsDto'
 import {Category} from '~/src/app/bpg/domain/entities/categorys'
 import bpgTypes from '~/src/app/common/types/bpgTypes'
 import {lazyInject} from '~/src/container'
-import {
-  EnumReservationCategory,
-  PipelinesEnum
-} from '~/src/app/rules/domain/entities/enum/pipelinesEnum'
-import {MethodsStay} from '~/src/app/bpg/domain/enum/methodsStay'
 import {Response} from '~/src/app/common/domain/entities/response'
 import GetProductsElitePromotionsUseCase from '~/src/app/bpg/application/getProductsElitePromotionsUseCase'
 import GetProductsEliteBenefitsUseCase from '~/src/app/bpg/application/getProductsEliteBenefitsUseCase'
 import GetAllZonesUseCase from '~/src/app/bpg/application/getAllZonesUseCase'
 import GetInfoAffiliationUseCase from '~/src/app/bpg/application/getInfoAffiliationUseCase'
 import GetAccessGolfUseCase from '~/src/app/bpg/application/getAccessGolfUseCase'
-import GolfAccess from '~/src/app/bpg/domain/entities/golfAccess'
 import GetAccessPropertiesUseCase from '~/src/app/bpg/application/getAccessPropertiesUseCase'
 import GetValidateAccessGroupUseCase from '~/src/app/bpg/application/getValidateAccessGroupUseCase'
 import GetEliteProductsGolfUseCase from '~/src/app/bpg/application/getEliteProductsGolfUseCase'
 import GetExtraFeeGolfUseCase from '~/src/app/bpg/application/getExtraFeeGolfUseCase'
 import GetTermsAndConditionsUseCase from '~/src/app/bpg/application/getTermsAndConditionsUseCase'
 import GetBenefitsAdditionalsUseCase from '~/src/app/bpg/application/getBenefitsAdditionalsUseCase'
+import GetMinimumStayUseCase from '~/src/app/bpg/application/getMinimumStayUseCase'
+import MinimumStay from '~/src/app/bpg/domain/entities/minimumStay'
 
 @Store({
   name: 'BPGStore'
@@ -64,6 +60,9 @@ export class BPGStore extends Pinia {
   @lazyInject(bpgTypes.getBenefitsAdditionalsUseCase)
   private readonly getBenefitsAdditionalsUseCase!: GetBenefitsAdditionalsUseCase
 
+  @lazyInject(bpgTypes.getMinimumStayUseCase)
+  private readonly getMinimumStayUseCase!: GetMinimumStayUseCase
+
   public categorys: Category[] = []
 
   public termsAndConditionsProvisions: any = []
@@ -81,11 +80,7 @@ export class BPGStore extends Pinia {
 
   public zones: any = []
 
-  public golfAccess: GolfAccess = {
-    golfRounds: 0,
-    golfSale: '',
-    grAccess: 0
-  }
+  public minimumStay: MinimumStay[] = []
 
   public get bookingStore(): BookingStore {
     return new BookingStore()
@@ -96,23 +91,21 @@ export class BPGStore extends Pinia {
     this.accessProperties = data?.data!
   }
 
+  public async getMimimumStay() {
+    const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
+    this.minimumStay = data?.data! || []
+  }
+
   public async getCategorysByProperty() {
     const {data} = await this.getCategorysByPropertyUseCase.run(this.affiliateInfo.application)
     return await Promise.all(
-      data?.data.map(async (categorie: Category) => {
-        const minimalStay = await this.bookingStore.validateRuleMinimalStay(
-          PipelinesEnum.STAY_MINIMAL,
-          categorie.rmType,
-          EnumReservationCategory.PREFERENCIAL,
-          'N',
-          MethodsStay.GET
-        )
-
-        return await {
-          ...categorie,
-          estancias_min: minimalStay
-        }
-      })
+      data?.data.map(async (categorie: Category) => ({
+        ...categorie,
+        estancias_min:
+          this.minimumStay.find(
+            stay => stay.discountRate === `D`.concat(String(categorie.discountRate))
+          )?.applicableStay || '-'
+      }))
     )
   }
 
@@ -131,15 +124,6 @@ export class BPGStore extends Pinia {
 
   public async getProductsEliteBenefits(): Promise<Response<any>> {
     return await this.getProductsEliteBenefitsUseCase.run(this.affiliateInfo.application)
-  }
-
-  public async getAccessGolf() {
-    try {
-      const {data} = await this.getAccessGolfUseCase.run(this.affiliateInfo.application)
-      this.golfAccess = data?.data!
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   public async getValidateAccessGroup() {
