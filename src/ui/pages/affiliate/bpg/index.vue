@@ -53,6 +53,7 @@
     <!-- tabs -->
     <PETabsMicroSite
       class="ms-mt-[80px]"
+      :textSkeleton="$t('loading')"
       :tabs="productsEliteTabsComputed"
       v-model="bindingTab"
     />
@@ -214,10 +215,12 @@ export default class BPGPage extends Mixins(
 
   public bindingTab: string = 'promotions'
 
-  public productsEliteTabs: ProductsEliteTabs[] = [
-    {code: 'benefits', title: this.$t('benefits') as string},
-    {code: 'promotions', title: this.$t('promotions') as string}
-  ]
+  public get productsEliteTabs(): ProductsEliteTabs[] {
+    return [
+      {code: 'benefits', title: this.$t('benefits') as string},
+      {code: 'promotions', title: this.$t('promotions') as string}
+    ]
+  }
 
   public promotions: Product[] = []
 
@@ -314,9 +317,15 @@ export default class BPGPage extends Mixins(
       mainTabs: accessBaglioni
         ? this.zones.map(zone => ({
           ...zone,
-          properties: zone.properties.filter(propertie =>
-            this.roomHotelAccess.some(access => access.hotel === propertie.code)
-          )
+          properties: zone.properties
+            .filter(propertie =>
+              this.roomHotelAccess.some(access => access.hotel === propertie.code)
+            )
+            .map(propertie => {
+              if (propertie.code === 'LBC') return {...propertie, title: 'Le Blanc Cancun'}
+              if (propertie.code === 'ZPLB') return {...propertie, title: 'Le Blanc Cabos'}
+              return propertie
+            })
         }))
         : this.zones.filter(
           zone => !zone.properties.some(propertie => baglioniCodes.includes(propertie.code))
@@ -334,7 +343,7 @@ export default class BPGPage extends Mixins(
     caracterEnd: string,
     caracterJoin: string = ', '
   ): string {
-    let str = elements.join(caracterJoin)
+    let str = elements.filter(element => element).join(caracterJoin)
 
     const positions = []
 
@@ -432,12 +441,17 @@ export default class BPGPage extends Mixins(
   }
 
   public get accessMembership() {
-    return this.roomHotelAccess?.filter((access: any) =>
-      [
-        CatalogGroupsIds.VILLAS,
-        CatalogGroupsIds.RESIDENCE,
-        CatalogGroupsIds.PRESIDENTIAL_DIAMOND
-      ].includes(access.groupId as CatalogGroupsIds)
+    return this.roomHotelAccess?.filter(
+      (access: any) =>
+        [
+          CatalogGroupsIds.VILLAS,
+          CatalogGroupsIds.RESIDENCE,
+          CatalogGroupsIds.BABY_VILLAS,
+          CatalogGroupsIds.BABY_RESIDENCE,
+          CatalogGroupsIds.PRESIDENTIAL_DIAMOND
+        ].includes(access.groupId as CatalogGroupsIds) ||
+        String(access.roomTypeDescription).search('Diamond') > -1 ||
+        String(access.roomTypeDescription).search('Diamante') > -1
     )
   }
 
@@ -503,7 +517,8 @@ export default class BPGPage extends Mixins(
     const diamond = this.roomHotelAccess.find(
       (access: any) =>
         access.groupId === CatalogGroupsIds.PRESIDENTIAL_DIAMOND ||
-        String(access.roomTypeDescription).search('Diamond') > -1
+        String(access.roomTypeDescription).search('Diamond') > -1 ||
+        String(access.roomTypeDescription).search('Diamante') > -1
     )
 
     return diamond ? this.insertDateText(diamond) : diamond
@@ -575,9 +590,11 @@ export default class BPGPage extends Mixins(
             }
           }
         case 'ER':
+          const minimumStay = this.minimumStay.find(stay => stay.discountRate === 'D20')
+
           return {
             ...consideration,
-            description: description!.replace('{NIGHTS}', this.stayRegularNights)
+            description: description!.replace('{NIGHTS}', String(minimumStay?.applicableStay))
           }
         case 'SN_BPG_GL':
         case 'SNBPG_GI':
@@ -748,12 +765,16 @@ export default class BPGPage extends Mixins(
     return mppc
   }
 
+  public get minimumStay() {
+    return this.bpgStore.minimumStay
+  }
+
   async beforeMount() {
 
     try {
       this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.getInfoAffiliation()
-
+      await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
       await this.getAccessProperties()
@@ -948,18 +969,12 @@ export default class BPGPage extends Mixins(
   }
 
   public validateMinimumStaysSuitesExclusives(description: string) {
-    if (!this.minStay.MinimiumStay) {
-      description = this.removeMarksSuitesExclusives({
-        markStart: '{MARK_MINIMUM_STAYS_START}',
-        markEnd: '{MARK_MINIMUM_STAYS_END}',
-        description
-      })
-    }
+    const minimumStay = this.minimumStay.find(stay => stay.discountRate === 'E')
 
     return description
       .replace('{MARK_MINIMUM_STAYS_START}', '')
       .replace('{MARK_MINIMUM_STAYS_END}', '')
-      .replace('{NIGHTS}', this.stayMinimumNights)
+      .replace('{NIGHTS}', String(minimumStay?.applicableStay))
   }
 
   public validatePresidentialDiamondSuitesExclusives(description: string) {

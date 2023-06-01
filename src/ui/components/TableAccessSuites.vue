@@ -79,6 +79,9 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
     let accessPerYear: any[] = []
 
     for (const [keyGroup, group] of this.accessGroup) {
+
+      let tempGroups = new Map()
+
       for (const [keyQuantityGroup, QuantityGroup] of group) {
         const groupIdRandom = Math.floor(Math.random() * 1000 + 1)
         const keyQuantityGroupAccess: number = keyQuantityGroup
@@ -97,7 +100,9 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
         if (tempKeys.length !== keyIndex + 1)
           quantityToPrint -= tempKeys[keyIndex + 1] as any
 
-        for (const [keyRoomGroup, RoomsGroup] of QuantityGroup) {
+        tempGroups = new Map([...QuantityGroup, ...tempGroups])
+
+        for (const [keyRoomGroup, RoomsGroup] of tempGroups) {
           let accessNumber = ''
 
           if (RoomsGroup.periodType.includes('Y'))

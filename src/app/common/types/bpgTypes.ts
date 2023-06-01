@@ -11,5 +11,6 @@ export default {
   getExtraFeeGolfUseCase: Symbol('getExtraFeeGolfUseCase'),
   getEliteProductsGolfUseCase: Symbol('getEliteProductsGolfUseCase'),
   getTermsAndConditionsUseCase: Symbol('getTermsAndConditionsUseCase'),
-  getBenefitsAdditionalsUseCase: Symbol('getBenefitsAdditionalsUseCase')
+  getBenefitsAdditionalsUseCase: Symbol('getBenefitsAdditionalsUseCase'),
+  getMinimumStayUseCase: Symbol('getMinimumStayUseCase')
 }
