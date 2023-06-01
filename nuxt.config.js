@@ -29,7 +29,7 @@ export default {
     crawler: false,
     devtools: true,
     exclude: [/^\/es/],
-    routes: ['/', '/test']
+    routes: ['/'/* , '/test' */]
     /*
     minify: {
       collapseWhitespace: false
@@ -276,7 +276,7 @@ export default {
         route.alias = alias
 
         if (route.path === '/') {
-          route.redirect = '/affiliate-search'
+          route.redirect = '/login'
         }
       })
     },
