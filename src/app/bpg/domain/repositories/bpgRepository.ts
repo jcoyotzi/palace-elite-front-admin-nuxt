@@ -16,7 +16,7 @@ export interface BPGRepository {
   getValidateAccessGroup(application: string): Promise<Response<Response<any[]>>>
   getExtraFeeGolf(application: string): Promise<Response<Response<ExtraFeeGolfDto[]>>>
   getEliteProductsGolf(application: string): Promise<Response<Response<EliteProductsGolf[]>>>
-  getTermsAndConditions(application: string): Promise<Response<Response<any>>>
+  getTermsAndConditions(application: string, company: number): Promise<Response<Response<any>>>
   getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>>
   getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>>
 }
