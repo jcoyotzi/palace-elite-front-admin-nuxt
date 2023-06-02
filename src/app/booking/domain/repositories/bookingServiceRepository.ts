@@ -61,6 +61,6 @@ export default class BookingServiceRepository implements BookingRespository {
   // }
 
   public getMinimumStay(payload: {application: string}): Promise<Response<any>> {
-    return this.azApi.get(`/membership/api/v1/admin/application/${payload.application}/minimun-stay?application=${payload.application}`)
+    return this.azApi.get(`/membership/api/v1/admin/minimum-stay?application=${payload.application}`)
   }
 }
