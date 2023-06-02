@@ -11,7 +11,7 @@ export default {
     apiUrl: process.env.ENDPOINT_PRELOGIN,
     strapiUrl: process.env.STRAPI_URL,
     strapiToken: process.env.STRAPI_TOKEN,
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.NUXT_BASE_URL,
   },
   publicRuntimeConfig: {
     awsAmplifyConfig: {
