@@ -1,7 +1,0 @@
-export interface CardStatus {
-  USED: 'USED'
-  ACTIVE: 'ACTIVE'
-  EXPIRED: 'EXPIRED'
-  TO_RELEASE: 'TO RELEASE'
-  AVAILABLE: 'AVAILABLE'
-}

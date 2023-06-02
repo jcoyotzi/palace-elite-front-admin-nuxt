@@ -1,6 +1,6 @@
+import { EnumReservationCategory, EnumRoomCategory } from '../../entities/enum/pipelinesEnum'
 import {EliteProductType} from '~/src/app/bookingBenefits/domain/entities/rules/reservationTypes'
 import {EnumMarkets} from '~/src/app/common/domain/enums/markets'
-import {EnumReservationCategory, EnumRoomCategory} from '../../entities/enum/pipelinesEnum'
 
 export const StandardSuite = {
   conditions: {
@@ -841,7 +841,7 @@ export const PresidentialSuiteMarketNational = {
     type: 'policy',
     params: {
       policy: {
-        stayMinimal: 4
+        stayMinimal: 5
       }
     }
   }

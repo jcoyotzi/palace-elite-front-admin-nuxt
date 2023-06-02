@@ -1,4 +1,4 @@
-import {RoomBookingEntity} from './roomBookingEntity'
+import {RoomBookingEntity, RoomBookingEntityForPayload} from './roomBookingEntity'
 
 export interface BookingEntity {
   affiliateId: string
@@ -7,5 +7,5 @@ export interface BookingEntity {
   checkIn: string // Format: yyyy-MM-DD
   checkOut: string // Format: yyyy-MM-DD
   rooms: RoomBookingEntity[]
-  roomsCopy: RoomBookingEntity[]
+  roomForPayload: RoomBookingEntityForPayload[]
 }

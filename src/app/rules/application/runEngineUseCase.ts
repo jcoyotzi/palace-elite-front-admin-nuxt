@@ -14,6 +14,7 @@ export interface RuleEngineResponse {
   events: any
   overrides: any
 }
+
 @injectable()
 export default class RunEngineUseCase implements UseCase<RuleEngineRequest, RuleEngineResponse> {
   constructor(
@@ -29,7 +30,5 @@ export default class RunEngineUseCase implements UseCase<RuleEngineRequest, Rule
       stages
     }
     return await this.rulesRepository.evaluate(payload)
-
-    // return PropertyMapper.map(response.data?.data || [])
   }
 }

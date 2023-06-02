@@ -1,5 +1,5 @@
 import {BookingEntity} from '../entities/bookingEntity'
-import RoomFactory from './roomFactory'
+import roomFactory, { roomForPayloadFactory } from './roomFactory'
 
 export default function BookingFactory(): BookingEntity {
   return {
@@ -8,7 +8,7 @@ export default function BookingFactory(): BookingEntity {
     operaId: '',
     checkIn: '',
     checkOut: '',
-    rooms: RoomFactory(),
-    roomsCopy: RoomFactory()
+    rooms: roomFactory(),
+    roomForPayload: roomForPayloadFactory()
   }
 }
