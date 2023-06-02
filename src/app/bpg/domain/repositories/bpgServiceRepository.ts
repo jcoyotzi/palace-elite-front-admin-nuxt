@@ -76,8 +76,13 @@ export default class BPGServiceRepository implements BPGRepository {
     return this.httpApi.get(`/membership/api/v1/admin/elite-products?application=${application}`)
   }
 
-  getTermsAndConditions(application: string): Promise<Response<Response<any>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/terms-and-conditions?application=${application}`)
+  getTermsAndConditions(application: string, company: number): Promise<Response<Response<any>>> {
+    const query = [
+      `application=${application}`,
+      `company=${company}`,
+    ].join('&')
+
+    return this.httpApi.get(`/membership/api/v1/admin/terms-and-conditions?${query}`)
   }
 
   getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>> {

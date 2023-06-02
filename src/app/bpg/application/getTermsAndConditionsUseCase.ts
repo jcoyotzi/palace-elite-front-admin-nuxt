@@ -11,7 +11,7 @@ export default class GetTermsAndConditionsUseCase implements UseCase<any, Respon
     private readonly bpgRepository: BPGRepository
   ) {}
 
-  async run(application: string): Promise<Response<Response<any>>> {
-    return await this.bpgRepository.getTermsAndConditions(application)
+  async run(port: {application: string, company: number}): Promise<Response<Response<any>>> {
+    return await this.bpgRepository.getTermsAndConditions(port.application, port.company)
   }
 }

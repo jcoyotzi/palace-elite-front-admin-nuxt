@@ -110,6 +110,8 @@ export default class AffiliateSearchPage extends Vue {
 
       if (this.showAffiliateCard) {
         this.form.affiliationNumber = '';
+      } else {
+        this.form.affiliationNumberError = this.$t('affiliateNumberNotFound');
       }
     } catch (error: any) {
       console.log(error)

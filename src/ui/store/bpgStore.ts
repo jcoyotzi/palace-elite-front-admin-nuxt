@@ -140,7 +140,7 @@ export class BPGStore extends Pinia {
   }
 
   public async getTermsAndConditions() {
-    const response = await this.getTermsAndConditionsUseCase.run(this.affiliateInfo.application)
+    const response = await this.getTermsAndConditionsUseCase.run(this.affiliateInfo)
     this.termsAndConditionsProvisions = response?.data?.data
     return response
   }
