@@ -11,6 +11,7 @@ const messages = {
       languageCodeE: 'English',
       owner: 'Owner',
       pendingSignature: 'Pending Signature',
+      affiliateNumberNotFound: 'Affiliate Number not found',
     },
     es: {
       affiliateSearch: 'Búsqueda de Afiliado',
@@ -23,6 +24,7 @@ const messages = {
       languageCodeE: 'Inglés',
       owner: 'Propietario',
       pendingSignature: 'Pendiente de Firma',
+      affiliateNumberNotFound: 'Número de Afiliado no encontrado',
     }
   }
 }
