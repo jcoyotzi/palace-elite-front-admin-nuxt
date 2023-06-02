@@ -1,7 +1,8 @@
 import {Component, Vue} from 'vue-property-decorator'
+import {usdExactFormatter} from '~/src/app/common/mapper/moneyFormatters'
 
 interface currencyFormatI {
-  value: string
+  value: string | number
   prefix?: string
   currencyText?: string
   divisa?: string
@@ -11,34 +12,12 @@ interface currencyFormatI {
 
 @Component
 export default class CurrencyFormatDivisa extends Vue {
-  currencyFormatDivisa({
-    value,
-    prefix = '$',
-    currencyText = '',
-    divisa = 'USD',
-    minus,
-    valuefloat = true,
-  }: currencyFormatI): string {
+  currencyFormatDivisa({value, currencyText = '', divisa = 'USD'}: currencyFormatI): string {
     if (!value) {
       console.error('currencyFormat: value is required')
       return ''
     }
 
-    const currency: string = value.split('.')[0]
-    const cents: string = value.split('.')[1]
-    let currencyFormatted: string = this.defaultFormat(currency)
-
-    if (cents && valuefloat) currencyFormatted += `.${cents}`
-    if (prefix) currencyFormatted = `${prefix}${currencyFormatted}`
-    if (currencyText) currencyFormatted = `${currencyFormatted} ${currencyText}`
-    if (minus) currencyFormatted = `- ${currencyFormatted}`
-
-    currencyFormatted = `${currencyFormatted} ${divisa}`
-
-    return currencyFormatted
-  }
-
-  defaultFormat(currency: string): string {
-    return currency.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return ` ${usdExactFormatter.format(Number(value))} ${currencyText} ${divisa}`
   }
 }

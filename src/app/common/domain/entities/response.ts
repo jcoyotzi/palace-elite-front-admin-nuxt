@@ -1,5 +1,5 @@
-import StatusCode from '@/src/app/common/domain/entities/statusCode'
-import {NetworkMessage} from '@/src/app/common/domain/enums/networkMessage'
+import { NetworkMessage } from '../enums/networkMessage'
+import StatusCode from './statusCode'
 
 export interface Response<T> {
   data?: T

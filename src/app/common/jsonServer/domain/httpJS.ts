@@ -1,5 +1,5 @@
-import {Response} from '../../../common/domain/entities/response'
-import {Payload} from '../../../common/domain/entities/payload'
+import { Payload } from "../../domain/entities/payload"
+import { Response } from "../../domain/entities/response"
 
 export interface HttpJS {
   get<T, U>(url: string, payload?: Payload<T>): Promise<Response<U>>
