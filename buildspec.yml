@@ -36,7 +36,7 @@ phases:
       # se copian los archivos nuevos y se elinan los archivos diferentes al origen
       - aws s3 sync ./dist ${S3WebBucket}current --delete
       - echo "Invalidando cache de CloudFront"
-      - aws CloudFront create-invalidation --distribution-id $CloudFront --paths '/*'
+      - aws cloudfront create-invalidation --distribution-id $CloudFront --paths '/*'
 # Include only the files required for your application to run.
 artifacts:
   files:
