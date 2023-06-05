@@ -7,9 +7,9 @@
  */
 
 import Exception from '../common/domain/entity/Exception'
-import {HttpApi} from 'app/network/common/domain/entity/httpApi'
-import {Payload} from 'app/common/domain/entities/payload'
-import {Response} from 'app/common/domain/entities/response'
+import {HttpApi} from '~/src/app/network/common/domain/entity/httpApi'
+import {Payload} from '~/src/app/common/domain/entities/payload'
+import {Response} from '~/src/app/common/domain/entities/response'
 import {ErrorType} from '~/src/app/network/common/domain/entity/baseError'
 
 export interface AxiosExpectedResponse {

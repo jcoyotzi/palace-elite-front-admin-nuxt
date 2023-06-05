@@ -1,10 +1,10 @@
 import { Store, Pinia } from 'pinia-class-component'
 import { BasePageSlugsContains, BaseTypePages, RouteLocalization, RouteWithSlug } from '../../app/Strapi/StrapiConfiguration'
 import pageTypes from '~/src/app/common/types/pageTypes'
-import HeroDto from '~/src/app/layout/domain/dto/heroDto'
+// import HeroDto from '~/src/app/layout/domain/dto/heroDto'
 import PageRepository from '~/src/app/page/domain/repositories/pageRepository'
 import { lazyInject } from '~/src/container'
-import { getCookie } from '~/src/ui/utils/cookieHelper'
+// import { getCookie } from '~/src/ui/utils/cookieHelper'
 
 @Store({
   name: 'ContentStore'
@@ -17,35 +17,36 @@ export class ContentStore extends Pinia {
 
   public pagesLoaded: any = {}
 
-  public heroDefault: HeroDto = {
-    title: '',
-    media: {
-      mime: 'image/jpeg',
-      url: '',
-      alt: '',
-      title: ''
-    },
-    size: 'half'
-  }
+  // public heroDefault: HeroDto = {
+  //   title: '',
+  //   media: {
+  //     mime: 'image/jpeg',
+  //     url: '',
+  //     alt: '',
+  //     title: ''
+  //   },
+  //   size: 'half'
+  // }
 
   public heroAttrs: any = {}
 
-  constructHero(hero: any): any {
-    if (!hero) return this.heroDefault;
+  // constructHero(hero: any): any {
+  //   if (!hero) return this.heroDefault;
 
-    return {
-      ...hero,
-      media: {
-        ...hero?.media.data.attributes,
-        alt: hero?.altText,
-        title: hero?.title
-      },
-      size: hero?.size ? hero?.size : 'half'
-    }
-  }
+  //   return {
+  //     ...hero,
+  //     media: {
+  //       ...hero?.media.data.attributes,
+  //       alt: hero?.altText,
+  //       title: hero?.title
+  //     },
+  //     size: hero?.size ? hero?.size : 'half'
+  //   }
+  // }
 
   getCurrentLocale(): string {
-    return getCookie('i18n_redirected');
+    // return getCookie('i18n_redirected');
+    return this.$nuxt.i18n.locale
   }
 
   async loadPage(slug: string, type: BaseTypePages): Promise<any> {
@@ -75,9 +76,9 @@ export class ContentStore extends Pinia {
       collection[slug] = pageData
     }
 
-    if (pageData.data && pageData.data[0] && pageData.data[0].attributes) {
-      this.heroDefault = this.constructHero(pageData.data[0].attributes.hero)
-    }
+    // if (pageData.data && pageData.data[0] && pageData.data[0].attributes) {
+    //   this.heroDefault = this.constructHero(pageData.data[0].attributes.hero)
+    // }
 
     return pageData;
   }
@@ -90,8 +91,8 @@ export class ContentStore extends Pinia {
     return slug;
   }
 
-  async getHeroWithDescription(locale: string) {
-    return await this.pageRepository.getHeroWithDescription(locale)
+  async getHeroWithDescription() {
+    return await this.pageRepository.getHeroWithDescription(this.$nuxt.i18n.locale)
   }
 
   async getPageBySlug(slug: string) {
@@ -131,4 +132,14 @@ export class ContentStore extends Pinia {
   getRouteBySlugBaseAndLocale(slugBase: string, locale: string): RouteWithSlug | undefined {
     return this.routesWithSlug.find(i => i.slugBase === slugBase && i.locale === locale);
   }
+
+  // async getPageBySlud(slug: string) {
+  //   slug = slug || 'home'
+
+  //   const pageData: any = await this.pageRepository.getBySlug(slug, 'en')
+
+  //   this.heroDefault = this.constructHero(pageData.data[0]?.attributes?.hero)
+
+  //   return pageData 
+  // }
 }

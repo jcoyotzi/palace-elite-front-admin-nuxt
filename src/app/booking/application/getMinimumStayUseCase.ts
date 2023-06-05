@@ -1,7 +1,7 @@
 import {inject, injectable} from 'inversify'
+import { BookingRespository } from '../domain/repositories/bookingRepository'
 import UseCase from 'app/common/application/UseCase'
 import bookingTypes from 'app/common/types/bookingTypes'
-import {BookingRespository} from 'app/booking/domain/repositories/bookingRepository'
 
 @injectable()
 export class GetMinimumStay implements UseCase<{application: string}, any> {
