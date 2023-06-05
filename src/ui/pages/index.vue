@@ -1,8 +1,13 @@
 <script lang="ts">
-import SlugBasePage from './_.vue';
-import { BasePageSlugs } from '~/src/app/Strapi/StrapiConfiguration';
+import { Component } from 'vue-property-decorator'
+import HomePage from './home.vue';
 
-export default class IndexPage extends SlugBasePage {
-  public slugPage: string = BasePageSlugs.Home;
-}
+@Component({
+  name: 'IndexPage',
+  meta: {
+    auth: true,
+    breadcrumb: ['home'],
+  }
+})
+export default class IndexPage extends HomePage { }
 </script>

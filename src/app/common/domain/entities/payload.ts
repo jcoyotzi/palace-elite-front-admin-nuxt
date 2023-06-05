@@ -1,5 +1,5 @@
 import {ResponseType} from 'axios'
-import {Generic} from './generic'
+import { Generic } from './generic'
 
 export interface Payload<T> {
   data?: T
