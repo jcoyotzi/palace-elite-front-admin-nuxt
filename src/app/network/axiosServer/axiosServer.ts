@@ -3,7 +3,7 @@ import Axios, {AxiosInstance} from 'axios'
 import {Payload} from '../../common/domain/entities/payload'
 import {Response} from '../../common/domain/entities/response'
 import Exception from '../common/domain/entity/Exception'
-import {HttpApi} from '../common/domain/entity/httpApi'
+import { HttpApi } from '../common/domain/entity/httpApi'
 
 export default class AxiosServer implements HttpApi {
   protected axios!: AxiosInstance

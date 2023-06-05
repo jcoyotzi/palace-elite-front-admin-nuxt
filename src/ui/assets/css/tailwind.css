@@ -1,5 +1,4 @@
 @import '../fonts/fonts.css';
-@import './toastCustomTheme.css';
 
 @tailwind base;
 @tailwind components;

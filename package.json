@@ -21,6 +21,7 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@auth/sso-flows": "^1.2.0",
     "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/gtm": "^2.4.0",
@@ -28,7 +29,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/toast": "^3.3.1",
     "@pinia/nuxt": "^0.2.1",
-    "@pr-elite-components-library/lib": "^0.1.118",
+    "@pr-elite-components-library/lib": "0.2.3",
     "@pr-policy-evaluator/lib": "^0.0.1",
     "@types/inversify-inject-decorators": "^2.0.0",
     "aws-amplify": "^4.3.31",
