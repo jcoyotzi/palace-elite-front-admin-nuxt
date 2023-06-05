@@ -92,6 +92,12 @@ export default class AffiliateSearchPage extends Vue {
       role: this.$t('owner'),
       language: `${this.$t('language')}: ${language}`,
       textMoreDetails: this.$t('moreDetails'),
+      details: [
+        {
+          title: '',
+          value: '',
+        }
+      ]
     }
   }
 
@@ -125,14 +131,3 @@ export default class AffiliateSearchPage extends Vue {
   }
 }
 </script>
-
-<style scoped>
-.card-affiliation-micro-site::v-deep button {
-  outline-width: 1px !important;
-  border-color: rgb(51 107 135 / var(--tw-border-opacity)) !important; 
-}
-
-.card-affiliation-micro-site::v-deep .text-blue-aqua {
-  display: none !important;
-}
-</style>

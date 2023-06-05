@@ -17,17 +17,18 @@
       <BPGResumeMicroSite
         v-else
         :items="itemsResumeMicroSite"
-        class="bpg-resume-micro-site !ms-border-gray-500 !ms-divide-gray-500"
+        :dark="false"
       />
     </div>
 
     <!-- category tabs -->
-    <p class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-dark ms-font-semibold">
+    <p class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold">
       {{ titlesPage.title }}
     </p>
     <CardCategoryTabs
       v-bind="bindCardCategoryTabs"
-      class="card-category-tabs !ms-pa-0 !ms-bg-gray-100"
+      class="card-category-tabs !ms-pa-0"
+      :dark="false"
       @on-click-property="onClickProperty"
     />
 
@@ -44,6 +45,7 @@
       :key="index"
       v-for="(consideration, index) in considerationsList"
       v-bind="consideration"
+      :dark="false"
     />
 
     <!-- section tabs promotions and benefits -->
@@ -56,6 +58,7 @@
       :textSkeleton="$t('loading')"
       :tabs="productsEliteTabsComputed"
       v-model="bindingTab"
+      :dark="false"
     />
     <div
       class="ms-grid ms-grid-cols-[repeat(auto-fit,_32%)] ms-m-auto ms-gap-6 ms-mt-4 ms-justify-center"
@@ -69,6 +72,7 @@
         :seeMore="$t('seeMore')"
         :seeLess="$t('seeLess')"
         v-bind="product"
+        :dark="false"
         @show-more="showMorePromotion(product.code, index)"
       >
         <template
@@ -85,7 +89,7 @@
         </template>
       </BPGCardPromotions>
     </div>
-    <PESkeletonCardProvition v-else-if="loadingProductsElite" />
+    <PESkeletonCardProvition v-else-if="loadingProductsElite" :dark="false" />
     <div
       v-else
       class="ms-text-white ms-font-sans ms-font-normal mb-6"
@@ -106,7 +110,7 @@
           {{ interval.title }}
         </div>
         <div
-          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[16px] !ms-text-white"
+          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[16px] ms-text-gray-500"
           v-html="interval.description"
         />
       </div>
@@ -1569,27 +1573,3 @@ export default class BPGPage extends Mixins(
   }
 }
 </script>
-
-<style scoped>
-.bpg-resume-micro-site::v-deep .text-white {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity)) !important;
-}
-
-.card-category-tabs::v-deep  {
-
-}
-
-.expansion-panel-micro-site::v-deep div.bg-black-light {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(51 107 135 / var(--tw-border-opacity));
-}
-
-.expansion-panel-micro-site::v-deep .font-normal,
-.expansion-panel-micro-site::v-deep .text-white {
-  color: #272527 !important;
-}
-</style>
