@@ -50,7 +50,7 @@ export class AuthStore extends Pinia {
     this.isAuthenticated = false
     this.user = null
     this.profile = null
-    this.localStorage.clear()
+    localStorage.clear()
   }
 
   async signIn(form: LoginForm) {
