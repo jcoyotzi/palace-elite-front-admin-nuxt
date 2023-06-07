@@ -8,6 +8,7 @@ export default interface CardCategoryTabsDto {
   mainTabs: Zone[]
   texts: any
   mppc: any
+  baglioniCodes: string[]
   accessByProperty: Category[]
   roomHotelAccess: any[]
   loadingCategories?: boolean

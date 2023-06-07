@@ -34,7 +34,7 @@
 
     <!-- Importante a considerar -->
     <p
-      class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-dark ms-font-semibold"
+      class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold"
     >
       {{ titlesPage?.considerationsTitle }}
     </p>
@@ -142,6 +142,8 @@ import {BookingStore} from '~/src/ui/store/bookingStore'
 import {TypesProductsElite} from '~/src/app/bpg/domain/enum/typesProductsElite'
 import {TabsProductsElite} from '~/src/app/bpg/domain/dto/productsEliteDto'
 import {ItemsResume} from '~/src/app/bpg/domain/dto/resumeDto'
+import {LocalePageBPG} from '~/src/app/bpg/domain/enum/localePageBPG'
+import {SequentSuitesBPGEspecial} from '~/src/app/bpg/domain/enum/sequentSuitesBPGEspecial'
 import {
   IntervalDto,
   Product,
@@ -318,6 +320,7 @@ export default class BPGPage extends Mixins(
       },
       showZones: this.zones.length > 0,
       mppc: this.mppc,
+      baglioniCodes,
       mainTabs: accessBaglioni
         ? this.zones.map(zone => ({
           ...zone,
@@ -328,6 +331,8 @@ export default class BPGPage extends Mixins(
             .map(propertie => {
               if (propertie.code === 'LBC') return {...propertie, title: 'Le Blanc Cancun'}
               if (propertie.code === 'ZPLB') return {...propertie, title: 'Le Blanc Cabos'}
+              if (propertie.code === 'MPS') return {...propertie, title: 'Moon Palace Sunrise'}
+              if (propertie.code === 'MPG') return {...propertie, title: 'Moon Palace The Grand'}
               return propertie
             })
         }))
@@ -773,11 +778,28 @@ export default class BPGPage extends Mixins(
     return this.bpgStore.minimumStay
   }
 
+  public redirectToLocalePage() {
+    switch (this.infoMembership?.lang) {
+      case LocalePageBPG.SPANISH:
+        this.$router.push({path: '/es/bpg'})
+        break
+      case LocalePageBPG.PORTUGUESE:
+        this.$router.push({path: '/pt/bpg'})
+        break
+      case LocalePageBPG.ENGLISH:
+      default:
+        this.$router.push({path: '/bpg'})
+        break
+    }
+  }
+
   async beforeMount() {
 
     try {
-      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.getInfoAffiliation()
+      // this.redirectToLocalePage()
+
+      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
@@ -836,7 +858,7 @@ export default class BPGPage extends Mixins(
       })
     }
 
-    switch (this.accessDiamond?.periodType) {
+    switch (this.accessResidence?.periodType) {
     case PeriodType.YEAR:
       return description.replace(
         '{MARK_ACCESS_VIGENCY_RESIDENCE}',
@@ -855,7 +877,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_RESIDENCE}', '')
     }
   }
 
@@ -956,7 +978,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_VILLAS}', '')
     }
   }
 
@@ -1009,7 +1031,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_DIAMOND}', '')
     }
   }
 
@@ -1284,6 +1306,10 @@ export default class BPGPage extends Mixins(
     return (
       promotions
         ?.map((promotion: Promotion) => {
+          const codes = promotion.code.replaceAll(' ', '').split('&')
+
+          if (codes.includes('ALL')) return promotion
+
           if (promotion.code === Provisions.YATE) {
             return {
               ...promotion,
@@ -1424,6 +1450,7 @@ export default class BPGPage extends Mixins(
         .map((access: any) => ({
           ...access,
           title: access?.roomTypeDescription || '-',
+          //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
@@ -1442,6 +1469,16 @@ export default class BPGPage extends Mixins(
           if (b.bpg > a.bpg) return -1
           return 0
         }) || []
+        //.sort((a: any, b: any) => {
+        //if (a.discountRate === 30) {
+        //console.log(a, b)
+        //
+        //}
+        //return 0
+        //var indiceA = SequentSuitesBPGEspecial[a.hotel].indexOf(a.)
+        //var indiceA = SequentSuitesBPGEspecial[b.hotel].indexOf(b.)
+        //return indiceA - indiceB;
+        //}) || []
     )
   }
 
@@ -1463,7 +1500,10 @@ export default class BPGPage extends Mixins(
 
   public async getAllZones() {
     try {
-      await this.bpgStore.getAllZones(this.accessProperties)
+      await this.bpgStore.getAllZones({
+        accessProperties: this.accessProperties,
+        locale: this.$i18n.locale
+      })
     } catch (error) {
       console.log(error)
     }
