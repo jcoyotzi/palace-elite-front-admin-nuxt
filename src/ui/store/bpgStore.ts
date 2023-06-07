@@ -152,11 +152,7 @@ export class BPGStore extends Pinia {
 
   /* ----------------------------------------------------------- */
 
-  public affiliateInfo: any = {
-    application: '4081718',
-    company: 5,
-    isNational: 0,
-  }
+  public affiliateInfo: any = {}
 
   public async getAffiliateInfo(application: string) {
     const { data } = await this.getInfoAffiliation(application)

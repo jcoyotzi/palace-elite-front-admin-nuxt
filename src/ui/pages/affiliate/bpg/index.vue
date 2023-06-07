@@ -813,7 +813,7 @@ export default class BPGPage extends Mixins(
       const extraFeeGolf = await this.bpgStore.getExtraFeeGolf()
       this.gPrices = extraFeeGolf.data?.data || []
 
-      // await this.onSelectedProperty()
+      await this.onSelectedProperty()
       this.loadingCategories = false
 
       await this.getStays()
@@ -1529,15 +1529,15 @@ export default class BPGPage extends Mixins(
     }
   }
 
-  // public async onSelectedProperty(): Promise<void> {
-  //   if (this.zones.length > 0) {
-  //     const tab = this.zones.find((tab: Zone, index: number) => index === 0)
+  public async onSelectedProperty(): Promise<void> {
+    if (this.zones.length > 0) {
+      const tab = this.zones.find((tab: Zone, index: number) => index === 0)
 
-  //     this.propertySelectedTab = tab?.properties.find(
-  //       (property: Propertie, index: number) => index === 0
-  //     )
-  //   }
-  // }
+      this.propertySelectedTab = tab?.properties.find(
+        (property: Propertie, index: number) => index === 0
+      )
+    }
+  }
 
   public async getStays() {
     const minStays = Object.assign({}, this.bookingStore.minStays)
