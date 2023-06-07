@@ -19,6 +19,7 @@ import GetTermsAndConditionsUseCase from '~/src/app/bpg/application/getTermsAndC
 import GetBenefitsAdditionalsUseCase from '~/src/app/bpg/application/getBenefitsAdditionalsUseCase'
 import GetMinimumStayUseCase from '~/src/app/bpg/application/getMinimumStayUseCase'
 import MinimumStay from '~/src/app/bpg/domain/entities/minimumStay'
+import {GetAllZonesRequest} from '~/src/app/bpg/domain/entities/strapiBpg'
 
 @Store({
   name: 'BPGStore'
@@ -113,9 +114,8 @@ export class BPGStore extends Pinia {
     return await this.getInfoAffiliationUseCase.run(application)
   }
 
-  public async getAllZones(accessProperties: string[]) {
-    const locale = this.$nuxt.i18n.locale
-    this.zones = await this.getAllZonesUseCase.run({locale, accessProperties})
+  public async getAllZones(data: GetAllZonesRequest) {
+    this.zones = await this.getAllZonesUseCase.run(data)
   }
 
   public async getProductsElitePromotions(): Promise<Response<any>> {

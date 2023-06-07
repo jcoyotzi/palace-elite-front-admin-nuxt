@@ -10,8 +10,8 @@
           :locale="locale"
           url-image="../assets/img/intelligence.svg"
           class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
-          @clicked-forgot-your-password="clickedForgotYourPassword"
-          @clicked-create-an-account="clickedCreateAnAccount"
+          :has-forgot-your-password-functionality="false"
+          :has-create-an-account-functionality="false"
           @clicked-login-button="clickedLoginButton"
           @changed-locale="changedLocale"
         >
