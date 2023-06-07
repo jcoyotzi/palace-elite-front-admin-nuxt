@@ -17,23 +17,24 @@
       <BPGResumeMicroSite
         v-else
         :items="itemsResumeMicroSite"
-        class="bpg-resume-micro-site !ms-border-gray-500 !ms-divide-gray-500"
+        :dark="false"
       />
     </div>
 
     <!-- category tabs -->
-    <p class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-dark ms-font-semibold">
+    <p class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold">
       {{ titlesPage.title }}
     </p>
     <CardCategoryTabs
       v-bind="bindCardCategoryTabs"
-      class="card-category-tabs !ms-pa-0 !ms-bg-gray-100"
+      class="card-category-tabs !ms-pa-0"
+      :dark="false"
       @on-click-property="onClickProperty"
     />
 
     <!-- Importante a considerar -->
     <p
-      class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-dark ms-font-semibold"
+      class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold"
     >
       {{ titlesPage?.considerationsTitle }}
     </p>
@@ -44,6 +45,7 @@
       :key="index"
       v-for="(consideration, index) in considerationsList"
       v-bind="consideration"
+      :dark="false"
     />
 
     <!-- section tabs promotions and benefits -->
@@ -56,6 +58,7 @@
       :textSkeleton="$t('loading')"
       :tabs="productsEliteTabsComputed"
       v-model="bindingTab"
+      :dark="false"
     />
     <div
       class="ms-grid ms-grid-cols-[repeat(auto-fit,_32%)] ms-m-auto ms-gap-6 ms-mt-4 ms-justify-center"
@@ -69,6 +72,7 @@
         :seeMore="$t('seeMore')"
         :seeLess="$t('seeLess')"
         v-bind="product"
+        :dark="false"
         @show-more="showMorePromotion(product.code, index)"
       >
         <template
@@ -85,7 +89,7 @@
         </template>
       </BPGCardPromotions>
     </div>
-    <PESkeletonCardProvition v-else-if="loadingProductsElite" />
+    <PESkeletonCardProvition v-else-if="loadingProductsElite" :dark="false" />
     <div
       v-else
       class="ms-text-white ms-font-sans ms-font-normal mb-6"
@@ -106,7 +110,7 @@
           {{ interval.title }}
         </div>
         <div
-          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[16px] !ms-text-white"
+          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[16px] ms-text-gray-500"
           v-html="interval.description"
         />
       </div>
@@ -138,6 +142,8 @@ import {BookingStore} from '~/src/ui/store/bookingStore'
 import {TypesProductsElite} from '~/src/app/bpg/domain/enum/typesProductsElite'
 import {TabsProductsElite} from '~/src/app/bpg/domain/dto/productsEliteDto'
 import {ItemsResume} from '~/src/app/bpg/domain/dto/resumeDto'
+import {LocalePageBPG} from '~/src/app/bpg/domain/enum/localePageBPG'
+import {SequentSuitesBPGEspecial} from '~/src/app/bpg/domain/enum/sequentSuitesBPGEspecial'
 import {
   IntervalDto,
   Product,
@@ -314,6 +320,7 @@ export default class BPGPage extends Mixins(
       },
       showZones: this.zones.length > 0,
       mppc: this.mppc,
+      baglioniCodes,
       mainTabs: accessBaglioni
         ? this.zones.map(zone => ({
           ...zone,
@@ -324,6 +331,8 @@ export default class BPGPage extends Mixins(
             .map(propertie => {
               if (propertie.code === 'LBC') return {...propertie, title: 'Le Blanc Cancun'}
               if (propertie.code === 'ZPLB') return {...propertie, title: 'Le Blanc Cabos'}
+              if (propertie.code === 'MPS') return {...propertie, title: 'Moon Palace Sunrise'}
+              if (propertie.code === 'MPG') return {...propertie, title: 'Moon Palace The Grand'}
               return propertie
             })
         }))
@@ -769,11 +778,28 @@ export default class BPGPage extends Mixins(
     return this.bpgStore.minimumStay
   }
 
+  public redirectToLocalePage() {
+    switch (this.infoMembership?.lang) {
+      case LocalePageBPG.SPANISH:
+        this.$router.push({path: '/es/bpg'})
+        break
+      case LocalePageBPG.PORTUGUESE:
+        this.$router.push({path: '/pt/bpg'})
+        break
+      case LocalePageBPG.ENGLISH:
+      default:
+        this.$router.push({path: '/bpg'})
+        break
+    }
+  }
+
   async beforeMount() {
 
     try {
-      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.getInfoAffiliation()
+      // this.redirectToLocalePage()
+
+      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
@@ -787,7 +813,7 @@ export default class BPGPage extends Mixins(
       const extraFeeGolf = await this.bpgStore.getExtraFeeGolf()
       this.gPrices = extraFeeGolf.data?.data || []
 
-      // await this.onSelectedProperty()
+      await this.onSelectedProperty()
       this.loadingCategories = false
 
       await this.getStays()
@@ -832,7 +858,7 @@ export default class BPGPage extends Mixins(
       })
     }
 
-    switch (this.accessDiamond?.periodType) {
+    switch (this.accessResidence?.periodType) {
     case PeriodType.YEAR:
       return description.replace(
         '{MARK_ACCESS_VIGENCY_RESIDENCE}',
@@ -851,7 +877,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_RESIDENCE}', '')
     }
   }
 
@@ -952,7 +978,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_VILLAS}', '')
     }
   }
 
@@ -1005,7 +1031,7 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     default:
-      return description
+      return description.replace('{MARK_ACCESS_VIGENCY_DIAMOND}', '')
     }
   }
 
@@ -1280,6 +1306,10 @@ export default class BPGPage extends Mixins(
     return (
       promotions
         ?.map((promotion: Promotion) => {
+          const codes = promotion.code.replaceAll(' ', '').split('&')
+
+          if (codes.includes('ALL')) return promotion
+
           if (promotion.code === Provisions.YATE) {
             return {
               ...promotion,
@@ -1420,6 +1450,7 @@ export default class BPGPage extends Mixins(
         .map((access: any) => ({
           ...access,
           title: access?.roomTypeDescription || '-',
+          //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
@@ -1438,6 +1469,16 @@ export default class BPGPage extends Mixins(
           if (b.bpg > a.bpg) return -1
           return 0
         }) || []
+        //.sort((a: any, b: any) => {
+        //if (a.discountRate === 30) {
+        //console.log(a, b)
+        //
+        //}
+        //return 0
+        //var indiceA = SequentSuitesBPGEspecial[a.hotel].indexOf(a.)
+        //var indiceA = SequentSuitesBPGEspecial[b.hotel].indexOf(b.)
+        //return indiceA - indiceB;
+        //}) || []
     )
   }
 
@@ -1459,7 +1500,10 @@ export default class BPGPage extends Mixins(
 
   public async getAllZones() {
     try {
-      await this.bpgStore.getAllZones(this.accessProperties)
+      await this.bpgStore.getAllZones({
+        accessProperties: this.accessProperties,
+        locale: this.$i18n.locale
+      })
     } catch (error) {
       console.log(error)
     }
@@ -1485,15 +1529,15 @@ export default class BPGPage extends Mixins(
     }
   }
 
-  // public async onSelectedProperty(): Promise<void> {
-  //   if (this.zones.length > 0) {
-  //     const tab = this.zones.find((tab: Zone, index: number) => index === 0)
+  public async onSelectedProperty(): Promise<void> {
+    if (this.zones.length > 0) {
+      const tab = this.zones.find((tab: Zone, index: number) => index === 0)
 
-  //     this.propertySelectedTab = tab?.properties.find(
-  //       (property: Propertie, index: number) => index === 0
-  //     )
-  //   }
-  // }
+      this.propertySelectedTab = tab?.properties.find(
+        (property: Propertie, index: number) => index === 0
+      )
+    }
+  }
 
   public async getStays() {
     const minStays = Object.assign({}, this.bookingStore.minStays)
@@ -1569,27 +1613,3 @@ export default class BPGPage extends Mixins(
   }
 }
 </script>
-
-<style scoped>
-.bpg-resume-micro-site::v-deep .text-white {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity)) !important;
-}
-
-.card-category-tabs::v-deep  {
-
-}
-
-.expansion-panel-micro-site::v-deep div.bg-black-light {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(51 107 135 / var(--tw-border-opacity));
-}
-
-.expansion-panel-micro-site::v-deep .font-normal,
-.expansion-panel-micro-site::v-deep .text-white {
-  color: #272527 !important;
-}
-</style>

@@ -1,8 +1,9 @@
 <template>
-  <div class="ms-h-[200px] ms-bg-[#FAFAFA]">
+  <div class="ms-h-[200px]">
     <PEFooterMicroSite
       v-bind="footerMicroSiteProps"
-      class="footer-micro-site !ms-bg-[#FAFAFA]"
+      class="footer-micro-site"
+      :dark="false"
     ></PEFooterMicroSite>
   </div>
 </template>
@@ -30,15 +31,7 @@ export default class Footer extends Vue {
 </script>
 
 <style scoped>
-.footer-micro-site::v-deep span.text-white {
-  color: #666666 !important;
-}
-
 .footer-micro-site::v-deep span.text-blue-light {
   color: #43B4B4 !important;
-}
-
-.footer-micro-site::v-deep section div:first-child {
-  display: none !important;
 }
 </style>

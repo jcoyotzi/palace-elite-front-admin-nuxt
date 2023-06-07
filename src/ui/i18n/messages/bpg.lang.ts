@@ -2,8 +2,8 @@ export default {
   messages: {
     es: {
       preferentialWeeksAndNights: 'Semanas y Noches Preferenciales',
-      lastContract: 'Último contrato',
-      owner: 'Propietario',
+      lastContract: 'Última Afiliación',
+      owner: 'Afiliado',
       totalInvestment: 'Inversión Total (USD)',
       levelAffiliation: 'Nivel de Afiliación',
       typeAffiliation: 'Tipo de afiliación',
@@ -66,7 +66,7 @@ export default {
       yearsAndVigencyTotal:
         'Los accesos en total indicados en su Contrato son válidos hasta el <b>{VIGENCY}</b>, y deben usarse <b>({ACCESS_YEAR})</b> por año.',
       yearsAndVigencyYear:
-        'Cada acceso en <b>{level}</b> aplica <b>({ACCESS_YEAR})</b> veces por año y será válida hasta <b>( {VIGENCY} )</b>.',
+        'Cada acceso <b>{level}</b> aplica <b>({ACCESS_YEAR})</b> veces por año y será válida hasta <b>( {VIGENCY} )</b>.',
       notFound: 'NO ENCONTRADO.',
       notFoundMessage: 'No se encontró acceso para esta propiedad.',
       minStaysBaglioni: '* Aplican las estancias mínimas vigentes al momento de reservar.',
@@ -83,7 +83,7 @@ export default {
       yearsAndVigencyTotal:
         'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
       yearsAndVigencyYear:
-        'Each access in the <b>{level}</b> applies <b>({ACCESS_YEAR})</b> per year and is valid until <b>( {VIGENCY} )</b>.',
+        'Each access <b>{level}</b> applies <b>({ACCESS_YEAR})</b> per year and is valid until <b>( {VIGENCY} )</b>.',
       andOr: 'and/or',
       nights: 'Nights',
       weeks: 'Weeks',
@@ -136,8 +136,8 @@ export default {
       typeAffiliation: 'Type Affiliation',
       levelAffiliation: 'Level Affiliation',
       totalInvestment: 'Total Investment (USD)',
-      owner: 'Owner',
-      lastContract: 'Last Contract',
+      owner: 'Affiliate',
+      lastContract: 'Last Affiliation',
       affiliationNumber: 'Affiliation Number',
       importantToConsider: 'Important to consider',
       promotions: 'Promotions',
@@ -156,7 +156,7 @@ export default {
       yearsAndVigencyTotal:
         'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
       yearsAndVigencyYear:
-        'Cada acesso na <b>{level}</b> aplica-se <b>({ACCESS_YEAR})</b> vez por ano e válido até <b>( {VIGENCY} )</b>.',
+        'Cada acesso <b>{level}</b> aplica-se <b>({ACCESS_YEAR})</b> vez por ano e válido até <b>( {VIGENCY} )</b>.',
       diamondPresidential: 'Diamante Presidencial',
       minStaysBaglioni: '* Aplicam-se estadias mínimas em vigor no momento da reserva.',
       affiliatesVIP: 'VIP',
@@ -190,8 +190,8 @@ export default {
       typeAffiliation: 'Tipo de Afiliação',
       levelAffiliation: 'Afiliação de Nível',
       totalInvestment: 'Investimento Total (USD)',
-      owner: 'Proprietário',
-      lastContract: 'Último Contrato',
+      owner: 'Afiliado',
+      lastContract: 'Última afiliação',
       affiliationNumber: 'Número de Afiliação',
       importantToConsider: 'Important to consider',
       promotions: 'Promoções',
