@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { TranslateResult } from 'vue-i18n';
 import i18n from '../i18n/messages/affiliate-search.lang';
 import { BPGStore } from '../store/bpgStore';
 
@@ -88,7 +89,7 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   get cardAffiliationProps() {
-    const language = this.$t('languageCode' + this.searchedAffiliate.lang)
+    const language = this.getAffiliateLanguage();
 
     return {
       name: this.searchedAffiliate.name,
@@ -99,6 +100,18 @@ export default class AffiliateSearchPage extends Vue {
       language: `${this.$t('language')}: ${language}`,
       textMoreDetails: this.$t('moreDetails'),
     }
+  }
+
+  getAffiliateLanguage(): string | TranslateResult {
+    if (this.isAvailableLanguage(this.searchedAffiliate.lang)) {
+      return this.$t('languageCode' + this.searchedAffiliate.lang);
+    }
+
+    return this.$t('notAvailable');
+  }
+
+  isAvailableLanguage(languageCode: string): boolean {
+    return ['E', 'P', 'S'].includes(languageCode);
   }
 
   async searchAffiliate() {
