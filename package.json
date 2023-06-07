@@ -29,7 +29,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/toast": "^3.3.1",
     "@pinia/nuxt": "^0.2.1",
-    "@pr-elite-components-library/lib": "0.2.5",
+    "@pr-elite-components-library/lib": "0.2.6",
     "@pr-policy-evaluator/lib": "^0.0.1",
     "@types/inversify-inject-decorators": "^2.0.0",
     "aws-amplify": "^4.3.31",

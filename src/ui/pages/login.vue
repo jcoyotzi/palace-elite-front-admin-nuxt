@@ -56,9 +56,10 @@ export default class LoginPage extends Vue {
       newUser: this.$t('newUser?'),
       createAnAccount: this.$t('createAnAccount'),
     },
+    errorMessages: [],
+    usernameError: '',
+    passwordError: '',
     loadingButtonLogin: false,
-    usernameErrors: [],
-    passwordErrors: [],
   }
 
   get locales(): Locale[] {
@@ -77,14 +78,6 @@ export default class LoginPage extends Vue {
       return this.$router.push(this.localePath('/affiliate-search'));
   }
 
-  clickedForgotYourPassword() {
-    console.log('Forgot your password was clicked');
-  }
-
-  clickedCreateAnAccount() {
-    console.log('Create an account was clicked');
-  }
-
   async clickedLoginButton(form: LoginForm) {
 
     const isValidForm = this.isValidForm(form);
@@ -95,27 +88,34 @@ export default class LoginPage extends Vue {
 
     this.formLoginMicroSiteProps.loadingButtonLogin = true;
 
-    await this.authStore.signIn(form);
+    const result = await this.authStore.signIn(form);
 
-    if (this.authStore.isAuthenticated)
-      return this.$router.push(this.localePath('/affiliate-search'));
-
-    window.alert(this.authStore.message)
+    if (result.isAuthenticated) {
+      window.location.href = this.localePath('/affiliate-search');
+    } else {
+      const message = result.message || this.$t('incorrectUsernameOrPassword');
+      this.formLoginMicroSiteProps.errorMessages = [message];
+    }
 
     this.formLoginMicroSiteProps.loadingButtonLogin = false;
   }
 
   public isValidForm(form: LoginForm): boolean {
-    this.formLoginMicroSiteProps.usernameErrors = [];
-    this.formLoginMicroSiteProps.passwordErrors = [];
+    this.formLoginMicroSiteProps.usernameError = '';
+    this.formLoginMicroSiteProps.passwordError = '';
 
     if (!form.username.trim().length) {
-      this.formLoginMicroSiteProps.usernameErrors = [this.$t('usernameRequired')];
-      return false;
+      this.formLoginMicroSiteProps.usernameError = this.$t('usernameRequired');
     }
     
     if (!form.password.trim().length) {
-      this.formLoginMicroSiteProps.passwordErrors = [this.$t('passwordRequired')];
+      this.formLoginMicroSiteProps.passwordError = this.$t('passwordRequired');
+    }
+
+    if (
+      this.formLoginMicroSiteProps.usernameError
+      || this.formLoginMicroSiteProps.passwordError
+    ) {
       return false;
     }
   
