@@ -225,6 +225,11 @@ export interface InfoDataConsiderations {
   INFO_MEMBER: InfoMember //Estancia Minima
 }
 
+export interface GetAllZonesRequest {
+  accessProperties: string[]
+  locale: string
+}
+
 export interface GroupAccess {
   access: string
   accessYear: number
