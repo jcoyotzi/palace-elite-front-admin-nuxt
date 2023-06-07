@@ -4,12 +4,13 @@ import {ExtraFeeGolfDto} from '../dto/extraFeeGolf'
 import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '../dto/getBenefitsAdditionalsDto'
 import MinimumStay from '../entities/minimumStay'
+import {GetAllZonesRequest} from '../entities/strapiBpg'
 
 export interface BPGRepository {
   getCategorysByProperty(application: string): Promise<Response<any>>
   getProductsEliteBenefits(application: string): Promise<Response<any>>
   getProductsElitePromotions(application: string): Promise<Response<any>>
-  getAllZones(locale: string, accessProperties: string[]): Promise<Response<any>>
+  getAllZones(request: GetAllZonesRequest): Promise<Response<any>>
   getInfoAffiliation(application: string): Promise<Response<any>>
   getAccessGolf(application: string): Promise<Response<Response<GolfAccess>>>
   getAccessProperties(application: string, company: number, isNational: number): Promise<Response<Response<string[]>>>

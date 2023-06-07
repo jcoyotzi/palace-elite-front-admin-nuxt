@@ -8,6 +8,7 @@ import {ExtraFeeGolfDto} from '../dto/extraFeeGolf'
 import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
 import MinimumStay from '../entities/minimumStay'
+import {GetAllZonesRequest} from '../entities/strapiBpg'
 
 @injectable()
 export default class BPGServiceRepository implements BPGRepository {
@@ -28,15 +29,15 @@ export default class BPGServiceRepository implements BPGRepository {
     return this.httpApi.get(`/membership/api/v1/admin/provisions?application=${application}`)
   }
 
-  getAllZones(locale: string, accessProperties: string[]): Promise<Response<any>> {
+  getAllZones({accessProperties, locale}: GetAllZonesRequest): Promise<Response<any>> {
     const query = [
       'fields=name,bpgOrder,locale',
-      'populate[properties][fields]=title,externalId,bpgSuiteAccessYears,bpgOrder,locale',
+      'populate[properties][fields]=title,externalId,bpgSuiteAccessYears,bpgOrder',
+      `locale=${locale}`,
       'populate[properties][populate][media][populate][media][fields]=url',
       ...accessProperties.map((access: string, index: number) => {
         return `populate[properties][filters][externalId][$in][${index}]=${access}`
       }),
-      `locale=${locale}`,
     ].join('&')
 
     return this.httpStrapi.get(`/api/zones?${query}`)
