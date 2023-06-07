@@ -99,6 +99,7 @@ export default class AffiliateSearchPage extends Vue {
       role: this.$t('owner'),
       language: `${this.$t('language')}: ${language}`,
       textMoreDetails: this.$t('moreDetails'),
+      openButtonLabel: this.$t('open'),
     }
   }
 
