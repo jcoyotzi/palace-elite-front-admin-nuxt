@@ -197,7 +197,6 @@ import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
     auth: true,
     breadcrumb: ['home', 'affiliateSearch', 'bpg']
   },
-  middleware: ['requiredAffiliateInfo'],
   i18n,
 })
 export default class BPGPage extends Mixins(

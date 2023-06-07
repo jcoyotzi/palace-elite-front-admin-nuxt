@@ -15,10 +15,12 @@
       <div class="ms-flex ms-justify-between ms-mt-6 lg:ms-mt-8">
         <div>
           <PEInput
+            id="search_affiliate_input"
             v-model="form.affiliationNumber"
             color="microsite"
             class="border border-gray-light rounded-[5px] !text-gray-light"
             :label="$t('affiliationNumber')"
+            @onEnter="searchAffiliate"
           />
           <p
             v-if="form.affiliationNumberError"
@@ -66,6 +68,10 @@ import { BPGStore } from '../store/bpgStore';
 })
 export default class AffiliateSearchPage extends Vue {
   public bpgStore = new BPGStore();
+
+  mounted() {
+    document.getElementById("search_affiliate_input")?.focus()
+  }
 
   public form: any = {
     affiliationNumber: '',
@@ -123,6 +129,7 @@ export default class AffiliateSearchPage extends Vue {
   clickedCardAffiliateOpenButton() {
     this.$router.push(this.localePath({ path: '/affiliate/bpg' }));
   }
+
 }
 </script>
 

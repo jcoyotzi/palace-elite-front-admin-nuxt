@@ -73,7 +73,8 @@ export default class LoginPage extends Vue {
   }
 
   mounted() {
-    //
+    if (this.authStore.isAuthenticated)
+      return this.$router.push(this.localePath('/affiliate-search'));
   }
 
   clickedForgotYourPassword() {
