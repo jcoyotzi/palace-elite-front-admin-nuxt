@@ -792,9 +792,26 @@ export default class BPGPage extends Mixins(
     }
   }
 
+  async validateInfoAffiliation() {
+    if (!this.bpgStore.affiliateInfo.application) {
+      const application = this.$route.query.application as string
+
+      if (application) {
+        await this.bpgStore.getAffiliateInfo(application)
+      }
+    }
+  }
+
   async beforeMount() {
 
     try {
+      await this.validateInfoAffiliation()
+
+      if (!this.bpgStore.affiliateInfo.application) {
+        this.$router.push(this.localePath('/affiliate-search'))
+        return
+      }
+
       await this.getInfoAffiliation()
       // this.redirectToLocalePage()
 

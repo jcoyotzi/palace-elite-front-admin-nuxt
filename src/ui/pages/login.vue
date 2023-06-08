@@ -3,25 +3,23 @@
     <div class="ms-hidden lg:ms-block xl:ms-w-3/4 login-bg">
     </div>
     <div class="ms-flex ms-justify-center ms-w-full xl:ms-w-1/4">
-      <form action="#">
-        <FormLoginMicroSite
-          v-bind="formLoginMicroSiteProps"
-          :locales="locales"
-          :locale="locale"
-          url-image="../assets/img/intelligence.svg"
-          class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
-          :has-forgot-your-password-functionality="false"
-          :has-create-an-account-functionality="false"
-          @clicked-login-button="clickedLoginButton"
-          @changed-locale="changedLocale"
-        >
-          <template #image>
-            <figure class="ms-flex ms-justify-center">
-              <img src="../assets/img/intelligence.svg" alt="Intelligence Logo">
-            </figure>
-          </template>
-        </FormLoginMicroSite>
-      </form>
+      <FormLoginMicroSite
+        v-bind="formLoginMicroSiteProps"
+        :locales="locales"
+        :locale="locale"
+        url-image="../assets/img/intelligence.svg"
+        class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
+        :has-forgot-your-password-functionality="false"
+        :has-create-an-account-functionality="false"
+        @clicked-login-button="clickedLoginButton"
+        @changed-locale="changedLocale"
+      >
+        <template #image>
+          <figure class="ms-flex ms-justify-center">
+            <img src="../assets/img/intelligence.svg" alt="Intelligence Logo">
+          </figure>
+        </template>
+      </FormLoginMicroSite>
     </div>
   </div>
 </template>

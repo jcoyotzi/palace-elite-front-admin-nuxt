@@ -1,7 +1,7 @@
 <template>
   <div class="ms-px-4 ms-mx-auto ms-pb-20 md:ms-mt-24">
     <div
-      class="ms-my-20 ms-text-blue-dark ms-font-semibold ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
+      class="ms-my-20 ms-text-blue-light ms-font-semibold ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
     >
       {{ contentPage?.title }}
     </div>

@@ -18,7 +18,7 @@
             id="search_affiliate_input"
             v-model="form.affiliationNumber"
             color="microsite"
-            class="border border-gray-light rounded-[5px] !text-gray-light"
+            class="border border-gray-light ms-rounded-[5px] !ms-text-gray-light"
             :label="$t('affiliationNumber')"
             @onEnter="searchAffiliate"
           />
@@ -28,7 +28,7 @@
           >{{ form.affiliationNumberError }}</p>
         </div>
         <PEButton
-          class="w-[200px] lg:w-[300px] lg:ms-max-h-[60px] ms-uppercase"
+          class="ms-w-[200px] lg:ms-w-[300px] lg:ms-max-h-[60px] ms-uppercase"
           solid
           :loading="form.loading"
           @click="searchAffiliate"
@@ -37,7 +37,7 @@
         </PEButton>
       </div>
     </div>
-    <div v-if="showAffiliateCard" class="mt-[30px] justify-center">
+    <div v-if="showAffiliateCard" class="ms-mt-[30px] ms-justify-center">
       <CardAffiliationMicroSite
         v-bind="cardAffiliationProps"
         class="card-affiliation-micro-site"
@@ -141,19 +141,8 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   clickedCardAffiliateOpenButton() {
-    this.$router.push(this.localePath({ path: '/affiliate/bpg' }));
+    this.$router.push(this.localePath({ path: '/affiliate/bpg', query: { application: this.searchedAffiliate.application } }));
   }
 
 }
 </script>
-
-<style scoped>
-.card-affiliation-micro-site::v-deep button {
-  outline-width: 1px !important;
-  border-color: rgb(51 107 135 / var(--tw-border-opacity)) !important; 
-}
-
-.card-affiliation-micro-site::v-deep .text-blue-aqua {
-  display: none !important;
-}
-</style>
