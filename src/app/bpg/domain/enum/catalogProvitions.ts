@@ -47,3 +47,9 @@ export enum CatalogGroupsIds {
   PRESIDENTIAL_DIAMOND = 'PD',
   FAMILY_SUITE = 'F'
 }
+
+export enum BaglioniVillas {
+  VILLA_REGINA = 235,
+  VILLA_MALDIVAS = 243,
+  GRAND_VILLA_MALDIVAS_ = 260
+}
