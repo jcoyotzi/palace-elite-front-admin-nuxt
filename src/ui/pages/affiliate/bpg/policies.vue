@@ -1,7 +1,7 @@
 <template>
   <div class="ms-mt-4 lg:ms-mt-12">
     <div
-      class="ms-my-4 lg:ms-my-12 ms-text-blue-dark ms-font-semibold lg:ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
+      class="ms-my-4 lg:ms-my-12 ms-text-blue-light ms-font-semibold lg:ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
     >
       {{ contentPage?.title }}
     </div>
@@ -26,6 +26,7 @@
         :key="index"
         v-for="(policie, index) in contentTab?.content"
         v-bind="getContent(policie)"
+        :dark="false"
       />
     </div>
 
