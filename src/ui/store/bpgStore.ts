@@ -157,7 +157,7 @@ export class BPGStore extends Pinia {
   public async getAffiliateInfo(application: string) {
     const { data } = await this.getInfoAffiliation(application)
 
-    this.affiliateInfo = data?.data.find((_info: any, index: number) => index === 0)
+    this.affiliateInfo = data?.data.find((_info: any, index: number) => index === 0) || {}
 
     return this.affiliateInfo
   }

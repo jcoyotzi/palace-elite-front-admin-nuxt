@@ -7,6 +7,7 @@ import persistenceTypes from '~/src/app/common/infrastructure/persistence/types'
 import { Persistence } from '~/src/app/common/infrastructure/persistence/domain/entities/Persistence'
 import { StorageKeys } from '~/src/app/common/infrastructure/persistence/domain/enums/StorageKeys'
 import { LoginForm } from '~/src/app/auth/domain/entities/loginForm'
+import { SignInResult } from '~/src/app/auth/domain/entities/signInResult'
 
 export enum Locale {
   'es-MX' = "es-MX",
@@ -17,7 +18,6 @@ export enum Locale {
   name: 'AuthStore'
 })
 export class AuthStore extends Pinia {
-
   @lazyInject(persistenceTypes.localStorage)
   private readonly localStorage!: Persistence
 
@@ -53,7 +53,7 @@ export class AuthStore extends Pinia {
     localStorage.clear()
   }
 
-  async signIn(form: LoginForm) {
+  async signIn(form: LoginForm): Promise<SignInResult> {
     this.hasError = false
     this.errorCode = ''
     this.message = ''
@@ -77,6 +77,12 @@ export class AuthStore extends Pinia {
       this.errorCode = error._code
       this.message = error.message
     })
+
+    return {
+      isAuthenticated: this.isAuthenticated,
+      code: this.errorCode,
+      message: this.message,
+    }
   }
 
   async setAuthTokens() {

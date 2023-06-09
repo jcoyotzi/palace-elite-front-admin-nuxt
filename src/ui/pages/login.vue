@@ -3,25 +3,23 @@
     <div class="ms-hidden lg:ms-block xl:ms-w-3/4 login-bg">
     </div>
     <div class="ms-flex ms-justify-center ms-w-full xl:ms-w-1/4">
-      <form action="#">
-        <FormLoginMicroSite
-          v-bind="formLoginMicroSiteProps"
-          :locales="locales"
-          :locale="locale"
-          url-image="../assets/img/intelligence.svg"
-          class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
-          :has-forgot-your-password-functionality="false"
-          :has-create-an-account-functionality="false"
-          @clicked-login-button="clickedLoginButton"
-          @changed-locale="changedLocale"
-        >
-          <template #image>
-            <figure class="ms-flex ms-justify-center">
-              <img src="../assets/img/intelligence.svg" alt="Intelligence Logo">
-            </figure>
-          </template>
-        </FormLoginMicroSite>
-      </form>
+      <FormLoginMicroSite
+        v-bind="formLoginMicroSiteProps"
+        :locales="locales"
+        :locale="locale"
+        url-image="../assets/img/intelligence.svg"
+        class="custom-form-login md:!ms-w-3/4 lg:!ms-w-1/2 xl:!ms-w-full"
+        :has-forgot-your-password-functionality="false"
+        :has-create-an-account-functionality="false"
+        @clicked-login-button="clickedLoginButton"
+        @changed-locale="changedLocale"
+      >
+        <template #image>
+          <figure class="ms-flex ms-justify-center">
+            <img src="../assets/img/intelligence.svg" alt="Intelligence Logo">
+          </figure>
+        </template>
+      </FormLoginMicroSite>
     </div>
   </div>
 </template>
@@ -56,9 +54,10 @@ export default class LoginPage extends Vue {
       newUser: this.$t('newUser?'),
       createAnAccount: this.$t('createAnAccount'),
     },
+    errorMessages: [],
+    usernameError: '',
+    passwordError: '',
     loadingButtonLogin: false,
-    usernameErrors: [],
-    passwordErrors: [],
   }
 
   get locales(): Locale[] {
@@ -77,14 +76,6 @@ export default class LoginPage extends Vue {
       return this.$router.push(this.localePath('/affiliate-search'));
   }
 
-  clickedForgotYourPassword() {
-    console.log('Forgot your password was clicked');
-  }
-
-  clickedCreateAnAccount() {
-    console.log('Create an account was clicked');
-  }
-
   async clickedLoginButton(form: LoginForm) {
 
     const isValidForm = this.isValidForm(form);
@@ -95,27 +86,34 @@ export default class LoginPage extends Vue {
 
     this.formLoginMicroSiteProps.loadingButtonLogin = true;
 
-    await this.authStore.signIn(form);
+    const result = await this.authStore.signIn(form);
 
-    if (this.authStore.isAuthenticated)
-      return this.$router.push(this.localePath('/affiliate-search'));
-
-    window.alert(this.authStore.message)
+    if (result.isAuthenticated) {
+      window.location.href = this.localePath('/affiliate-search');
+    } else {
+      const message = result.message || this.$t('incorrectUsernameOrPassword');
+      this.formLoginMicroSiteProps.errorMessages = [message];
+    }
 
     this.formLoginMicroSiteProps.loadingButtonLogin = false;
   }
 
   public isValidForm(form: LoginForm): boolean {
-    this.formLoginMicroSiteProps.usernameErrors = [];
-    this.formLoginMicroSiteProps.passwordErrors = [];
+    this.formLoginMicroSiteProps.usernameError = '';
+    this.formLoginMicroSiteProps.passwordError = '';
 
     if (!form.username.trim().length) {
-      this.formLoginMicroSiteProps.usernameErrors = [this.$t('usernameRequired')];
-      return false;
+      this.formLoginMicroSiteProps.usernameError = this.$t('usernameRequired');
     }
     
     if (!form.password.trim().length) {
-      this.formLoginMicroSiteProps.passwordErrors = [this.$t('passwordRequired')];
+      this.formLoginMicroSiteProps.passwordError = this.$t('passwordRequired');
+    }
+
+    if (
+      this.formLoginMicroSiteProps.usernameError
+      || this.formLoginMicroSiteProps.passwordError
+    ) {
       return false;
     }
   
