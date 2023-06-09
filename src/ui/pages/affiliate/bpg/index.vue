@@ -180,7 +180,8 @@ import {
   CatalogIncentivo,
   Provisions,
   allCatalogsValues,
-  Promotions
+  Promotions,
+  BaglioniVillas
 } from '~/src/app/bpg/domain/enum/catalogProvitions'
 import {baglioniCodes} from '~/src/app/property/domain/data/baglioniCodes'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
@@ -497,6 +498,8 @@ export default class BPGPage extends Mixins(
     const villa = this.roomHotelAccess.find((access: any) =>
       [CatalogGroupsIds.VILLAS, CatalogGroupsIds.BABY_VILLAS].includes(
         access.groupId as CatalogGroupsIds
+      ) && ![BaglioniVillas.VILLA_REGINA, BaglioniVillas.VILLA_MALDIVAS, BaglioniVillas.GRAND_VILLA_MALDIVAS_].includes(
+        access.idTypeRoom
       )
     )
 
