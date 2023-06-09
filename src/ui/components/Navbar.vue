@@ -34,10 +34,14 @@ export default class Nabvar extends Vue {
     return this.authStore.profile
   }
 
-  get fullname(): string | undefined {
+  get fullname(): string {
+    let fullname = ''
+
     if (this.profile && this.profile.attributes) {
-      return `${this.profile.attributes.name} ${this.profile.attributes.lastName}`
+      fullname = `${this.profile.attributes.name || ''} ${this.profile.attributes.lastName || ''}`
     }
+
+    return fullname.trim()
   }
 
   mounted() {

@@ -71,7 +71,8 @@ export default {
       notFoundMessage: 'No se encontró acceso para esta propiedad.',
       minStaysBaglioni: '* Aplican las estancias mínimas vigentes al momento de reservar.',
       bpgSecurity: 'La información en esta pagina es exclusivamente para miembros nuevos.',
-      loading: 'Cargando...'
+      loading: 'Cargando...',
+      benefits: 'Beneficios',
     },
     en: {
       loading: 'Loading...',
