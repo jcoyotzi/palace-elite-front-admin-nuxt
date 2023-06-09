@@ -9,9 +9,13 @@ const messages = {
       affiliateNumberIsRequired: 'Affiliate Number is required',
       language: 'Language',
       languageCodeE: 'English',
+      languageCodeP: 'Portuguese',
+      languageCodeS: 'Spanish',
+      notAvailable: 'Not Available',
       owner: 'Owner',
       pendingSignature: 'Pending Signature',
       affiliateNumberNotFound: 'Affiliate Number not found',
+      open: 'Open',
     },
     es: {
       affiliateSearch: 'Búsqueda de Afiliado',
@@ -22,9 +26,18 @@ const messages = {
       affiliateNumberIsRequired: 'El Número de Afiliación es obligatorio',
       language: 'Idioma',
       languageCodeE: 'Inglés',
+      languageCodeP: 'Portugués',
+      languageCodeS: 'Español',
+      notAvailable: 'No Disponible',
       owner: 'Propietario',
       pendingSignature: 'Pendiente de Firma',
       affiliateNumberNotFound: 'Número de Afiliado no encontrado',
+      open: 'Abrir',
+    },
+    pt: {
+      languageCodeE: 'Inglês',
+      languageCodeP: 'Português',
+      languageCodeS: 'Espanhol',
     }
   }
 }
