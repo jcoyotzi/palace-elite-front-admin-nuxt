@@ -11,6 +11,7 @@ const messages = {
       createAnAccount: 'Create an account',
       usernameRequired: 'Username is required',
       passwordRequired: 'Password is required',
+      incorrectUsernameOrPassword: 'Incorrect username or password',
     },
     es: {
       login: 'Iniciar sesión',
@@ -23,6 +24,7 @@ const messages = {
       createAnAccount: 'Crear una cuenta',
       usernameRequired: 'El nombre de usuario es requerido',
       passwordRequired: 'La contraseña es requerida',
+      incorrectUsernameOrPassword: 'Nombre de usuario o contraseña incorrectos',
     }
   }
 }

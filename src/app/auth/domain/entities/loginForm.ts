@@ -18,9 +18,10 @@ export interface FormLoginMicroSite {
     newUser: string | VueI18n.TranslateResult;
     createAnAccount: string | VueI18n.TranslateResult;
   },
+  errorMessages?: string[] | VueI18n.TranslateResult[];
+  usernameError?: string | VueI18n.TranslateResult;
+  passwordError?: string | VueI18n.TranslateResult;
   loadingButtonLogin: boolean;
-  usernameErrors?: string[] | VueI18n.TranslateResult[];
-  passwordErrors?: string[] | VueI18n.TranslateResult[];
 }
 
 export default LoginForm;

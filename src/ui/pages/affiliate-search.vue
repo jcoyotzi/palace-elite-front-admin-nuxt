@@ -15,10 +15,12 @@
       <div class="ms-flex ms-justify-between ms-mt-6 lg:ms-mt-8">
         <div>
           <PEInput
+            id="search_affiliate_input"
             v-model="form.affiliationNumber"
             color="microsite"
-            class="border border-gray-light rounded-[5px] !text-gray-light"
+            class="border border-gray-light ms-rounded-[5px] !ms-text-gray-light"
             :label="$t('affiliationNumber')"
+            @onEnter="searchAffiliate"
           />
           <p
             v-if="form.affiliationNumberError"
@@ -26,7 +28,7 @@
           >{{ form.affiliationNumberError }}</p>
         </div>
         <PEButton
-          class="w-[200px] lg:w-[300px] lg:ms-max-h-[60px] ms-uppercase"
+          class="ms-w-[200px] lg:ms-w-[300px] lg:ms-max-h-[60px] ms-uppercase"
           solid
           :loading="form.loading"
           @click="searchAffiliate"
@@ -35,7 +37,7 @@
         </PEButton>
       </div>
     </div>
-    <div v-if="showAffiliateCard" class="mt-[30px] justify-center">
+    <div v-if="showAffiliateCard" class="ms-mt-[30px] ms-justify-center">
       <CardAffiliationMicroSite
         v-bind="cardAffiliationProps"
         class="card-affiliation-micro-site"
@@ -52,6 +54,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { TranslateResult } from 'vue-i18n';
 import i18n from '../i18n/messages/affiliate-search.lang';
 import { BPGStore } from '../store/bpgStore';
 
@@ -66,6 +69,10 @@ import { BPGStore } from '../store/bpgStore';
 })
 export default class AffiliateSearchPage extends Vue {
   public bpgStore = new BPGStore();
+
+  mounted() {
+    document.getElementById("search_affiliate_input")?.focus()
+  }
 
   public form: any = {
     affiliationNumber: '',
@@ -82,7 +89,7 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   get cardAffiliationProps() {
-    const language = this.$t('languageCode' + this.searchedAffiliate.lang)
+    const language = this.getAffiliateLanguage();
 
     return {
       name: this.searchedAffiliate.name,
@@ -92,7 +99,20 @@ export default class AffiliateSearchPage extends Vue {
       role: this.$t('owner'),
       language: `${this.$t('language')}: ${language}`,
       textMoreDetails: this.$t('moreDetails'),
+      openButtonLabel: this.$t('open'),
     }
+  }
+
+  getAffiliateLanguage(): string | TranslateResult {
+    if (this.isAvailableLanguage(this.searchedAffiliate.lang)) {
+      return this.$t('languageCode' + this.searchedAffiliate.lang);
+    }
+
+    return this.$t('notAvailable');
+  }
+
+  isAvailableLanguage(languageCode: string): boolean {
+    return ['E', 'P', 'S'].includes(languageCode);
   }
 
   async searchAffiliate() {
@@ -121,18 +141,8 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   clickedCardAffiliateOpenButton() {
-    this.$router.push(this.localePath({ path: '/affiliate/bpg' }));
+    this.$router.push(this.localePath({ path: '/affiliate/bpg', query: { application: this.searchedAffiliate.application } }));
   }
+
 }
 </script>
-
-<style scoped>
-.card-affiliation-micro-site::v-deep button {
-  outline-width: 1px !important;
-  border-color: rgb(51 107 135 / var(--tw-border-opacity)) !important; 
-}
-
-.card-affiliation-micro-site::v-deep .text-blue-aqua {
-  display: none !important;
-}
-</style>

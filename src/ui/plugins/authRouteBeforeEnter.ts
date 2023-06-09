@@ -28,16 +28,8 @@ const plugin: Plugin = function plugin({app, route}) {
       }
     }
 
-    if (to.name?.startsWith('login__')) {
-      const isAuth = await isAuthenticated()
-
-      if (isAuth) {
-        return next({path: app.localePath('/affiliate-search')})
-      }
-    }
-
     await isAuthenticated()
-    next()
+    return next()
   })
 }
 
