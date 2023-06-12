@@ -768,12 +768,15 @@ export default class BPGPage extends Mixins(
   }
 
   public get mppc(): any {
-    const mppc = this.roomHotelAccess.find(categorie => categorie.hotel === 'ZCMP')
+    const mppcAccess = this.roomHotelAccess.filter(categorie => categorie.hotel === 'ZCMP')
+    .sort((a: any, b: any) => {
+        return a.validity - b.validity
+      })
 
-    if (mppc)
-      return {...mppc, dateToText: this.i18nDayjs('MMMM DD, YYYY', mppc?.dateTo?.substr(0, 10))}
-
-    return mppc
+    if (mppcAccess.length > 0) { 
+      return {...mppcAccess[0], dateToText: this.i18nDayjs('MMMM DD, YYYY', mppcAccess[0]?.dateTo?.substr(0, 10))}
+    }
+    return undefined
   }
 
   public get minimumStay() {
