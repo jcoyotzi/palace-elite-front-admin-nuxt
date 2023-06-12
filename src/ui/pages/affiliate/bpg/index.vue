@@ -759,6 +759,19 @@ export default class BPGPage extends Mixins(
     return this.$i18n.locale
   }
 
+  public get affiliationLangToLocale(): string {
+    switch (this.bpgStore.affiliateInfo.lang) {
+    case LocalePageBPG.SPANISH:
+      return 'es';
+    case LocalePageBPG.PORTUGUESE:
+      return 'pt';
+    case LocalePageBPG.ENGLISH:
+      return 'en';
+    default:
+      return this.$i18n.locale
+    }
+  }
+
   public get infoMember() {
     return this.infoMembership
   }
@@ -821,7 +834,7 @@ export default class BPGPage extends Mixins(
       await this.getInfoAffiliation()
       // this.redirectToLocalePage()
 
-      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
+      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG, this.typePage, this.affiliationLangToLocale)
       await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
@@ -1524,7 +1537,7 @@ export default class BPGPage extends Mixins(
     try {
       await this.bpgStore.getAllZones({
         accessProperties: this.accessProperties,
-        locale: this.$i18n.locale
+        locale: this.affiliationLangToLocale,
       })
     } catch (error) {
       console.log(error)
