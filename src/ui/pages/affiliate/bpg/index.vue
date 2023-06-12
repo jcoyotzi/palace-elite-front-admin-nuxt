@@ -1501,7 +1501,7 @@ export default class BPGPage extends Mixins(
     )
   }
 
-  public validatePartRoom(rmType: string, numbers: string = '3456789') {
+  public validatePartRoom(rmType: string, numbers: string = '456789') {
     for (let i = 0; i < rmType.length; i++) {
       if (numbers.indexOf(rmType.charAt(i), 0) !== -1) return true
     }
