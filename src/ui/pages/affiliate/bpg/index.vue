@@ -770,7 +770,7 @@ export default class BPGPage extends Mixins(
   public get mppc(): any {
     const mppcAccess = this.roomHotelAccess.filter(categorie => categorie.hotel === 'ZCMP')
     .sort((a: any, b: any) => {
-        return a.validity - b.validity
+        return b.validity - a.validity
       })
 
     if (mppcAccess.length > 0) { 
