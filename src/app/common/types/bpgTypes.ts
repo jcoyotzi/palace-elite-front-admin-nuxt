@@ -14,4 +14,5 @@ export default {
   getBenefitsAdditionalsUseCase: Symbol('getBenefitsAdditionalsUseCase'),
   getMinimumStayUseCase: Symbol('getMinimumStayUseCase'),
   getMaxOccupancyByHotelUseCase: Symbol('getMaxOccupancyByHotelUseCase'),
+  getResortCreditsUseCase: Symbol('getResortCreditsUseCase')
 }
