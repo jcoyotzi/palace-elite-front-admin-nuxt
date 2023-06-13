@@ -36,7 +36,10 @@ export enum Provisions {
 }
 
 export enum Promotions {
-  KIDS_AND_TEENS = '18'
+  KIDS_AND_TEENS = '18',
+  REWARDS = '7',
+  REWARDS_PLUS = '27',
+  REWARDS_UK = '25'
 }
 
 export enum CatalogGroupsIds {

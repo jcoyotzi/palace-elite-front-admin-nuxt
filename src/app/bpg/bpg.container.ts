@@ -15,6 +15,7 @@ import GetEliteProductsGolfUseCase from './application/getEliteProductsGolfUseCa
 import GetTermsAndConditionsUseCase from './application/getTermsAndConditionsUseCase'
 import GetBenefitsAdditionalsUseCase from './application/getBenefitsAdditionalsUseCase'
 import GetMinimumStayUseCase from './application/getMinimumStayUseCase'
+import GetMaxOccupancyByHotelUseCase from './application/getMaxOccupancyByHotelUseCase'
 
 export default new ContainerModule((bind: interfaces.Bind) => {
   bind<BPGRepository>(bpgTypes.bpgRepository).to(BPGServiceRepository)
@@ -55,5 +56,9 @@ export default new ContainerModule((bind: interfaces.Bind) => {
 
   bind<GetBenefitsAdditionalsUseCase>(bpgTypes.getBenefitsAdditionalsUseCase).to(
     GetBenefitsAdditionalsUseCase
+  )
+
+  bind<GetMaxOccupancyByHotelUseCase>(bpgTypes.getMaxOccupancyByHotelUseCase).to(
+    GetMaxOccupancyByHotelUseCase
   )
 })
