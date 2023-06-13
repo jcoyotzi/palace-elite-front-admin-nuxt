@@ -234,6 +234,7 @@ import {
 } from '~/src/app/bpg/domain/enum/membershipLevels'
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
+import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 
 @Component({
   name: 'BPGPage',
@@ -303,6 +304,8 @@ export default class BPGPage extends Mixins(
   public loadingProductsElite: boolean = true
 
   public codeShowPromotion: string = ''
+
+  public currentHotelMaxOccupancy: MaxOccupancyByHotelAndRoomType[] = []
 
   // public get heroAttrs(): HeroDto {
   //   return this.contentStore.heroDefault
@@ -893,14 +896,16 @@ export default class BPGPage extends Mixins(
       await this.getAllZones()
       this.loadingCategories = false
 
+      await this.onSelectedProperty()
+      this.bpgStore.maxOccupanciesByHotel = {}
+      await this.getMaxOccupanciesByHotel()
+
       await this.getMinStay()
       await this.getRoomAccessHotel()
+      this.loadingCategories = false
 
       const extraFeeGolf = await this.bpgStore.getExtraFeeGolf()
       this.gPrices = extraFeeGolf.data?.data || []
-
-      await this.onSelectedProperty()
-      this.loadingCategories = false
 
       await this.getStays()
 
@@ -1583,6 +1588,18 @@ export default class BPGPage extends Mixins(
     }
   }
 
+  public async getMaxOccupanciesByHotel(): Promise<void> {
+    try {
+      const hotel = this.propertySelectedTab?.code || ''
+
+      if (hotel) {
+        this.currentHotelMaxOccupancy = await this.bpgStore.getMaxOccupanciesByHotel(hotel)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   public async getRoomAccessHotel(): Promise<void> {
     try {
       this.roomAccess = await this.bpgStore.getCategorysByProperty()
@@ -1617,7 +1634,7 @@ export default class BPGPage extends Mixins(
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: access.maxOccupancy,
+          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access),
           tooltip: ''
         }))
         .filter((access: any) => {
@@ -1645,6 +1662,15 @@ export default class BPGPage extends Mixins(
     )
   }
 
+  public getMaxOccupanciesByHotelAndRoomType(access: any): number {
+    const item = this.currentHotelMaxOccupancy.find(
+      (maxOccupancy: MaxOccupancyByHotelAndRoomType) =>
+        maxOccupancy.hotel === access.hotel && maxOccupancy.roomType === access.roomTypeId
+    )
+
+    return item?.maxOccupancy || 0
+  }
+
   public validatePartRoom(rmType: string, numbers: string = '456789') {
     for (let i = 0; i < rmType.length; i++) {
       if (numbers.indexOf(rmType.charAt(i), 0) !== -1) return true
@@ -1657,8 +1683,9 @@ export default class BPGPage extends Mixins(
   }
 
   // public async onClickProperty(property: any): Promise<void> {
-  public onClickProperty(property: any): void {
+  public async onClickProperty(property: any): Promise<void> {
     this.propertySelectedTab = property
+    await this.getMaxOccupanciesByHotel()
   }
 
   public async getAllZones() {

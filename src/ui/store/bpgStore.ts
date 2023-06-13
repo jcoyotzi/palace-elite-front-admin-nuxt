@@ -20,6 +20,8 @@ import GetBenefitsAdditionalsUseCase from '~/src/app/bpg/application/getBenefits
 import GetMinimumStayUseCase from '~/src/app/bpg/application/getMinimumStayUseCase'
 import MinimumStay from '~/src/app/bpg/domain/entities/minimumStay'
 import {GetAllZonesRequest} from '~/src/app/bpg/domain/entities/strapiBpg'
+import GetMaxOccupancyByHotelUseCase from '~/src/app/bpg/application/getMaxOccupancyByHotelUseCase'
+import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel'
 
 @Store({
   name: 'BPGStore'
@@ -64,6 +66,9 @@ export class BPGStore extends Pinia {
   @lazyInject(bpgTypes.getMinimumStayUseCase)
   private readonly getMinimumStayUseCase!: GetMinimumStayUseCase
 
+  @lazyInject(bpgTypes.getMaxOccupancyByHotelUseCase)
+  private readonly getMaxOccupancyByHotelUseCase!: GetMaxOccupancyByHotelUseCase
+
   public categorys: Category[] = []
 
   public termsAndConditionsProvisions: any = []
@@ -81,6 +86,10 @@ export class BPGStore extends Pinia {
 
   public minimumStay: MinimumStay[] = []
 
+  public maxOccupanciesByHotel: {
+    [key: string]: MaxOccupancyByHotelAndRoomType[]
+  } = {}
+
   public get bookingStore(): BookingStore {
     return new BookingStore()
   }
@@ -93,6 +102,20 @@ export class BPGStore extends Pinia {
   public async getMimimumStay() {
     const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
     this.minimumStay = data?.data! || []
+  }
+
+  public async getMaxOccupanciesByHotel(hotel: string) {
+    if (!this.maxOccupanciesByHotel[hotel]){
+      const request = {
+        hotel,
+        application: this.affiliateInfo.application,
+        company: this.affiliateInfo.company
+      }
+
+      this.maxOccupanciesByHotel[hotel] = await this.getMaxOccupancyByHotelUseCase.run(request)
+    }
+
+    return this.maxOccupanciesByHotel[hotel]
   }
 
   public async getCategorysByProperty() {
