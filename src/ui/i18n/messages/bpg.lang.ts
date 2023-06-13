@@ -72,9 +72,13 @@ export default {
       minStaysBaglioni: '* Aplican las estancias mínimas vigentes al momento de reservar.',
       bpgSecurity: 'La información en esta pagina es exclusivamente para miembros nuevos.',
       loading: 'Cargando...',
+      rewardTextPromotion: '({stay}) noches de estancia o más, y ganar ({nights}) Noches Rewards',
+      rewardTextPromotionShort: '({stay}) noches más ({nights}) Noches Rewards',
       benefits: 'Beneficios',
     },
     en: {
+      rewardTextPromotion: '({stay}) nights stay or more and earn ({nights}) Rewards Nights',
+      rewardTextPromotionShort: '({stay}) nights plus ({nights}) Rewards Nights',
       loading: 'Loading...',
       bpgSecurity: 'The information on this page is exclusively for new members.',
       diamondPresidential: 'Diamond Presidential Suite',
@@ -148,6 +152,9 @@ export default {
       suitesToChoose: 'Suites to Choose'
     },
     pt: {
+      or: 'ou',
+      rewardTextPromotion: '({stay}) noites de estadia ou mais e ganhar ({nights}) Rewards Nights',
+      rewardTextPromotionShort: '({stay}) noites mais ({nights}) Noites Rewards',
       andOr: 'e/ou',
       loading: 'Carregando...',
       bpgSecurity: 'A informação nesta página é exclusivamente para miembros novos.',

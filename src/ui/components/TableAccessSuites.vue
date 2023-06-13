@@ -198,7 +198,7 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
             accessNumber: index > 0 ? '' : access.accessNumber,
             color: accessNumber.color,
             roomTypeDescription:
-              access.roomTypeId === 'P'
+              access.roomTypeId === 'DP'
                 ? `${access.roomTypeDescription} *`
                 : access.roomTypeDescription
           }))
