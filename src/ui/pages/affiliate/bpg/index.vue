@@ -222,6 +222,7 @@ import {
   CatalogImperials,
   CatalogIncentivo,
   Provisions,
+  Additionals,
   allCatalogsValues,
   Promotions,
   BaglioniVillas
@@ -1271,6 +1272,12 @@ export default class BPGPage extends Mixins(
     return []
   }
 
+  public replaceDataGolf(description: string): string {
+    return description
+      .replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
+      .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+  }
+
   public extractBenefitsAndPreferentials(
     products: Product[],
     benefits: Promotion[],
@@ -1359,6 +1366,17 @@ export default class BPGPage extends Mixins(
 
           if (promotion.code === Provisions.CONCERT && concert) return promotion
 
+          const golf50 = this.benefitsAdditionals.find(
+            (additional: any) => additional.additionalBenefit === Additionals.GOLF50
+          )
+
+          if (promotion.code === Provisions.GOLFRND50 && golf50) {
+            return {
+              ...promotion,
+              description: this.replaceDataGolf(promotion?.description)
+            }
+          }
+
           let prod: any = products.find(
             (prod: any) => codes.includes(prod[type]) || codes.includes('ALL')
           )
@@ -1374,9 +1392,7 @@ export default class BPGPage extends Mixins(
               promotion.code === Provisions.UGBWEEK ||
               promotion.code === Provisions.UGBNIG
             )
-              promotion.description = promotion
-                ?.description!.replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
-                .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+              promotion.description = this.replaceDataGolf(promotion?.description)
 
             if (allCatalogsValues.includes(prod[type])) {
               if (catalogImperials.includes(prod[type])) catalogSearch = catalogImperials

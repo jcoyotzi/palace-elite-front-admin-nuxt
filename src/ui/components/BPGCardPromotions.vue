@@ -37,13 +37,15 @@
               <li
                 v-for="(impwk, index) in mapperList"
                 :key="index"
-                class="mb-2 text-white"
+                class="mb-2"
+                :class="textClasses"
                 v-html="impwk.ltrName"
               />
             </ul>
             <div
               v-if="!shortContent"
-              class="ms-text-white mt-6 text-justify"
+              class="mt-6 text-justify"
+              :class="textClasses"
               v-html="textNewOldSchema"
             />
           </div>
@@ -112,13 +114,15 @@
             <li
               v-for="(impwk, index) in mapperList"
               :key="index"
-              class="mb-2 text-white"
+              class="mb-2"
+              :class="textClasses"
               v-html="impwk.ltrName"
             />
           </ul>
           <div
             v-if="!shortContent"
-            class="ms-text-white mt-6 text-justify"
+            class="mt-6 text-justify"
+            :class="textClasses"
             v-html="textNewOldSchema"
           />
         </div>
