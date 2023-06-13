@@ -15,14 +15,14 @@ export default class BasePageStrapiMixin extends Mixins (OnCurrentLocaleChanged)
   //   return this.contentStore.heroDefault;
   // }
 
-  async loadStrapiPageData(slugPage?: BasePageSlugs | string, typePage?: BaseTypePages): Promise<any> {
+  async loadStrapiPageData(slugPage?: BasePageSlugs | string, typePage?: BaseTypePages, locale?: string): Promise<any> {
     slugPage = slugPage || this.slugPage;
     typePage = typePage || this.typePage;
 
     this.loadingComponents = true;
     
     if (slugPage.length && typePage.length) {
-      const response = await this.contentStore.loadPage(slugPage, typePage);
+      const response = await this.contentStore.loadPage(slugPage, typePage, locale);
 
       if (response?.data && response.data[0] && response.data[0].attributes) {
         // this.components = await blocksToComponentsAdapter(response.data[0].attributes.blocks)
