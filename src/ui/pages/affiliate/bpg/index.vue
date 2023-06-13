@@ -1139,13 +1139,13 @@ export default class BPGPage extends Mixins(
       !notInterval.includes(this.infoMember.intervalPlatinum)
     ) {
       interval = this.sectionInterval.find(
-        (intervalItem: IntervalDto) => intervalItem.code === TypesIntervals.IPLATINUM
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPLATINUM
       )
     }
 
     if (!notInterval.includes(this.infoMember.intervalPrevious)) {
       interval = this.sectionInterval.find(
-        (intervalItem: IntervalDto) => intervalItem.code === TypesIntervals.IPREVIOUS
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPREVIOUS
       )
     }
 
@@ -1292,70 +1292,69 @@ export default class BPGPage extends Mixins(
           // //buscamos hacer match con back end del producto recorrido
           const codes = promotion.code.replaceAll(' ', '').split('&')
 
-          switch (promotion.code) {
-          case Provisions.CONCIERGE:
-            if (membershipLevelsAccess.includes(membershipLevelCode)) {
-              let strLevel: string = ''
-              let imperialsReplace: string[] = []
-              let imperialsReplaceLong: string[] = []
+          if (
+            promotion.code === Provisions.CONCIERGE &&
+            membershipLevelsAccess.includes(membershipLevelCode)
+          ) {
+            let strLevel: string = ''
+            let imperialsReplace: string[] = []
+            let imperialsReplaceLong: string[] = []
 
-              const imperials = [
-                ...new Set(
-                  products
-                    .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
-                    .map(benefit => benefit.category)
-                )
-              ]
+            const imperials = [
+              ...new Set(
+                products
+                  .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
+                  .map(benefit => benefit.category)
+              )
+            ]
 
-              if (imperials.length < 1)
-                promotion.description = this.removeMarksSuitesExclusives({
-                  markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
-                  markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
-                  description: promotion.description
-                })
+            if (imperials.length < 1)
+              promotion.description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
+                markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
+                description: promotion.description
+              })
 
-              if (imperials.includes(CatalogImperials.IMPWKS)) {
-                imperialsReplace.push(this.$t('weeks') as string)
-                imperialsReplaceLong.push(this.$t('weeksImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPWKS)) {
+              imperialsReplace.push(this.$t('weeks') as string)
+              imperialsReplaceLong.push(this.$t('weeksImperials') as string)
+            }
 
-              if (imperials.includes(CatalogImperials.IMPNIG)) {
-                imperialsReplace.push(this.$t('nights') as string)
-                imperialsReplaceLong.push(this.$t('nightsImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPNIG)) {
+              imperialsReplace.push(this.$t('nights') as string)
+              imperialsReplaceLong.push(this.$t('nightsImperials') as string)
+            }
 
-              if (imperials)
-                if (
-                  Object.values(MembershipLevelsAccessDiamante).includes(
-                    membershipLevelCode as MembershipLevelsAccessDiamante
-                  )
-                )
-                  strLevel = this.$t('affiliatesDiamond') as string
-
+            if (imperials)
               if (
-                Object.values(MembershipLevelsAccessVIP).includes(
-                  membershipLevelCode as MembershipLevelsAccessVIP
+                Object.values(MembershipLevelsAccessDiamante).includes(
+                  membershipLevelCode as MembershipLevelsAccessDiamante
                 )
               )
-                strLevel = this.$t('affiliatesVIP') as string
+                strLevel = this.$t('affiliatesDiamond') as string
 
-              return {
-                ...promotion,
-                description: promotion.description
-                  .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
-                  .replace(
-                    '{WEEKS_AND_NIGHTS}',
-                    this.createStringElements(imperialsReplace, '/', ',')
-                  )
-                  .replace(
-                    '{WEEKS_AND_NIGHTS_IMPERIALS}',
-                    this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
-                  )
-                  .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
-                  .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
-              }
+            if (
+              Object.values(MembershipLevelsAccessVIP).includes(
+                membershipLevelCode as MembershipLevelsAccessVIP
+              )
+            )
+              strLevel = this.$t('affiliatesVIP') as string
+
+            return {
+              ...promotion,
+              description: promotion.description
+                .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
+                .replace(
+                  '{WEEKS_AND_NIGHTS}',
+                  this.createStringElements(imperialsReplace, '/', ',')
+                )
+                .replace(
+                  '{WEEKS_AND_NIGHTS_IMPERIALS}',
+                  this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
+                )
+                .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
+                .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
             }
-            break
           }
 
           if (promotion.code === Provisions.CONCERT && concert) return promotion
@@ -1369,7 +1368,7 @@ export default class BPGPage extends Mixins(
             const catalogAnniversary = Object.values(CatalogAnniversary)
             const catalogIncentivo = Object.values(CatalogIncentivo)
 
-            // validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
+            //validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
             if (
               promotion.code === Provisions.GOLFRND ||
               promotion.code === Provisions.UGBWEEK ||

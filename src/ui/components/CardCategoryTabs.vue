@@ -302,7 +302,7 @@
 <script lang="ts">
 import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
 // import PELoadingData from './PELoadingData.vue'
-import SkeletonLine from './skeletonLine.vue'
+import SkeletonLine from '~/src/ui/components/skeletonLine.vue'
 
 interface CategoryBPG {
   title: string
