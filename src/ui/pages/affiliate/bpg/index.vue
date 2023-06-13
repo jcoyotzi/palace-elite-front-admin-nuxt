@@ -682,6 +682,8 @@ export default class BPGPage extends Mixins(
               description: consideration.description
             })
 
+          const accessGolfHotelCourseHotels = this.getAccessGolfHotelCourseHotels()
+
           return {
             ...consideration,
             description: description!
@@ -692,6 +694,7 @@ export default class BPGPage extends Mixins(
               .replace('{ULGAPNG_YEAR}', String(ULGAPNG?.year))
               .replace('{MARK_YEARS_MPPC_START}', '')
               .replace('{MARK_YEARS_MPPC_END}', '')
+              .replace('{HOTEL_ACCESS}', accessGolfHotelCourseHotels)
           }
           // case 'EM':
           //   const groups = this.groups.map(({group}: any) => group)
@@ -1272,8 +1275,21 @@ export default class BPGPage extends Mixins(
     return []
   }
 
+  public getAccessGolfHotelCourseHotels() {
+    return this.infoMember.accessGolfCourse.map((access: any) => {
+      if (access.hotel === 'MPS') return 'Moon Palace Cancún'
+      if (access.hotel === 'ZCMP') return 'Moon Palace Punta Cana'
+      return ''
+    })
+      .filter((access: any) => access)
+      .join(` ${this.$t('and',this.affiliationLangToLocale)} `)
+  }
+
   public replaceDataGolf(description: string): string {
+    const accessGolfHotelCourseHotels = this.getAccessGolfHotelCourseHotels()
+
     return description
+      .replace('{HOTEL_ACCESS}', accessGolfHotelCourseHotels)
       .replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
       .replace('{MPPC_YEARS}', String(this.mppc?.validity))
   }
