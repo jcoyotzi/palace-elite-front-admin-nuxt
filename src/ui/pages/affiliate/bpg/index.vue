@@ -235,6 +235,7 @@ import {
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
+import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 
 @Component({
   name: 'BPGPage',
@@ -306,6 +307,8 @@ export default class BPGPage extends Mixins(
   public codeShowPromotion: string = ''
 
   public currentHotelMaxOccupancy: MaxOccupancyByHotelAndRoomType[] = []
+  
+  public sisturPromotions: SisturPromotion[] = []
 
   // public get heroAttrs(): HeroDto {
   //   return this.contentStore.heroDefault
@@ -913,6 +916,7 @@ export default class BPGPage extends Mixins(
 
       await this.getPromotionsElite()
       await this.getBenefitsElite()
+      this.getResortCredit()
 
       this.loadingProductsElite = false
 
@@ -1135,13 +1139,13 @@ export default class BPGPage extends Mixins(
       !notInterval.includes(this.infoMember.intervalPlatinum)
     ) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPLATINUM
+        (intervalItem: IntervalDto) => intervalItem.code === TypesIntervals.IPLATINUM
       )
     }
 
     if (!notInterval.includes(this.infoMember.intervalPrevious)) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPREVIOUS || []
+        (intervalItem: IntervalDto) => intervalItem.code === TypesIntervals.IPREVIOUS
       )
     }
 
@@ -1634,7 +1638,7 @@ export default class BPGPage extends Mixins(
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access),
+          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access) > 0 ? this.getMaxOccupanciesByHotelAndRoomType(access) : access.maxOccupancy,
           tooltip: ''
         }))
         .filter((access: any) => {
@@ -1824,6 +1828,23 @@ export default class BPGPage extends Mixins(
     return {
       'interval-description-mobile': this.isMobile,
       'interval-description': !this.isMobile
+    }
+  }
+
+  public async getResortCredit() {
+    try {
+      const {data} = await this.bpgStore.getResortCredit()
+      this.sisturPromotions = data!
+      //@ts-ignore
+      this.promotions = [
+        ...this.promotions,
+        ...this.sisturPromotions.map(promotion => ({
+          ...promotion,
+          idPromocion: promotion.promotion
+        }))
+      ]
+    } catch (error) {
+      this.sisturPromotions = []
     }
   }
 }

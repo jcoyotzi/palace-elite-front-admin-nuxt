@@ -9,3 +9,8 @@ export default interface InfoAffiliation {
 export interface InfoAffiliationData {
     data: InfoAffiliation[]
 }
+
+export interface QueryAffiliation {
+    application: string
+    company: number
+}

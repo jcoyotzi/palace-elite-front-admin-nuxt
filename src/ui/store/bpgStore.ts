@@ -22,6 +22,8 @@ import MinimumStay from '~/src/app/bpg/domain/entities/minimumStay'
 import {GetAllZonesRequest} from '~/src/app/bpg/domain/entities/strapiBpg'
 import GetMaxOccupancyByHotelUseCase from '~/src/app/bpg/application/getMaxOccupancyByHotelUseCase'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel'
+import GetResortCreditsUseCase from '~/src/app/bpg/application/getResortCreditsUseCase'
+import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto'
 
 @Store({
   name: 'BPGStore'
@@ -68,6 +70,9 @@ export class BPGStore extends Pinia {
 
   @lazyInject(bpgTypes.getMaxOccupancyByHotelUseCase)
   private readonly getMaxOccupancyByHotelUseCase!: GetMaxOccupancyByHotelUseCase
+
+  @lazyInject(bpgTypes.getResortCreditsUseCase)
+  private readonly getResortCreditsUseCase!: GetResortCreditsUseCase
 
   public categorys: Category[] = []
 
@@ -137,6 +142,13 @@ export class BPGStore extends Pinia {
 
   public async getAllZones(data: GetAllZonesRequest) {
     this.zones = await this.getAllZonesUseCase.run(data)
+  }
+
+  public async getResortCredit(): Promise<Response<SisturPromotion[]>> {
+    return await this.getResortCreditsUseCase.run({
+      application: this.affiliateInfo.application,
+      company: this.affiliateInfo.company
+    })
   }
 
   public async getProductsElitePromotions(): Promise<Response<any>> {
