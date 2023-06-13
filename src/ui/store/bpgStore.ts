@@ -71,12 +71,10 @@ export class BPGStore extends Pinia {
   public accessProperties: string[] = []
 
   public headersTableCategory: HeaderTable[] = [
-    {title: 'category', name: 'category', width: '30%', align: 'left'},
-    {title: 'bpg', name: 'bpg', width: '10%', align: 'center'},
-    // {title: 'ocupationMin', name: 'ocupacion_min', width: '10%', align: 'center'},
-    {title: 'ocupationMax', name: 'ocupacion_max', width: '10%', align: 'center'},
-    {title: 'staysMin', name: 'estancias_min', width: '10%', align: 'center'}
-    // {title: 'staysMinRef', name: 'estancias_mree', width: '10%', align: 'center'}
+    {title: 'category', name: 'category', width: '30%', align: 'left', hidden: false},
+    {title: 'bpg', name: 'bpg', width: '10%', align: 'center', hidden: false},
+    {title: 'ocupationMax', name: 'ocupacion_max', width: '10%', align: 'center', hidden: true},
+    {title: 'staysMin', name: 'estancias_min', width: '10%', align: 'center', hidden: true}
   ]
 
   public zones: any = []

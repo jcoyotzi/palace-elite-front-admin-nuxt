@@ -33,6 +33,7 @@ export interface Tabs {
 
 export interface HeaderTable {
   title: string
+  hidden?: boolean
   name: string
   width: string
   align: string
