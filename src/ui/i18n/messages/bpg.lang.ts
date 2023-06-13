@@ -62,6 +62,7 @@ export default {
       weeks: 'Semanas',
       nightsImperials: 'Noches Imperiales',
       weeksImperials: 'Semanas Imperiales',
+      and: 'y',
       andOr: 'y/o',
       yearsAndVigencyTotal:
         'Los accesos en total indicados en su Contrato son válidos hasta el <b>{VIGENCY}</b>, y deben usarse <b>({ACCESS_YEAR})</b> por año.',
@@ -89,6 +90,7 @@ export default {
         'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
       yearsAndVigencyYear:
         'Each access <b>{level}</b> applies <b>({ACCESS_YEAR})</b> per year and is valid until <b>( {VIGENCY} )</b>.',
+      and: 'and',
       andOr: 'and/or',
       nights: 'Nights',
       weeks: 'Weeks',
@@ -155,6 +157,7 @@ export default {
       or: 'ou',
       rewardTextPromotion: '({stay}) noites de estadia ou mais e ganhar ({nights}) Rewards Nights',
       rewardTextPromotionShort: '({stay}) noites mais ({nights}) Noites Rewards',
+      and: 'e',
       andOr: 'e/ou',
       loading: 'Carregando...',
       bpgSecurity: 'A informação nesta página é exclusivamente para miembros novos.',
