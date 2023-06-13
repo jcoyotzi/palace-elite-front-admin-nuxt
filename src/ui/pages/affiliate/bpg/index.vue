@@ -222,6 +222,7 @@ import {
   CatalogImperials,
   CatalogIncentivo,
   Provisions,
+  Additionals,
   allCatalogsValues,
   Promotions,
   BaglioniVillas
@@ -235,6 +236,7 @@ import {
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
+import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 
 @Component({
   name: 'BPGPage',
@@ -306,6 +308,8 @@ export default class BPGPage extends Mixins(
   public codeShowPromotion: string = ''
 
   public currentHotelMaxOccupancy: MaxOccupancyByHotelAndRoomType[] = []
+  
+  public sisturPromotions: SisturPromotion[] = []
 
   // public get heroAttrs(): HeroDto {
   //   return this.contentStore.heroDefault
@@ -913,6 +917,7 @@ export default class BPGPage extends Mixins(
 
       await this.getPromotionsElite()
       await this.getBenefitsElite()
+      this.getResortCredit()
 
       this.loadingProductsElite = false
 
@@ -1135,13 +1140,13 @@ export default class BPGPage extends Mixins(
       !notInterval.includes(this.infoMember.intervalPlatinum)
     ) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPLATINUM
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPLATINUM
       )
     }
 
     if (!notInterval.includes(this.infoMember.intervalPrevious)) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPREVIOUS || []
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPREVIOUS
       )
     }
 
@@ -1267,6 +1272,12 @@ export default class BPGPage extends Mixins(
     return []
   }
 
+  public replaceDataGolf(description: string): string {
+    return description
+      .replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
+      .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+  }
+
   public extractBenefitsAndPreferentials(
     products: Product[],
     benefits: Promotion[],
@@ -1288,73 +1299,83 @@ export default class BPGPage extends Mixins(
           // //buscamos hacer match con back end del producto recorrido
           const codes = promotion.code.replaceAll(' ', '').split('&')
 
-          switch (promotion.code) {
-          case Provisions.CONCIERGE:
-            if (membershipLevelsAccess.includes(membershipLevelCode)) {
-              let strLevel: string = ''
-              let imperialsReplace: string[] = []
-              let imperialsReplaceLong: string[] = []
+          if (
+            promotion.code === Provisions.CONCIERGE &&
+            membershipLevelsAccess.includes(membershipLevelCode)
+          ) {
+            let strLevel: string = ''
+            let imperialsReplace: string[] = []
+            let imperialsReplaceLong: string[] = []
 
-              const imperials = [
-                ...new Set(
-                  products
-                    .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
-                    .map(benefit => benefit.category)
-                )
-              ]
+            const imperials = [
+              ...new Set(
+                products
+                  .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
+                  .map(benefit => benefit.category)
+              )
+            ]
 
-              if (imperials.length < 1)
-                promotion.description = this.removeMarksSuitesExclusives({
-                  markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
-                  markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
-                  description: promotion.description
-                })
+            if (imperials.length < 1)
+              promotion.description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
+                markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
+                description: promotion.description
+              })
 
-              if (imperials.includes(CatalogImperials.IMPWKS)) {
-                imperialsReplace.push(this.$t('weeks') as string)
-                imperialsReplaceLong.push(this.$t('weeksImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPWKS)) {
+              imperialsReplace.push(this.$t('weeks') as string)
+              imperialsReplaceLong.push(this.$t('weeksImperials') as string)
+            }
 
-              if (imperials.includes(CatalogImperials.IMPNIG)) {
-                imperialsReplace.push(this.$t('nights') as string)
-                imperialsReplaceLong.push(this.$t('nightsImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPNIG)) {
+              imperialsReplace.push(this.$t('nights') as string)
+              imperialsReplaceLong.push(this.$t('nightsImperials') as string)
+            }
 
-              if (imperials)
-                if (
-                  Object.values(MembershipLevelsAccessDiamante).includes(
-                    membershipLevelCode as MembershipLevelsAccessDiamante
-                  )
-                )
-                  strLevel = this.$t('affiliatesDiamond') as string
-
+            if (imperials)
               if (
-                Object.values(MembershipLevelsAccessVIP).includes(
-                  membershipLevelCode as MembershipLevelsAccessVIP
+                Object.values(MembershipLevelsAccessDiamante).includes(
+                  membershipLevelCode as MembershipLevelsAccessDiamante
                 )
               )
-                strLevel = this.$t('affiliatesVIP') as string
+                strLevel = this.$t('affiliatesDiamond') as string
 
-              return {
-                ...promotion,
-                description: promotion.description
-                  .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
-                  .replace(
-                    '{WEEKS_AND_NIGHTS}',
-                    this.createStringElements(imperialsReplace, '/', ',')
-                  )
-                  .replace(
-                    '{WEEKS_AND_NIGHTS_IMPERIALS}',
-                    this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
-                  )
-                  .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
-                  .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
-              }
+            if (
+              Object.values(MembershipLevelsAccessVIP).includes(
+                membershipLevelCode as MembershipLevelsAccessVIP
+              )
+            )
+              strLevel = this.$t('affiliatesVIP') as string
+
+            return {
+              ...promotion,
+              description: promotion.description
+                .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
+                .replace(
+                  '{WEEKS_AND_NIGHTS}',
+                  this.createStringElements(imperialsReplace, '/', ',')
+                )
+                .replace(
+                  '{WEEKS_AND_NIGHTS_IMPERIALS}',
+                  this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
+                )
+                .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
+                .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
             }
-            break
           }
 
           if (promotion.code === Provisions.CONCERT && concert) return promotion
+
+          const golf50 = this.benefitsAdditionals.find(
+            (additional: any) => additional.additionalBenefit === Additionals.GOLF50
+          )
+
+          if (promotion.code === Provisions.GOLFRND50 && golf50) {
+            return {
+              ...promotion,
+              description: this.replaceDataGolf(promotion?.description)
+            }
+          }
 
           let prod: any = products.find(
             (prod: any) => codes.includes(prod[type]) || codes.includes('ALL')
@@ -1365,15 +1386,13 @@ export default class BPGPage extends Mixins(
             const catalogAnniversary = Object.values(CatalogAnniversary)
             const catalogIncentivo = Object.values(CatalogIncentivo)
 
-            // validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
+            //validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
             if (
               promotion.code === Provisions.GOLFRND ||
               promotion.code === Provisions.UGBWEEK ||
               promotion.code === Provisions.UGBNIG
             )
-              promotion.description = promotion
-                ?.description!.replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
-                .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+              promotion.description = this.replaceDataGolf(promotion?.description)
 
             if (allCatalogsValues.includes(prod[type])) {
               if (catalogImperials.includes(prod[type])) catalogSearch = catalogImperials
@@ -1634,7 +1653,7 @@ export default class BPGPage extends Mixins(
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access),
+          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access) > 0 ? this.getMaxOccupanciesByHotelAndRoomType(access) : access.maxOccupancy,
           tooltip: ''
         }))
         .filter((access: any) => {
@@ -1824,6 +1843,23 @@ export default class BPGPage extends Mixins(
     return {
       'interval-description-mobile': this.isMobile,
       'interval-description': !this.isMobile
+    }
+  }
+
+  public async getResortCredit() {
+    try {
+      const {data} = await this.bpgStore.getResortCredit()
+      this.sisturPromotions = data!
+      //@ts-ignore
+      this.promotions = [
+        ...this.promotions,
+        ...this.sisturPromotions.map(promotion => ({
+          ...promotion,
+          idPromocion: promotion.promotion
+        }))
+      ]
+    } catch (error) {
+      this.sisturPromotions = []
     }
   }
 }

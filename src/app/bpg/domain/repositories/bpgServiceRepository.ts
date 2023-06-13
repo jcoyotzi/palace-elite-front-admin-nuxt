@@ -11,6 +11,8 @@ import MinimumStay from '../entities/minimumStay'
 import {GetAllZonesRequest} from '../entities/strapiBpg'
 import { MaxOccupancyByHotelDTO } from '../dto/maxOccupancyByHotelDTO'
 import { GetMaxOccupancyByHotelRequest } from '../entities/maxOccupancyByHotel'
+import SisturPromotion from '../dto/sisturPromotionDto'
+import { QueryAffiliation } from '../dto/infoAffiliation'
 
 @injectable()
 export default class BPGServiceRepository implements BPGRepository {
@@ -100,5 +102,13 @@ export default class BPGServiceRepository implements BPGRepository {
     ].join('&')
 
     return this.httpApi.get(`/membership/api/v1/admin/special-max-ocupancy?${query}`)
+  }
+
+  getResortCredits(query: QueryAffiliation): Promise<Response<Response<SisturPromotion[]>>> {
+    const queryParams = [
+      `application=${query.application}`,
+      `company=${query.company}`
+    ].join('&')
+    return this.httpApi.get(`/membership/api/v1/admin/sistur-promotion?${queryParams}`)
   }
 }

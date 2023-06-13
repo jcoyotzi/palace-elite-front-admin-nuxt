@@ -32,7 +32,12 @@ export enum Provisions {
   CONCIERGE = 'CONCIERGE',
   GOLFRND = 'GOLFRND',
   UGBWEEK = 'UGBWEEK',
-  UGBNIG = 'UGBNIG'
+  UGBNIG = 'UGBNIG',
+  GOLFRND50 = 'GOLFRND50'
+}
+
+export enum Additionals {
+  GOLF50 = 'GOLF50'
 }
 
 export enum Promotions {
