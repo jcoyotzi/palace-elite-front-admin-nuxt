@@ -20,6 +20,10 @@ import GetBenefitsAdditionalsUseCase from '~/src/app/bpg/application/getBenefits
 import GetMinimumStayUseCase from '~/src/app/bpg/application/getMinimumStayUseCase'
 import MinimumStay from '~/src/app/bpg/domain/entities/minimumStay'
 import {GetAllZonesRequest} from '~/src/app/bpg/domain/entities/strapiBpg'
+import GetMaxOccupancyByHotelUseCase from '~/src/app/bpg/application/getMaxOccupancyByHotelUseCase'
+import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel'
+import GetResortCreditsUseCase from '~/src/app/bpg/application/getResortCreditsUseCase'
+import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto'
 
 @Store({
   name: 'BPGStore'
@@ -64,6 +68,12 @@ export class BPGStore extends Pinia {
   @lazyInject(bpgTypes.getMinimumStayUseCase)
   private readonly getMinimumStayUseCase!: GetMinimumStayUseCase
 
+  @lazyInject(bpgTypes.getMaxOccupancyByHotelUseCase)
+  private readonly getMaxOccupancyByHotelUseCase!: GetMaxOccupancyByHotelUseCase
+
+  @lazyInject(bpgTypes.getResortCreditsUseCase)
+  private readonly getResortCreditsUseCase!: GetResortCreditsUseCase
+
   public categorys: Category[] = []
 
   public termsAndConditionsProvisions: any = []
@@ -71,17 +81,19 @@ export class BPGStore extends Pinia {
   public accessProperties: string[] = []
 
   public headersTableCategory: HeaderTable[] = [
-    {title: 'category', name: 'category', width: '30%', align: 'left'},
-    {title: 'bpg', name: 'bpg', width: '10%', align: 'center'},
-    // {title: 'ocupationMin', name: 'ocupacion_min', width: '10%', align: 'center'},
-    {title: 'ocupationMax', name: 'ocupacion_max', width: '10%', align: 'center'},
-    {title: 'staysMin', name: 'estancias_min', width: '10%', align: 'center'}
-    // {title: 'staysMinRef', name: 'estancias_mree', width: '10%', align: 'center'}
+    {title: 'category', name: 'category', width: '30%', align: 'left', hidden: false},
+    {title: 'bpg', name: 'bpg', width: '10%', align: 'center', hidden: false},
+    {title: 'ocupationMax', name: 'ocupacion_max', width: '10%', align: 'center', hidden: true},
+    {title: 'staysMin', name: 'estancias_min', width: '10%', align: 'center', hidden: true}
   ]
 
   public zones: any = []
 
   public minimumStay: MinimumStay[] = []
+
+  public maxOccupanciesByHotel: {
+    [key: string]: MaxOccupancyByHotelAndRoomType[]
+  } = {}
 
   public get bookingStore(): BookingStore {
     return new BookingStore()
@@ -95,6 +107,20 @@ export class BPGStore extends Pinia {
   public async getMimimumStay() {
     const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
     this.minimumStay = data?.data! || []
+  }
+
+  public async getMaxOccupanciesByHotel(hotel: string) {
+    if (!this.maxOccupanciesByHotel[hotel]){
+      const request = {
+        hotel,
+        application: this.affiliateInfo.application,
+        company: this.affiliateInfo.company
+      }
+
+      this.maxOccupanciesByHotel[hotel] = await this.getMaxOccupancyByHotelUseCase.run(request)
+    }
+
+    return this.maxOccupanciesByHotel[hotel]
   }
 
   public async getCategorysByProperty() {
@@ -116,6 +142,13 @@ export class BPGStore extends Pinia {
 
   public async getAllZones(data: GetAllZonesRequest) {
     this.zones = await this.getAllZonesUseCase.run(data)
+  }
+
+  public async getResortCredit(): Promise<Response<SisturPromotion[]>> {
+    return await this.getResortCreditsUseCase.run({
+      application: this.affiliateInfo.application,
+      company: this.affiliateInfo.company
+    })
   }
 
   public async getProductsElitePromotions(): Promise<Response<any>> {

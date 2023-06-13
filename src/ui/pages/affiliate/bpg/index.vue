@@ -11,8 +11,9 @@
     v-else
     class="ms-mt-4 lg:ms-mt-12"
   >
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Resume -->
-    <div>
+    <div class="ms-hidden md:ms-flow-root">
       <BPGResumeMicroSiteSkeleton v-if="loadingAffiliationInformation" />
       <BPGResumeMicroSite
         v-else
@@ -22,7 +23,9 @@
     </div>
 
     <!-- category tabs -->
-    <p class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold">
+    <p
+      class="ms-mt-[32px] md:ms-mt-[100px] ms-mb-[32px] ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold ms-text-[18px] md:ms-text-[40px]"
+    >
       {{ titlesPage.title }}
     </p>
     <CardCategoryTabs
@@ -34,7 +37,7 @@
 
     <!-- Importante a considerar -->
     <p
-      class="ms-mt-6 ms-mb-4 ms-text-2xl lg:ms-text-4xl lg:ms-mt-20 lg:ms-mb-8 ms-text-center ms-uppercase ms-text-blue-light ms-font-semibold"
+      class="ms-text-center md:!ms-text-left ms-mt-[32px] md:!ms-mt-[100px] ms-mb-[16px] ms-uppercase ms-text-blue-light ms-font-semibold ms-text-[18px] md:!ms-text-[24px]"
     >
       {{ titlesPage?.considerationsTitle }}
     </p>
@@ -61,11 +64,14 @@
       :dark="false"
     />
     <div
-      class="ms-grid ms-grid-cols-[repeat(auto-fit,_32%)] ms-m-auto ms-gap-6 ms-mt-4 ms-justify-center"
+      :class="isMobile ? 'carousel' : ''"
+      class="ms-w-full md:!ms-grid md:!ms-grid-cols-[repeat(auto-fit,_32%)] md:!ms-m-auto ms-gap-6 ms-mt-4 md:!ms-justify-center"
       v-if="showProductsElite"
     >
       <BPGCardPromotions
-        v-for="(product, index) in productsList"
+        :class="isMobile ? 'carousel-item' : ''"
+        :isMobile="isMobile"
+        v-for="(product, index) in productsListMobile"
         :key="index"
         :termsAndConditionsProvisions="termsAndConditionsProvisions"
         :texts="textsProvitions"
@@ -79,6 +85,9 @@
           #button
           v-if="product?.label"
         >
+          <pre class="ms-text-white">
+            {{ product }}
+          </pre>
           <PEButton
             flat
             rounded
@@ -88,6 +97,35 @@
           </PEButton>
         </template>
       </BPGCardPromotions>
+      <div
+        class="ms-bg-black-light md:ms-hidden ms-w-[280px] ms-rounded-[12px] ms-justify-center ms-items-center"
+        :class="isMobile ? 'carousel-item' : ''"
+        :isMobile="isMobile"
+        @click.prevent="displayMorePromotions"
+      >
+        <div
+          :class="getClassDisplayMorePromotions()"
+          class="ms-grid ms-place-items-center ms-rounded-full ms-border-2 ms-border-blue-light ms-py-[32px] ms-px-[24px]"
+        >
+          <span class="ms-text-[14px] ms-text-blue-light ms-font-sans ms-uppercase ms-font-bold">
+            {{ $t('seeMore') }}
+          </span>
+          <svg
+            width="18"
+            height="15"
+            class="text-blue-light mt-4"
+            viewBox="0 0 18 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.4444 7.07959L17.4443 7.07969L17.4528 7.08778C17.5064 7.13886 17.5196 7.18139 17.5196 7.22729C17.5196 7.27025 17.5085 7.31248 17.4491 7.37044L17.449 7.37041L17.4445 7.37492L17.1658 7.65389L17.1309 7.56481L16.9999 7.2302L17.1319 6.88719L17.1654 6.80018L17.4444 7.07959ZM16.2807 8.24004L16.595 8.22501L10.9192 13.905C10.8514 13.9686 10.8143 13.9741 10.7775 13.9741C10.7176 13.9741 10.6805 13.9531 10.6592 13.9321C10.6383 13.9114 10.6189 13.8773 10.6189 13.8222C10.6189 13.7845 10.6254 13.7506 10.6345 13.7255C10.6403 13.7094 10.6454 13.7015 10.6469 13.6994L10.6521 13.694L13.5494 10.773L16.2807 8.24004ZM16.5955 6.2296L16.2744 6.21424L13.5496 3.68182L10.6543 0.762754C10.6422 0.749997 10.6189 0.715375 10.6189 0.632446C10.6189 0.575028 10.6388 0.54145 10.6587 0.521906C10.6791 0.501777 10.7161 0.480531 10.7775 0.480531C10.8095 0.480531 10.8253 0.485051 10.8397 0.491587C10.8576 0.499667 10.8964 0.521784 10.9587 0.58613L10.9587 0.586169L10.9639 0.591364L16.5955 6.2296ZM15.9565 7.23039L15.8845 7.29717L13.8123 7.39627H0.64265C0.574781 7.39627 0.539918 7.37368 0.522349 7.35591C0.5044 7.33776 0.480363 7.29999 0.480363 7.22729C0.480363 7.15234 0.504869 7.11517 0.521798 7.09811C0.538562 7.08121 0.57324 7.05832 0.64265 7.05832H13.8123L15.8777 7.15709L15.9565 7.23039Z"
+              stroke="currentColor"
+              stroke-width="0.960727"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <PESkeletonCardProvition v-else-if="loadingProductsElite" :dark="false" />
     <div
@@ -98,19 +136,22 @@
     </div>
 
     <div
-      class="ms-flex gap-12 ms-my-[200px] ms-items-center ms-justify-center"
+      class="md:!ms-flex md:!gap-12 md:ms-my-[200px] ms-mt-[32px] ms-items-center ms-justify-center"
       v-if="interval"
     >
       <img
-        class="rounded-[8px] !ms-max-h-[390px] w-[477px] ms-object-cover"
+        class="rounded-[8px] md:!ms-max-h-[390px] w-full md:w-[477px] ms-object-cover"
         :src="interval.urlImage"
       />
-      <div class="ms-max-w-[800px] ms-p-12">
-        <div class="ms-font-sans ms-uppercase ms-font-semibold ms-text-[24px] ms-text-blue-light">
+      <div class="ms-w-full md:ms-max-w-[800px] mt-[24px] md:ms-p-12">
+        <div
+          class="ms-font-sans ms-text-center md:ms-text-left ms-uppercase ms-font-semibold ms-text-[18px] md:ms-text-[24px] ms-text-blue-light"
+        >
           {{ interval.title }}
         </div>
         <div
-          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[16px] ms-text-gray-500"
+          :class="getClassDescriptionInterval()"
+          class="ms-mt-[24px] ms-font-sans ms-font-normal ms-text-[14px] md:ms-text-[16px] !ms-text-gray-500"
           v-html="interval.description"
         />
       </div>
@@ -124,7 +165,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, /* Watch */ } from 'vue-property-decorator';
+import 'tailwindcss/tailwind.css'
+import { Component, Mixins, Watch } from 'vue-property-decorator';
 import i18nDayjsMixin from '~/src/ui/mixins/i18nDayjsMixin'
 import CurrencyFormatDivisa from '~/src/ui/mixins/CurrencyFormatDivisa'
 import i18n from '~/src/ui/i18n/messages/bpg.lang'
@@ -143,6 +185,7 @@ import {TypesProductsElite} from '~/src/app/bpg/domain/enum/typesProductsElite'
 import {TabsProductsElite} from '~/src/app/bpg/domain/dto/productsEliteDto'
 import {ItemsResume} from '~/src/app/bpg/domain/dto/resumeDto'
 import {LocalePageBPG} from '~/src/app/bpg/domain/enum/localePageBPG'
+import BPGCardPromotions from '~/src/ui/components/BPGCardPromotions.vue'
 import {SequentSuitesBPGEspecial} from '~/src/app/bpg/domain/enum/sequentSuitesBPGEspecial'
 import {
   IntervalDto,
@@ -179,8 +222,10 @@ import {
   CatalogImperials,
   CatalogIncentivo,
   Provisions,
+  Additionals,
   allCatalogsValues,
-  Promotions
+  Promotions,
+  BaglioniVillas
 } from '~/src/app/bpg/domain/enum/catalogProvitions'
 import {baglioniCodes} from '~/src/app/property/domain/data/baglioniCodes'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
@@ -189,6 +234,9 @@ import {
   MembershipLevelsAccessVIP
 } from '~/src/app/bpg/domain/enum/membershipLevels'
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
+import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
+import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
+import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 
 @Component({
   name: 'BPGPage',
@@ -198,6 +246,10 @@ import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
     breadcrumb: ['home', 'affiliateSearch', 'bpg']
   },
   i18n,
+  components: {
+    CardCategoryTabs,
+    BPGCardPromotions
+  }
 })
 export default class BPGPage extends Mixins(
   // BookingWidgetMixin,
@@ -241,6 +293,8 @@ export default class BPGPage extends Mixins(
 
   public minStay: any = {}
 
+  public isMobile: boolean = false
+
   public stayRegularNights: string = ''
 
   public stayMinimumNights: string = ''
@@ -252,6 +306,10 @@ export default class BPGPage extends Mixins(
   public loadingProductsElite: boolean = true
 
   public codeShowPromotion: string = ''
+
+  public currentHotelMaxOccupancy: MaxOccupancyByHotelAndRoomType[] = []
+  
+  public sisturPromotions: SisturPromotion[] = []
 
   // public get heroAttrs(): HeroDto {
   //   return this.contentStore.heroDefault
@@ -355,11 +413,11 @@ export default class BPGPage extends Mixins(
 
     const positions = []
 
-    let index = str.indexOf(',')
+    let index = str.indexOf(caracterJoin)
 
     while (index !== -1) {
       positions.push(index)
-      index = str.indexOf(',', index + 1)
+      index = str.indexOf(caracterJoin, index + 1)
     }
 
     const position = positions.pop()
@@ -451,13 +509,18 @@ export default class BPGPage extends Mixins(
   public get accessMembership() {
     return this.roomHotelAccess?.filter(
       (access: any) =>
-        [
+        ([
           CatalogGroupsIds.VILLAS,
           CatalogGroupsIds.RESIDENCE,
           CatalogGroupsIds.BABY_VILLAS,
           CatalogGroupsIds.BABY_RESIDENCE,
           CatalogGroupsIds.PRESIDENTIAL_DIAMOND
-        ].includes(access.groupId as CatalogGroupsIds) ||
+        ].includes(access.groupId as CatalogGroupsIds) &&
+          ![
+            BaglioniVillas.VILLA_REGINA,
+            BaglioniVillas.VILLA_MALDIVAS,
+            BaglioniVillas.GRAND_VILLA_MALDIVAS_
+          ].includes(access.idTypeRoom)) ||
         String(access.roomTypeDescription).search('Diamond') > -1 ||
         String(access.roomTypeDescription).search('Diamante') > -1
     )
@@ -497,6 +560,8 @@ export default class BPGPage extends Mixins(
     const villa = this.roomHotelAccess.find((access: any) =>
       [CatalogGroupsIds.VILLAS, CatalogGroupsIds.BABY_VILLAS].includes(
         access.groupId as CatalogGroupsIds
+      ) && ![BaglioniVillas.VILLA_REGINA, BaglioniVillas.VILLA_MALDIVAS, BaglioniVillas.GRAND_VILLA_MALDIVAS_].includes(
+        access.idTypeRoom
       )
     )
 
@@ -687,12 +752,6 @@ export default class BPGPage extends Mixins(
     return (
       this.considerations
         .map((consideration: any) => {
-          // if (
-          //   String(consideration.code) === TypeConsiderations.ESTANCIA_MINIMA &&
-          //   !this.minStay.MinimiumStay
-          // )
-          //   return consideration.code
-
           if (
             String(consideration.code) === TypeConsiderations.SUITES_EXCLUSIVES &&
             this.accessMembership.length < 1
@@ -756,6 +815,19 @@ export default class BPGPage extends Mixins(
     return this.$i18n.locale
   }
 
+  public get affiliationLangToLocale(): string {
+    switch (this.bpgStore.affiliateInfo.lang) {
+    case LocalePageBPG.SPANISH:
+      return 'es';
+    case LocalePageBPG.PORTUGUESE:
+      return 'pt';
+    case LocalePageBPG.ENGLISH:
+      return 'en';
+    default:
+      return this.$i18n.locale
+    }
+  }
+
   public get infoMember() {
     return this.infoMembership
   }
@@ -765,12 +837,15 @@ export default class BPGPage extends Mixins(
   }
 
   public get mppc(): any {
-    const mppc = this.roomHotelAccess.find(categorie => categorie.hotel === 'ZCMP')
+    const mppcAccess = this.roomHotelAccess.filter(categorie => categorie.hotel === 'ZCMP')
+    .sort((a: any, b: any) => {
+        return b.validity - a.validity
+      })
 
-    if (mppc)
-      return {...mppc, dateToText: this.i18nDayjs('MMMM DD, YYYY', mppc?.dateTo?.substr(0, 10))}
-
-    return mppc
+    if (mppcAccess.length > 0) { 
+      return {...mppcAccess[0], dateToText: this.i18nDayjs('MMMM DD, YYYY', mppcAccess[0]?.dateTo?.substr(0, 10))}
+    }
+    return undefined
   }
 
   public get minimumStay() {
@@ -812,10 +887,12 @@ export default class BPGPage extends Mixins(
         return
       }
 
+      this.isMobile = window.innerWidth < 768
+
       await this.getInfoAffiliation()
       // this.redirectToLocalePage()
 
-      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
+      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG, this.typePage, this.affiliationLangToLocale)
       await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
@@ -823,14 +900,16 @@ export default class BPGPage extends Mixins(
       await this.getAllZones()
       this.loadingCategories = false
 
+      await this.onSelectedProperty()
+      this.bpgStore.maxOccupanciesByHotel = {}
+      await this.getMaxOccupanciesByHotel()
+
       await this.getMinStay()
       await this.getRoomAccessHotel()
+      this.loadingCategories = false
 
       const extraFeeGolf = await this.bpgStore.getExtraFeeGolf()
       this.gPrices = extraFeeGolf.data?.data || []
-
-      await this.onSelectedProperty()
-      this.loadingCategories = false
 
       await this.getStays()
 
@@ -838,6 +917,7 @@ export default class BPGPage extends Mixins(
 
       await this.getPromotionsElite()
       await this.getBenefitsElite()
+      this.getResortCredit()
 
       this.loadingProductsElite = false
 
@@ -1060,13 +1140,13 @@ export default class BPGPage extends Mixins(
       !notInterval.includes(this.infoMember.intervalPlatinum)
     ) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPLATINUM
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPLATINUM
       )
     }
 
     if (!notInterval.includes(this.infoMember.intervalPrevious)) {
       interval = this.sectionInterval.find(
-        (interval: IntervalDto) => interval.code === TypesIntervals.IPREVIOUS || []
+        (inter: IntervalDto) => inter.code === TypesIntervals.IPREVIOUS
       )
     }
 
@@ -1163,6 +1243,12 @@ export default class BPGPage extends Mixins(
   //   return this.authStore.user
   // }
 
+  public get productsListMobile() {
+    if (this.isMobile)
+      return this.productsList.filter((promotion, index) => index < this.numberMorePromotions)
+    return this.productsList
+  }
+
   public get productsList() {
     if (this.benefits.length > 0 || this.promotions.length > 0) {
       // validamos que el tab, sea de los productos de beneficios y le asignamos en que parametro buscará
@@ -1186,6 +1272,12 @@ export default class BPGPage extends Mixins(
     return []
   }
 
+  public replaceDataGolf(description: string): string {
+    return description
+      .replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
+      .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+  }
+
   public extractBenefitsAndPreferentials(
     products: Product[],
     benefits: Promotion[],
@@ -1207,73 +1299,83 @@ export default class BPGPage extends Mixins(
           // //buscamos hacer match con back end del producto recorrido
           const codes = promotion.code.replaceAll(' ', '').split('&')
 
-          switch (promotion.code) {
-          case Provisions.CONCIERGE:
-            if (membershipLevelsAccess.includes(membershipLevelCode)) {
-              let strLevel: string = ''
-              let imperialsReplace: string[] = []
-              let imperialsReplaceLong: string[] = []
+          if (
+            promotion.code === Provisions.CONCIERGE &&
+            membershipLevelsAccess.includes(membershipLevelCode)
+          ) {
+            let strLevel: string = ''
+            let imperialsReplace: string[] = []
+            let imperialsReplaceLong: string[] = []
 
-              const imperials = [
-                ...new Set(
-                  products
-                    .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
-                    .map(benefit => benefit.category)
-                )
-              ]
+            const imperials = [
+              ...new Set(
+                products
+                  .filter(benefit => Object.keys(CatalogImperials).includes(benefit.category))
+                  .map(benefit => benefit.category)
+              )
+            ]
 
-              if (imperials.length < 1)
-                promotion.description = this.removeMarksSuitesExclusives({
-                  markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
-                  markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
-                  description: promotion.description
-                })
+            if (imperials.length < 1)
+              promotion.description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_WEEKS_AND_NIGHTS_START}',
+                markEnd: '{MARK_WEEKS_AND_NIGHTS_END}',
+                description: promotion.description
+              })
 
-              if (imperials.includes(CatalogImperials.IMPWKS)) {
-                imperialsReplace.push(this.$t('weeks') as string)
-                imperialsReplaceLong.push(this.$t('weeksImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPWKS)) {
+              imperialsReplace.push(this.$t('weeks') as string)
+              imperialsReplaceLong.push(this.$t('weeksImperials') as string)
+            }
 
-              if (imperials.includes(CatalogImperials.IMPNIG)) {
-                imperialsReplace.push(this.$t('nights') as string)
-                imperialsReplaceLong.push(this.$t('nightsImperials') as string)
-              }
+            if (imperials.includes(CatalogImperials.IMPNIG)) {
+              imperialsReplace.push(this.$t('nights') as string)
+              imperialsReplaceLong.push(this.$t('nightsImperials') as string)
+            }
 
-              if (imperials)
-                if (
-                  Object.values(MembershipLevelsAccessDiamante).includes(
-                    membershipLevelCode as MembershipLevelsAccessDiamante
-                  )
-                )
-                  strLevel = this.$t('affiliatesDiamond') as string
-
+            if (imperials)
               if (
-                Object.values(MembershipLevelsAccessVIP).includes(
-                  membershipLevelCode as MembershipLevelsAccessVIP
+                Object.values(MembershipLevelsAccessDiamante).includes(
+                  membershipLevelCode as MembershipLevelsAccessDiamante
                 )
               )
-                strLevel = this.$t('affiliatesVIP') as string
+                strLevel = this.$t('affiliatesDiamond') as string
 
-              return {
-                ...promotion,
-                description: promotion.description
-                  .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
-                  .replace(
-                    '{WEEKS_AND_NIGHTS}',
-                    this.createStringElements(imperialsReplace, '/', ',')
-                  )
-                  .replace(
-                    '{WEEKS_AND_NIGHTS_IMPERIALS}',
-                    this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
-                  )
-                  .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
-                  .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
-              }
+            if (
+              Object.values(MembershipLevelsAccessVIP).includes(
+                membershipLevelCode as MembershipLevelsAccessVIP
+              )
+            )
+              strLevel = this.$t('affiliatesVIP') as string
+
+            return {
+              ...promotion,
+              description: promotion.description
+                .replace('{AFFILIATE_LEVEL}', `${strLevel}`)
+                .replace(
+                  '{WEEKS_AND_NIGHTS}',
+                  this.createStringElements(imperialsReplace, '/', ',')
+                )
+                .replace(
+                  '{WEEKS_AND_NIGHTS_IMPERIALS}',
+                  this.createStringElements(imperialsReplaceLong, ` ${this.$t('andOr')} `)
+                )
+                .replace('{MARK_WEEKS_AND_NIGHTS_START}', '')
+                .replace('{MARK_WEEKS_AND_NIGHTS_END}', '')
             }
-            break
           }
 
           if (promotion.code === Provisions.CONCERT && concert) return promotion
+
+          const golf50 = this.benefitsAdditionals.find(
+            (additional: any) => additional.additionalBenefit === Additionals.GOLF50
+          )
+
+          if (promotion.code === Provisions.GOLFRND50 && golf50) {
+            return {
+              ...promotion,
+              description: this.replaceDataGolf(promotion?.description)
+            }
+          }
 
           let prod: any = products.find(
             (prod: any) => codes.includes(prod[type]) || codes.includes('ALL')
@@ -1284,15 +1386,13 @@ export default class BPGPage extends Mixins(
             const catalogAnniversary = Object.values(CatalogAnniversary)
             const catalogIncentivo = Object.values(CatalogIncentivo)
 
-            // validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
+            //validamos si ese producto, es de categoria golf y remplazamos la key, por el valor de back de accesos de golf
             if (
               promotion.code === Provisions.GOLFRND ||
               promotion.code === Provisions.UGBWEEK ||
               promotion.code === Provisions.UGBNIG
             )
-              promotion.description = promotion
-                ?.description!.replace('{GOLF_ACCESS}', String(this.infoMember.grAccess))
-                .replace('{MPPC_YEARS}', String(this.mppc?.validity))
+              promotion.description = this.replaceDataGolf(promotion?.description)
 
             if (allCatalogsValues.includes(prod[type])) {
               if (catalogImperials.includes(prod[type])) catalogSearch = catalogImperials
@@ -1326,7 +1426,7 @@ export default class BPGPage extends Mixins(
 
           if (codes.includes('ALL')) return promotion
 
-          if (promotion.code === Provisions.YATE) {
+          if (codes.includes(Provisions.YATE)) {
             return {
               ...promotion,
               description: promotion.description.replace(
@@ -1336,7 +1436,7 @@ export default class BPGPage extends Mixins(
             }
           }
 
-          if (promotion.code === Promotions.KIDS_AND_TEENS && !this.accessSuiteFamily)
+          if (codes.includes(Promotions.KIDS_AND_TEENS) && !this.accessSuiteFamily)
             return {
               ...promotion,
               description: this.removeMarksSuitesExclusives({
@@ -1347,11 +1447,30 @@ export default class BPGPage extends Mixins(
             }
           // //buscamos hacer match con back end del producto recorrido
           let prod = products.find(
-            (prod: Product) => String(promotion.code) === String(prod.idPromocion)
+            (prod: Product) => codes.includes(String(prod.idPromocion)) || codes.includes('ALL')
           )
 
           // si hizo match el producto entre Strapi y back, retornamos ambas infos
           if (prod) {
+            if (
+              codes.includes(Promotions.REWARDS) ||
+              codes.includes(Promotions.REWARDS_PLUS) ||
+              codes.includes(Promotions.REWARDS_UK)
+            ) {
+              const rewards = products.filter(product =>
+                codes.includes(String(product.idPromocion))
+              )
+              return {
+                ...prod,
+                ...promotion,
+                description: this.createTextRewards({
+                  mark: '{MARK_TYPES_REWARDS}',
+                  rewards,
+                  description: promotion.description
+                })
+              }
+            }
+
             return {
               ...prod,
               ...promotion,
@@ -1365,6 +1484,58 @@ export default class BPGPage extends Mixins(
         })
         .filter(product => product) || []
     )
+  }
+
+  public createTextRewards({
+    mark,
+    description,
+    rewards
+  }: {
+    mark: string
+    description: string
+    rewards: any
+  }) {
+    let rewardsValues: any = [
+      {idPromotion: 25, stay: 10, nights: 4},
+      {idPromotion: 7, stay: 7, nights: 3},
+      {idPromotion: 27, stay: 5, nights: 1}
+    ]
+
+    rewardsValues = rewardsValues.filter(({idPromotion}: {idPromotion: number}, index: number) =>
+      rewards.find((reward: any) => reward.idPromocion === idPromotion)
+    )
+
+    const rewardsValuesLong = rewardsValues.map(
+      ({stay, nights}: any) =>
+        this.$t('rewardTextPromotion', {
+          stay: String(stay),
+          nights: String(nights)
+        }) as string
+    )
+    const rewardsValuesShort = rewardsValues.map(
+      ({stay, nights}: any) =>
+        this.$t('rewardTextPromotionShort', {
+          stay: String(stay),
+          nights: String(nights)
+        }) as string
+    )
+
+    const rewardsValuesNumbers = rewardsValues.map(({nights}: any) => nights)
+
+    return description
+      .replace(
+        '{MARK_REWARDS_DYNAMIC}',
+        this.createStringElements(rewardsValuesLong, ` ${this.$t('or')} `, '%')
+      )
+      .replace(
+        '{MARK_NIGHTS_DYNAMIC}',
+        this.createStringElements(rewardsValuesNumbers, ` ${this.$t('or')} `)
+      )
+      .replace('{MARK_REWARDS_TOTAL}', rewards[0]?.Total)
+      .replace(
+        '{MARK_REWARDS_DYNAMIC_SHORT}',
+        this.createStringElements(rewardsValuesShort, ` ${this.$t('or')} `)
+      )
   }
 
   // public async scrollIntoView() {
@@ -1436,6 +1607,18 @@ export default class BPGPage extends Mixins(
     }
   }
 
+  public async getMaxOccupanciesByHotel(): Promise<void> {
+    try {
+      const hotel = this.propertySelectedTab?.code || ''
+
+      if (hotel) {
+        this.currentHotelMaxOccupancy = await this.bpgStore.getMaxOccupanciesByHotel(hotel)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   public async getRoomAccessHotel(): Promise<void> {
     try {
       this.roomAccess = await this.bpgStore.getCategorysByProperty()
@@ -1470,7 +1653,7 @@ export default class BPGPage extends Mixins(
           code: access?.roomTypeId || '-',
           property: this.propertySelectedTab?.code,
           bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: access.maxOccupancy,
+          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access) > 0 ? this.getMaxOccupanciesByHotelAndRoomType(access) : access.maxOccupancy,
           tooltip: ''
         }))
         .filter((access: any) => {
@@ -1498,7 +1681,16 @@ export default class BPGPage extends Mixins(
     )
   }
 
-  public validatePartRoom(rmType: string, numbers: string = '3456789') {
+  public getMaxOccupanciesByHotelAndRoomType(access: any): number {
+    const item = this.currentHotelMaxOccupancy.find(
+      (maxOccupancy: MaxOccupancyByHotelAndRoomType) =>
+        maxOccupancy.hotel === access.hotel && maxOccupancy.roomType === access.roomTypeId
+    )
+
+    return item?.maxOccupancy || 0
+  }
+
+  public validatePartRoom(rmType: string, numbers: string = '456789') {
     for (let i = 0; i < rmType.length; i++) {
       if (numbers.indexOf(rmType.charAt(i), 0) !== -1) return true
     }
@@ -1510,15 +1702,16 @@ export default class BPGPage extends Mixins(
   }
 
   // public async onClickProperty(property: any): Promise<void> {
-  public onClickProperty(property: any): void {
+  public async onClickProperty(property: any): Promise<void> {
     this.propertySelectedTab = property
+    await this.getMaxOccupanciesByHotel()
   }
 
   public async getAllZones() {
     try {
       await this.bpgStore.getAllZones({
         accessProperties: this.accessProperties,
-        locale: this.$i18n.locale
+        locale: this.affiliationLangToLocale,
       })
     } catch (error) {
       console.log(error)
@@ -1627,5 +1820,55 @@ export default class BPGPage extends Mixins(
 
     return minimalStay
   }
+
+  @Watch('bindingTab')
+  onChangeNumberDisplayMorePromotions(newVal: string) {
+    this.numberMorePromotions = 3
+  }
+
+  public numberMorePromotions: number = 3
+
+  public displayMorePromotions() {
+    if (this.numberMorePromotions < this.productsList.length)
+      this.numberMorePromotions = this.numberMorePromotions + 3
+  }
+
+  public getClassDisplayMorePromotions() {
+    return {
+      'ms-opacity-50': this.numberMorePromotions > this.productsList.length
+    }
+  }
+
+  public getClassDescriptionInterval() {
+    return {
+      'interval-description-mobile': this.isMobile,
+      'interval-description': !this.isMobile
+    }
+  }
+
+  public async getResortCredit() {
+    try {
+      const {data} = await this.bpgStore.getResortCredit()
+      this.sisturPromotions = data!
+      //@ts-ignore
+      this.promotions = [
+        ...this.promotions,
+        ...this.sisturPromotions.map(promotion => ({
+          ...promotion,
+          idPromocion: promotion.promotion
+        }))
+      ]
+    } catch (error) {
+      this.sisturPromotions = []
+    }
+  }
 }
 </script>
+<style>
+.interval-description-mobile p {
+  text-align: center !important;
+}
+.interval-description p {
+  text-align: justify !important;
+}
+</style>

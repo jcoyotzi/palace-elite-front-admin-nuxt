@@ -5,6 +5,10 @@ import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '../dto/getBenefitsAdditionalsDto'
 import MinimumStay from '../entities/minimumStay'
 import {GetAllZonesRequest} from '../entities/strapiBpg'
+import { GetMaxOccupancyByHotelRequest } from '../entities/maxOccupancyByHotel'
+import { MaxOccupancyByHotelDTO } from '../dto/maxOccupancyByHotelDTO'
+import SisturPromotion from '../dto/sisturPromotionDto'
+import { QueryAffiliation } from '../dto/infoAffiliation'
 
 export interface BPGRepository {
   getCategorysByProperty(application: string): Promise<Response<any>>
@@ -20,4 +24,6 @@ export interface BPGRepository {
   getTermsAndConditions(application: string, company: number): Promise<Response<Response<any>>>
   getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>>
   getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>>
+  getMaxOccupancyByHotel(request: GetMaxOccupancyByHotelRequest): Promise<Response<Response<MaxOccupancyByHotelDTO[]>>>
+  getResortCredits(query: QueryAffiliation): Promise<Response<Response<SisturPromotion[]>>>
 }

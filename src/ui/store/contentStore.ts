@@ -49,9 +49,9 @@ export class ContentStore extends Pinia {
     return this.$nuxt.i18n.locale
   }
 
-  async loadPage(slug: string, type: BaseTypePages): Promise<any> {
+  async loadPage(slug: string, type: BaseTypePages, locale?: string): Promise<any> {
     let pageData: any;
-    const locale = this.getCurrentLocale()
+    locale = locale || this.getCurrentLocale()
 
     slug = this.getValidateSlug(slug, locale)
 

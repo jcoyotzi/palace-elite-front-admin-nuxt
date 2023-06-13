@@ -1,4 +1,5 @@
 export interface Category extends DataStrapi {
+  order?: number
   title: string
   bpg: string
   maxNumberOfGuests?: string

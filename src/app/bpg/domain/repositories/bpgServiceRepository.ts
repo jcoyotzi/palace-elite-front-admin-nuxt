@@ -9,6 +9,10 @@ import {EliteProductsGolf} from '../dto/eliteProductsGolf'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
 import MinimumStay from '../entities/minimumStay'
 import {GetAllZonesRequest} from '../entities/strapiBpg'
+import { MaxOccupancyByHotelDTO } from '../dto/maxOccupancyByHotelDTO'
+import { GetMaxOccupancyByHotelRequest } from '../entities/maxOccupancyByHotel'
+import SisturPromotion from '../dto/sisturPromotionDto'
+import { QueryAffiliation } from '../dto/infoAffiliation'
 
 @injectable()
 export default class BPGServiceRepository implements BPGRepository {
@@ -88,5 +92,23 @@ export default class BPGServiceRepository implements BPGRepository {
 
   getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>> {
     return this.httpApi.get(`/benefit/api/v1/admin/additional?application=${application}`)
+  }
+
+  getMaxOccupancyByHotel(request: GetMaxOccupancyByHotelRequest): Promise<Response<Response<MaxOccupancyByHotelDTO[]>>> {
+    const query = [
+      `application=${request.application}`,
+      `company=${request.company}`,
+      `hotel=${request.hotel}`,
+    ].join('&')
+
+    return this.httpApi.get(`/membership/api/v1/admin/special-max-ocupancy?${query}`)
+  }
+
+  getResortCredits(query: QueryAffiliation): Promise<Response<Response<SisturPromotion[]>>> {
+    const queryParams = [
+      `application=${query.application}`,
+      `company=${query.company}`
+    ].join('&')
+    return this.httpApi.get(`/membership/api/v1/admin/sistur-promotion?${queryParams}`)
   }
 }
