@@ -160,6 +160,7 @@
 
       <PEModal
         v-model="showModal"
+        :dark="dark"
         class="ms-z-70"
       >
         <template #title>
