@@ -15,10 +15,10 @@
       <div class="ms-flex ms-justify-between ms-mt-6 lg:ms-mt-8">
         <div>
           <PEInput
-            id="search_affiliate_input"
+            id="search-affiliate-input"
             v-model="form.affiliationNumber"
             color="microsite"
-            class="border border-gray-light ms-rounded-[5px] !ms-text-gray-light"
+            class="webkit-text-fill-gray border border-gray-light ms-rounded-[5px] !ms-text-gray-light"
             :label="$t('affiliationNumber')"
             @onEnter="searchAffiliate"
           />
@@ -72,7 +72,7 @@ export default class AffiliateSearchPage extends Vue {
   public bpgStore = new BPGStore();
 
   mounted() {
-    document.getElementById("search_affiliate_input")?.focus()
+    document.getElementById("search-affiliate-input")?.focus()
   }
 
   public form: any = {
@@ -156,3 +156,14 @@ export default class AffiliateSearchPage extends Vue {
   }
 }
 </script>
+
+<style scoped>
+
+.webkit-text-fill-gray::v-deep input:-webkit-autofill {
+  --tw-text-opacity: 1;
+  -webkit-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -moz-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -ms-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -o-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+}
+</style>

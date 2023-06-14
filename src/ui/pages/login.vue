@@ -135,6 +135,10 @@ export default class LoginPage extends Vue {
 }
 
 .custom-form-login::v-deep input:-webkit-autofill {
-  -webkit-text-fill-color: gray !important;
+  --tw-text-opacity: 1;
+  -webkit-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -moz-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -ms-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
+  -o-text-fill-color: rgb(102 102 102 / var(--tw-text-opacity)) !important;
 }
 </style>

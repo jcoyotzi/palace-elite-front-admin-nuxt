@@ -127,7 +127,7 @@
               @click.prevent="clickTabPropertie(propertieIndex)"
             >
               <a
-                class="group inline-flex cursor-pointer rounded-t-lg hover:border-b-2 px-4 py-2 hover:border-blue-light hover:text-blue-light"
+                class="ms-group ms-inline-flex ms-cursor-pointer ms-rounded-t-lg hover:ms-border-b-2 ms-px-4 ms-py-2 hover:ms-border-blue-light hover:ms-text-blue-light"
                 :class="getStylesPropertieTab(propertieIndex)"
                 @click.prevent="onClickProperty(propertie)"
               >
@@ -160,7 +160,7 @@
               @click.prevent="clickTabPropertie(propertieIndex, 'second')"
             >
               <a
-                class="group inline-flex cursor-pointer rounded-t-lg border-b-2 border-transparent px-4 py-2 hover:border-blue-light hover:text-blue-light"
+                class="ms-group ms-inline-flex ms-cursor-pointer ms-rounded-t-lg hover:ms-border-b-2 ms-px-4 ms-py-2 hover:ms-border-blue-light hover:ms-text-blue-light"
                 :class="getStylesPropertieTab(propertieIndex, 'second')"
                 @click.prevent="onClickProperty(propertie)"
               >
@@ -188,7 +188,7 @@
         />
         <div
           v-else
-          class="animation-pulse h-[480px] w-[500px] rounded-[10px] bg-black object-cover"
+          class="animation-pulse h-[480px] w-[500px] rounded-[10px] ms-bg-gray-500 object-cover"
         ></div>
         <div class="grid w-full grid-cols-1 content-between items-center">
           <div>
@@ -529,9 +529,9 @@ export default class CardCategoryTabs extends Vue {
 
   public getClassTab(index: number) {
     return {
-      '!bg-blue-light !text-black': this.indexTab === index,
-      '!bg-[#272527]': this.indexTab !== index && this.dark,
-      '!bg-gray-500': this.indexTab !== index && !this.dark
+      '!ms-bg-blue-light !ms-text-black': this.indexTab === index,
+      '!ms-bg-[#272527]': this.indexTab !== index && this.dark,
+      '!ms-bg-gray-500': this.indexTab !== index && !this.dark
     }
   }
 
@@ -548,8 +548,8 @@ export default class CardCategoryTabs extends Vue {
   public getStylesPropertieTab(index: number, second = '') {
     const isActive: boolean = this.propertieIndexTab === index && this.propertieTabType === second
     return {
-      'text-blue-light border-blue-light active': isActive,
-      'border-transparent': !isActive
+      'ms-text-blue-light ms-border-blue-light ms-active ms-border-b-2': isActive,
+      'ms-border-transparent': !isActive
     }
   }
 
