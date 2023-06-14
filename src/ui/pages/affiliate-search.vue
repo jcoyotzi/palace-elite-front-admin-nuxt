@@ -57,6 +57,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { TranslateResult } from 'vue-i18n';
 import i18n from '../i18n/messages/affiliate-search.lang';
 import { BPGStore } from '../store/bpgStore';
+import { getAffiliationLangToLocale } from '../utils/affiliationLangToLocale';
 
 @Component({
   name: 'AffiliateSearchPage',
@@ -126,6 +127,8 @@ export default class AffiliateSearchPage extends Vue {
 
       this.form.loading = true;
 
+      this.bpgStore.affiliateInfo = {}
+
       await this.bpgStore.getAffiliateInfo(this.form.affiliationNumber);
 
       if (this.showAffiliateCard) {
@@ -141,8 +144,15 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   clickedCardAffiliateOpenButton() {
-    this.$router.push(this.localePath({ path: '/affiliate/bpg', query: { application: this.searchedAffiliate.application } }));
+    this.$router.push(
+      this.localePath(
+        {
+          path: '/affiliate/bpg',
+          query: { application: this.searchedAffiliate.application }
+        },
+        getAffiliationLangToLocale(this.searchedAffiliate.lang, this.$i18n.locale)
+      )
+    );
   }
-
 }
 </script>
