@@ -161,7 +161,7 @@
       <PEModal
         v-model="showModal"
         :dark="dark"
-        class="ms-z-70"
+        class="ms-z-70 text-justify"
       >
         <template #title>
           <h2 class="ms-text-white ms-text-[24px] ms-font-sans ms-mb-5 ms-uppercase">
