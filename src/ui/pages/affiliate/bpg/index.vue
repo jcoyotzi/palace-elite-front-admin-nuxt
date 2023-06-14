@@ -177,7 +177,6 @@ import i18n from '~/src/ui/i18n/messages/bpg.lang'
 import {BPGStore} from '~/src/ui/store/bpgStore'
 import {Category} from '~/src/app/bpg/domain/entities/categorys'
 import CardCategoryTabsDto, {HeaderTable} from '~/src/app/bpg/domain/dto/cardCategoryTabsDto'
-// import {UseAuth as AuthStore} from '../store/auth'
 import {ContentDataPageMapper} from '~/src/app/bpg/domain/mapper/contentDataPageMapper'
 // import PELoadingData from '../components/PELoadingData.vue'
 import {BookingStore} from '~/src/ui/store/bookingStore'
@@ -1442,10 +1441,22 @@ export default class BPGPage extends Mixins(
     )
   }
 
+  public get isNational() {
+    return this.bpgStore.affiliateInfo.isNational
+  }
+
   public extractPromotions(products: Product[], promotions: Promotion[], infoMember: any) {
+
+    const bpg20 = this.minimumStay.find(minStay => minStay.discountRate === 'D20')
+    if (bpg20?.applicableStay! < 7 && this.isNational) bpg20!.applicableStay = 4
+    if (bpg20?.applicableStay! < 7 && !this.isNational) bpg20!.applicableStay = 5
+
     return (
       promotions
         ?.map((promotion: Promotion) => {
+
+          let description = promotion.description
+
           const codes = promotion.code.replaceAll(' ', '').split('&')
 
           if (codes.includes('ALL')) return promotion
@@ -1453,7 +1464,7 @@ export default class BPGPage extends Mixins(
           if (codes.includes(Provisions.YATE)) {
             return {
               ...promotion,
-              description: promotion.description.replace(
+              description: description.replace(
                 '{DISCOUNT_YATE}',
                 `${infoMember?.yachtDiscount}%`
               )
@@ -1466,7 +1477,7 @@ export default class BPGPage extends Mixins(
               description: this.removeMarksSuitesExclusives({
                 markStart: '{MARK_DINAMIC_START}',
                 markEnd: '{MARK_DINAMIC_END}',
-                description: promotion.description
+                description
               })
             }
           // //buscamos hacer match con back end del producto recorrido
@@ -1476,6 +1487,10 @@ export default class BPGPage extends Mixins(
 
           // si hizo match el producto entre Strapi y back, retornamos ambas infos
           if (prod) {
+
+            if (String(prod.idPromocion) === Promotions.PLUS_PLAN)
+              description = description.replace('{NIGHTS}', String(bpg20?.applicableStay))
+
             if (
               codes.includes(Promotions.REWARDS) ||
               codes.includes(Promotions.REWARDS_PLUS) ||
@@ -1490,7 +1505,7 @@ export default class BPGPage extends Mixins(
                 description: this.createTextRewards({
                   mark: '{MARK_TYPES_REWARDS}',
                   rewards,
-                  description: promotion.description
+                  description
                 })
               }
             }
@@ -1498,7 +1513,7 @@ export default class BPGPage extends Mixins(
             return {
               ...prod,
               ...promotion,
-              description: promotion.description
+              description: description
                 .replace('{MARK_DINAMIC_START}', '')
                 .replace('{MARK_DINAMIC_END}', '')
             }

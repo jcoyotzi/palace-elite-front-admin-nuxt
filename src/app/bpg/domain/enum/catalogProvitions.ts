@@ -44,7 +44,8 @@ export enum Promotions {
   KIDS_AND_TEENS = '18',
   REWARDS = '7',
   REWARDS_PLUS = '27',
-  REWARDS_UK = '25'
+  REWARDS_UK = '25',
+  PLUS_PLAN = '29'
 }
 
 export enum CatalogGroupsIds {
