@@ -237,6 +237,7 @@ import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
+import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLocale';
 
 @Component({
   name: 'BPGPage',
@@ -818,19 +819,6 @@ export default class BPGPage extends Mixins(
     return this.$i18n.locale
   }
 
-  public get affiliationLangToLocale(): string {
-    switch (this.bpgStore.affiliateInfo.lang) {
-    case LocalePageBPG.SPANISH:
-      return 'es';
-    case LocalePageBPG.PORTUGUESE:
-      return 'pt';
-    case LocalePageBPG.ENGLISH:
-      return 'en';
-    default:
-      return this.$i18n.locale
-    }
-  }
-
   public get infoMember() {
     return this.infoMembership
   }
@@ -856,18 +844,15 @@ export default class BPGPage extends Mixins(
   }
 
   public redirectToLocalePage() {
-    switch (this.infoMembership?.lang) {
-      case LocalePageBPG.SPANISH:
-        this.$router.push({path: '/es/bpg'})
-        break
-      case LocalePageBPG.PORTUGUESE:
-        this.$router.push({path: '/pt/bpg'})
-        break
-      case LocalePageBPG.ENGLISH:
-      default:
-        this.$router.push({path: '/bpg'})
-        break
-    }
+    this.$router.push(
+      this.localePath(
+        {
+          path: '/affiliate/bpg',
+          query: { application: this.infoMember.application }
+        },
+        getAffiliationLangToLocale(this.infoMember.lang, this.$i18n.locale)
+      )
+    );
   }
 
   async validateInfoAffiliation() {
@@ -893,9 +878,9 @@ export default class BPGPage extends Mixins(
       this.isMobile = window.innerWidth < 768
 
       await this.getInfoAffiliation()
-      // this.redirectToLocalePage()
+      this.redirectToLocalePage()
 
-      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG, this.typePage, this.affiliationLangToLocale)
+      this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.bpgStore.getMimimumStay()
       // if (this.infoMember?.stayByMarket) return
 
@@ -1282,7 +1267,7 @@ export default class BPGPage extends Mixins(
       return ''
     })
       .filter((access: any) => access)
-      .join(` ${this.$t('and',this.affiliationLangToLocale)} `)
+      .join(` ${this.$t('and')} `)
   }
 
   public replaceDataGolf(description: string): string {
@@ -1727,7 +1712,7 @@ export default class BPGPage extends Mixins(
     try {
       await this.bpgStore.getAllZones({
         accessProperties: this.accessProperties,
-        locale: this.affiliationLangToLocale,
+        locale: this.$i18n.locale,
       })
     } catch (error) {
       console.log(error)
