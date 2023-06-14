@@ -8,6 +8,7 @@ const messages = {
       search: 'Search',
       affiliateNumberIsRequired: 'Affiliate Number is required',
       language: 'Language',
+      languageCode: 'English',
       languageCodeE: 'English',
       languageCodeP: 'Portuguese',
       languageCodeS: 'Spanish',
@@ -25,6 +26,7 @@ const messages = {
       search: 'Buscar',
       affiliateNumberIsRequired: 'El Número de Afiliación es obligatorio',
       language: 'Idioma',
+      languageCode: 'Inglés',
       languageCodeE: 'Inglés',
       languageCodeP: 'Portugués',
       languageCodeS: 'Español',
@@ -35,6 +37,7 @@ const messages = {
       open: 'Abrir',
     },
     pt: {
+      languageCode: 'Inglês',
       languageCodeE: 'Inglês',
       languageCodeP: 'Português',
       languageCodeS: 'Espanhol',
