@@ -22,7 +22,7 @@ export interface BPGRepository {
   getExtraFeeGolf(application: string): Promise<Response<Response<ExtraFeeGolfDto[]>>>
   getEliteProductsGolf(application: string): Promise<Response<Response<EliteProductsGolf[]>>>
   getTermsAndConditions(application: string, company: number): Promise<Response<Response<any>>>
-  getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>>
+  getBenefitsAdditionals(query: QueryAffiliation): Promise<Response<Response<BenefitsAdditionalsDto[]>>>
   getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>>
   getMaxOccupancyByHotel(request: GetMaxOccupancyByHotelRequest): Promise<Response<Response<MaxOccupancyByHotelDTO[]>>>
   getResortCredits(query: QueryAffiliation): Promise<Response<Response<SisturPromotion[]>>>
