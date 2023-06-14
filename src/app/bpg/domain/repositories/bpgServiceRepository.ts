@@ -90,8 +90,12 @@ export default class BPGServiceRepository implements BPGRepository {
     return this.httpApi.get(`/membership/api/v1/admin/terms-and-conditions?${query}`)
   }
 
-  getBenefitsAdditionals(application: string): Promise<Response<Response<BenefitsAdditionalsDto[]>>> {
-    return this.httpApi.get(`/benefit/api/v1/admin/additional?application=${application}`)
+  getBenefitsAdditionals(query: QueryAffiliation): Promise<Response<Response<BenefitsAdditionalsDto[]>>> {
+    const queryParams = [
+      `application=${query.application}`,
+      `company=${query.company}`
+    ].join('&')
+    return this.httpApi.get(`/benefit/api/v1/admin/additional?${queryParams}`)
   }
 
   getMaxOccupancyByHotel(request: GetMaxOccupancyByHotelRequest): Promise<Response<Response<MaxOccupancyByHotelDTO[]>>> {
