@@ -24,7 +24,7 @@
             :rowspan="getRowspan(access)"
           >
             <div
-              class="!ms-border-r-[1px] !ms-border-white !ms-py-[0px] !ms-px-[40px]"
+              class="!ms-border-r-[1px] !ms-border-gray-800 !ms-py-[0px] !ms-px-[40px]"
               style="height: 100% !important"
             >
               <span v-html="access?.accessNumber" />
@@ -35,7 +35,7 @@
             v-if="access?.accessNumber"
             :rowspan="getRowspan(access)"
           >
-            <div class="!ms-border-r-[1px] !ms-border-white">
+            <div class="!ms-border-r-[1px] !ms-border-gray-800">
               <div
                 :class="getClassSuitesChoose(access, indexRoom)"
                 style="margin-right: 25px !important"
@@ -123,7 +123,7 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
 
         if (tempKeys.length !== keyIndex + 1) quantityToPrint -= tempKeys[keyIndex + 1] as any
 
-        tempGroups = new Map([...QuantityGroup, ...tempGroups])
+        tempGroups = this.mergeAccessMaps(QuantityGroup, tempGroups)
 
         for (const [keyRoomGroup, RoomsGroup] of tempGroups) {
           let accessNumber = ''
@@ -298,6 +298,41 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
     if (index + 1 === rows.length) style.borderBottom = '1px solid white'
     return style
   }
+
+  mergeAccessMaps(map1: any, map2: any) {
+    const mergedMap = new Map();
+  
+    for (const [key, value] of map1.entries()) {
+      mergedMap.set(key, value);
+    }
+  
+    for (const [key, value] of map2.entries()) {
+      if (mergedMap.has(key)) {
+
+        const existingValue = mergedMap.get(key);
+
+        mergedMap.set(key, {
+            roomTypeId: existingValue.roomTypeId,
+            roomTypeDescription: existingValue.roomTypeDescription,
+            hotel: [...existingValue.hotel, ...value.hotel],
+            roomTypeGroupId: [...existingValue.roomTypeGroupId, ...value.roomTypeGroupId],
+            roomTypeGroupDescription: existingValue.roomTypeGroupDescription,
+            roomTypeCategory: [...existingValue.roomTypeCategory, ...value.roomTypeCategory],
+            group: existingValue.group,
+            validity: [...existingValue.validity, ...value.validity],
+            periodType: [...existingValue.periodType, ...value.periodType],
+            accessYear: [...existingValue.accessYear, ...value.accessYear],
+            dateFrom: [...existingValue.dateFrom, ...value.dateFrom],
+            dateTo: [...existingValue.dateTo, ...value.dateTo]
+        });
+      } else {
+        mergedMap.set(key, value);
+      }
+    }
+  
+    return mergedMap;
+  }
+
 }
 </script>
 <style lang="scss">
