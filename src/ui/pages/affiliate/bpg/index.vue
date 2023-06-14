@@ -1396,11 +1396,19 @@ export default class BPGPage extends Mixins(
               promotion.description = this.replaceDataGolf(promotion?.description)
 
             if (allCatalogsValues.includes(prod[type])) {
+
+              if (catalogIncentivo.includes(prod[type]))
+
+                return {
+                  ...prod,
+                  ...promotion,
+                  mapper: []
+                }
+
               if (catalogImperials.includes(prod[type])) catalogSearch = catalogImperials
 
               if (catalogAnniversary.includes(prod[type])) catalogSearch = catalogAnniversary
 
-              if (catalogIncentivo.includes(prod[type])) catalogSearch = catalogIncentivo
 
               return {
                 ...prod,
