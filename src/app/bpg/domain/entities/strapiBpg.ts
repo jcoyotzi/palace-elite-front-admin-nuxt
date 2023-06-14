@@ -65,6 +65,7 @@ export interface Consideration {
   code: string
   description: string
   id: number
+  value?: boolean
   title: string
   content?: string
   component?: any
