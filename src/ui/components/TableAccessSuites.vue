@@ -243,7 +243,7 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
     const style = {
       borderRight: ''
     }
-    if (index + 1 !== this.headersColumn.length) style.borderRight = '1px solid white'
+    if (index + 1 !== this.headersColumn.length) style.borderRight = '1px solid #1F2937'
     return style
   }
 
@@ -294,8 +294,8 @@ export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
       (acc: any) => access.groupIdRandom === acc.groupIdRandom
     )
     const index = rows.findIndex((acc: any) => acc.roomTypeId === access.roomTypeId)
-    if (index === 0) style.borderTop = '1px solid white'
-    if (index + 1 === rows.length) style.borderBottom = '1px solid white'
+    if (index === 0) style.borderTop = '1px solid #1F2937'
+    if (index + 1 === rows.length) style.borderBottom = '1px solid #1F2937'
     return style
   }
 
