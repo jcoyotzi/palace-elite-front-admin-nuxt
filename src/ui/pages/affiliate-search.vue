@@ -112,7 +112,7 @@ export default class AffiliateSearchPage extends Vue {
   }
 
   isAvailableLanguage(languageCode: string): boolean {
-    return ['E', 'P', 'S'].includes(languageCode);
+    return ['E', 'P', 'S',''].includes(languageCode);
   }
 
   async searchAffiliate() {
