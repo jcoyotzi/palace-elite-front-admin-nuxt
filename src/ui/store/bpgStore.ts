@@ -179,7 +179,10 @@ export class BPGStore extends Pinia {
   }
 
   public async getBenefitsAdditionals() {
-    const {data} = await this.getBenefitsAdditionalsUseCase.run(this.affiliateInfo.application)
+    const {data} = await this.getBenefitsAdditionalsUseCase.run({
+      application: this.affiliateInfo.application,
+      company: this.affiliateInfo.company
+    })
     return data
   }
 
