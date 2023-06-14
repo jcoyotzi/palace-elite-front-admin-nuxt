@@ -105,8 +105,12 @@ export class BPGStore extends Pinia {
   }
 
   public async getMimimumStay() {
-    const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
-    this.minimumStay = data?.data! || []
+    try {
+      const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
+      this.minimumStay = data?.data! || []
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public async getMaxOccupanciesByHotel(hotel: string) {
