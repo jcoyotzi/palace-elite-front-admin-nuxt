@@ -18,8 +18,8 @@ export default class SkeletonLine extends Vue {
   @Prop({default: true, type: Boolean}) dark!: boolean
   get backgroundClasses() {
     return {
-      'bg-[#272527]': this.dark,
-      'bg-gray-300': !this.dark
+      'ms-bg-[#272527]': this.dark,
+      'ms-bg-gray-300': !this.dark
     }
   }
 }

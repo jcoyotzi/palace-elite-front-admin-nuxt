@@ -11,7 +11,6 @@
     v-else
     class="ms-mt-4 lg:ms-mt-12"
   >
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Resume -->
     <div class="ms-hidden md:ms-flow-root">
       <BPGResumeMicroSiteSkeleton v-if="loadingAffiliationInformation" />
