@@ -95,11 +95,18 @@ export default class PEExpansionPanelMicroSite extends Vue {
 
   @Prop({default: true, type: Boolean}) dark!: boolean
 
+  public show = false;
+
+  beforeMount() {
+    this.bindValue = this.value;
+  }
+
   public get bindValue(): boolean {
-    return this.value
+    return this.show
   }
 
   public set bindValue(value: boolean) {
+    this.show = value
     this.$emit('input', value)
   }
 
