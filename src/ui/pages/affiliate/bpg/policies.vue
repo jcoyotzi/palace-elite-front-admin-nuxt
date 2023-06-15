@@ -22,7 +22,7 @@
       <ExpansionPanelMicroSite
         v-else
         :showConsiderationsList="showConsiderationsList"
-        class="ms-mb-6"
+        class="expansion-panel-micro-site ms-mb-6"
         :key="index"
         v-for="(policie, index) in contentTab?.content"
         v-bind="getContent(policie)"
@@ -48,6 +48,7 @@ import {BasePageSlugs} from '~/src/app/Strapi/StrapiConfiguration'
 import BasePageStrapiMixin from '~/src/ui/mixins/BasePageStrapiMixin'
 // import {UseAuth} from '../store/auth'
 import {TypeTabPolicies} from '~/src/app/bpg/domain/entities/strapiBpg'
+import ExpansionPanelMicroSite from '~/src/ui/components/ExpansionPanelMicroSite.vue'
 
 @Component({
   name: 'BPGPolicies',
@@ -56,6 +57,9 @@ import {TypeTabPolicies} from '~/src/app/bpg/domain/entities/strapiBpg'
     breadcrumb: ['home', 'affiliateSearch', 'bpg', 'bpg.policies']
   },
   i18n,
+  components: {
+    ExpansionPanelMicroSite
+  }
 })
 export default class BPGPolicies extends Mixins(
   // BookingWidgetMixin,
