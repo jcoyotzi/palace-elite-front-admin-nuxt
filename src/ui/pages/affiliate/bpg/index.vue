@@ -239,7 +239,6 @@ import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLoca
 
 @Component({
   name: 'BPGPage',
-  layout: 'authenticated',
   meta: {
     auth: true,
     breadcrumb: ['home', 'affiliateSearch', 'bpg']
