@@ -698,7 +698,7 @@ export default class BPGPage extends Mixins(
 
         case 'ACCESS_SUITES':
           const standard = this.groups.find((group: any) => group.groupId === 'S')
-          const presidential = this.groups.find((group: any) => group.groupId === 'P')
+          const presidential = this.groups.find((group: any) => group.groupId === 'P' || group.groupId === 'PS')
 
           if (standard && presidential)
             description = description.replace(
