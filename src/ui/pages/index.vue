@@ -1,6 +1,9 @@
+<template>
+  <div></div>
+</template>
+
 <script lang="ts">
-import { Component } from 'vue-property-decorator'
-import HomePage from './home.vue';
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
   name: 'IndexPage',
@@ -9,5 +12,9 @@ import HomePage from './home.vue';
     breadcrumb: ['home'],
   }
 })
-export default class IndexPage extends HomePage { }
+export default class IndexPage extends Vue {
+  async beforeMount() {
+    await this.$router.push(this.localePath('/affiliate-search'))
+  }
+}
 </script>

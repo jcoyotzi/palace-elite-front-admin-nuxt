@@ -30,7 +30,6 @@ import {BasePageSlugs} from '~/src/app/Strapi/StrapiConfiguration'
 
 @Component({
   name: 'BPGPrivacyPolicy',
-  layout: 'authenticated',
   meta: {
     auth: true,
     breadcrumb: ['home', 'affiliateSearch', 'bpg', 'bpg.privacyPolicy']
