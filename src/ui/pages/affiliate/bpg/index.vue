@@ -1722,7 +1722,7 @@ export default class BPGPage extends Mixins(
     return description
       .replace(
         '{MARK_REWARDS_DYNAMIC}',
-        this.createStringElements(rewardsValuesLong, ` ${this.$t('or')} `, '%')
+        this.createStringElements(rewardsValuesLong, ` ${this.$t('or')} `)
       )
       .replace(
         '{MARK_NIGHTS_DYNAMIC}',
