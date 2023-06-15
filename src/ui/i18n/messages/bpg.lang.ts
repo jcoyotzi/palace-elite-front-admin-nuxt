@@ -18,7 +18,7 @@ export default {
       bpg: 'BPG',
       category: 'Categorías',
       ocupationMin: 'Ocupación Mínima',
-      ocupationMax: 'Ocupación Maxima',
+      ocupationMax: 'Ocupación Máxima',
       staysMin: 'Estancias Mínimas',
       staysMinRef: 'Estancias Mínimas Referidos',
       affiliationNumber: 'Número de Afiliación',
