@@ -3,7 +3,7 @@
     v-if="showContentMicroSite"
     class="ms-relative ms-text-center ms-container ms-pb-20 md:ms-mt-24"
   >
-    <span class="ms-text-white ms-font-sans">
+    <span class="ms-text-gray-500 ms-font-sans">
       {{ $t('bpgSecurity') }}
     </span>
   </div>
@@ -48,6 +48,8 @@
       v-for="(consideration, index) in considerationsList"
       v-bind="consideration"
       :dark="false"
+      v-model="considerationsValues[index]"
+      @input="onClickExpansionPanel($event, index)"
     />
 
     <!-- section tabs promotions and benefits -->
@@ -156,6 +158,63 @@
       </div>
     </div>
 
+    <div
+      class="md:pe-hidden pe-p-[24px] pe-bg-black-medium pe-z-[31] pe-w-full pe-rounded-t-[20px] pe-mx-auto pe-h-[80%] pe-fixed pe-bottom-0"
+      v-if="showModalAccessSuitesMobile"
+    >
+      <div class="flex justify-end">
+        <div
+          @click.prevent="closeModalExpansionPanel"
+          class="p-2"
+        >
+          <PEIcon
+            size="24"
+            class="text-white"
+            >close-circle</PEIcon
+          >
+        </div>
+      </div>
+      <div
+        class="pe-mt[24px] pe-text-white pe-text-center pe-uppercase pe-font-bold pe-text-[18px]"
+      >
+        {{ accessSuitesConsideration?.title }}
+      </div>
+      <div class="pe-mt-[24px]">
+        <PESelect
+          :items="hotelsTableAccess"
+          item-value="name"
+          item-text="titleMobile"
+          class="w-full mb-4"
+          v-model="propertieSelectedMobile"
+        />
+      </div>
+      <div class="content-mobile-access pe-overflow-y-auto pe-my-4 pe-h-[100%]">
+        <div class="pe-mt-[24px] pe-text-white pe-font-sans"> Aplica en: </div>
+        <div
+          v-for="access in accessGroupMapperMobile"
+          class="pe-text-white"
+        >
+          <div
+            v-html="access.title"
+            class="my-4"
+          />
+          <div class="pe-gap-y-4 pe-w-full">
+            <div
+              class="pe-px-4 pe-mb-2 pe-py-2 pe-text-white pe-font-sans pe-text-[14px] pe-bg-blue-light pe-rounded-[12px]"
+              style="width: fit-content; height: fit-content"
+              v-for="acc in access.access"
+            >
+              {{ acc.roomTypeDescription }}
+            </div>
+          </div>
+        </div>
+        <div
+          class="pe-my-6 pe-text-white"
+          v-html="accessSuitesConsideration?.description"
+        />
+      </div>
+    </div>
+
     <div class="ms-flex lg:ms-mt-8 ms-justify-end ms-divide-x ms-divide-gray-500 ms-text-blue-dark lg:ms-p-2">
       <nuxt-link class="ms-px-4" :to="localePath('/affiliate/bpg/policies')">Policies</nuxt-link>
       <nuxt-link class="ms-px-4" :to="localePath('/affiliate/bpg/privacy-policy')">Privacy Policy</nuxt-link>
@@ -183,7 +242,10 @@ import {TypesProductsElite} from '~/src/app/bpg/domain/enum/typesProductsElite'
 import {TabsProductsElite} from '~/src/app/bpg/domain/dto/productsEliteDto'
 import {ItemsResume} from '~/src/app/bpg/domain/dto/resumeDto'
 import {LocalePageBPG} from '~/src/app/bpg/domain/enum/localePageBPG'
+import PESkeletonCardProvition from '~/src/ui/components/PESkeletonCardProvition.vue'
 import BPGCardPromotions from '~/src/ui/components/BPGCardPromotions.vue'
+import ExpansionPanelMicroSite from '~/src/ui/components/ExpansionPanelMicroSite.vue'
+
 import {SequentSuitesBPGEspecial} from '~/src/app/bpg/domain/enum/sequentSuitesBPGEspecial'
 import {
   IntervalDto,
@@ -239,7 +301,6 @@ import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLoca
 
 @Component({
   name: 'BPGPage',
-  layout: 'authenticated',
   meta: {
     auth: true,
     breadcrumb: ['home', 'affiliateSearch', 'bpg']
@@ -247,7 +308,9 @@ import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLoca
   i18n,
   components: {
     CardCategoryTabs,
-    BPGCardPromotions
+    BPGCardPromotions,
+    ExpansionPanelMicroSite,
+    PESkeletonCardProvition
   }
 })
 export default class BPGPage extends Mixins(
@@ -314,8 +377,12 @@ export default class BPGPage extends Mixins(
   //   return this.contentStore.heroDefault
   // }
 
+  public get isNational() {
+    return this.bpgStore.affiliateInfo.isNational
+  }
+
   public get showProductsElite(): boolean {
-    return this.productsList.length > 0
+    return this.productsList!.length > 0
   }
 
   public get productsEliteTabsComputed(): TabsProductsElite[] {
@@ -545,6 +612,7 @@ export default class BPGPage extends Mixins(
       .map(hotel => this.roomHotelAccess.find((access: any) => access.hotel === hotel))
       .map(hotel => ({
         title: hotel?.commercialCode,
+        titleMobile: hotel?.hotelDescription,
         name: hotel?.hotel,
         width: '15%',
         align: 'center',
@@ -556,22 +624,32 @@ export default class BPGPage extends Mixins(
   }
 
   public get accessVillas(): any {
-    const villa = this.roomHotelAccess.find((access: any) =>
-      [CatalogGroupsIds.VILLAS, CatalogGroupsIds.BABY_VILLAS].includes(
-        access.groupId as CatalogGroupsIds
-      ) && ![BaglioniVillas.VILLA_REGINA, BaglioniVillas.VILLA_MALDIVAS, BaglioniVillas.GRAND_VILLA_MALDIVAS_].includes(
-        access.idTypeRoom
-      )
+    const villa = this.roomHotelAccess.find(
+      (access: any) => CatalogGroupsIds.VILLAS === access.groupId
+    )
+
+    return villa ? this.insertDateText(villa) : villa
+  }
+
+  public get accessBabyVillas(): any {
+    const villa = this.roomHotelAccess.find(
+      (access: any) => CatalogGroupsIds.BABY_VILLAS === access.groupId
     )
 
     return villa ? this.insertDateText(villa) : villa
   }
 
   public get accessResidence(): any {
-    const residence = this.roomHotelAccess.find((access: any) =>
-      [CatalogGroupsIds.RESIDENCE, CatalogGroupsIds.BABY_RESIDENCE].includes(
-        access.groupId as CatalogGroupsIds
-      )
+    const residence = this.roomHotelAccess.find(
+      (access: any) => CatalogGroupsIds.RESIDENCE === access.groupId
+    )
+
+    return residence ? this.insertDateText(residence) : residence
+  }
+
+  public get accessBabyResidence(): any {
+    const residence = this.roomHotelAccess.find(
+      (access: any) => CatalogGroupsIds.BABY_RESIDENCE === access.groupId
     )
 
     return residence ? this.insertDateText(residence) : residence
@@ -604,7 +682,7 @@ export default class BPGPage extends Mixins(
   }
 
   public get considerationsList() {
-    return this.considerations
+    const considerations = this.considerations
       ?.filter((consideration: any) => !this.removesConsiderations.includes(consideration.code))
       .map((consideration: Consideration) => {
         let {description, code} = consideration
@@ -658,7 +736,7 @@ export default class BPGPage extends Mixins(
               ],
               hotels: this.hotelsTableAccess,
               groups: this.groups,
-              accessGroup: ContentDataPageMapper.getTableGroupAccess(this.roomHotelAccess)
+              accessGroupMapper: this.accessGroupMapper
             }
           }
         case 'ER':
@@ -717,7 +795,11 @@ export default class BPGPage extends Mixins(
 
           description = this.validateResidenceSuitesExclusives(description)
 
+          description = this.validateBabyResidenceSuitesExclusives(description)
+
           description = this.validateVillasSuitesExclusives(description)
+
+          description = this.validateBabyVillasSuitesExclusives(description)
 
           description = this.validatePresidentialDiamondSuitesExclusives(description)
 
@@ -731,9 +813,13 @@ export default class BPGPage extends Mixins(
               .replace('{MARK_RESIDENCE_START}', '')
               .replace('{MARK_RESIDENCE_END}', '')
               .replace('{MARK_RESIDENCE_SECTION_START}', '')
+              .replace('{MARK_BABY_RESIDENCE_SECTION_START}', '')
+              .replace('{MARK_BABY_RESIDENCE_SECTION_END}', '')
               .replace('{MARK_RESIDENCE_SECTION_END}', '')
               .replace('{MARK_VILLAS_SECTION_START}', '')
               .replace('{MARK_VILLAS_SECTION_END}', '')
+              .replace('{MARK_BABY_VILLAS_SECTION_START}', '')
+              .replace('{MARK_BABY_VILLAS_SECTION_END}', '')
               .replace('{MARK_ACCESS_TOTAL_VILLAS_START}', '')
               .replace('{MARK_ACCESS_TOTAL_VILLAS_END}', '')
               .replace('{MARK_ACCESS_TOTAL_RESIDENCE_START}', '')
@@ -748,7 +834,19 @@ export default class BPGPage extends Mixins(
           return consideration
         }
       })
+
+    this.considerationsValues = considerations.map(
+      (consideration: any) => consideration?.value || false
+    )
+
+    return considerations
   }
+
+  public get accessGroup() {
+    return ContentDataPageMapper.getTableGroupAccess(this.roomHotelAccess)
+  }
+
+  public considerationsValues: any[] = []
 
   public get removesConsiderations() {
     return (
@@ -933,11 +1031,12 @@ export default class BPGPage extends Mixins(
         description
       })
 
-      return this.removeMarksSuitesExclusives({
-        markStart: '{MARK_RESIDENCE_START}',
-        markEnd: '{MARK_RESIDENCE_END}',
-        description
-      })
+      if (!this.accessBabyResidence && !this.accessResidence)
+        return this.removeMarksSuitesExclusives({
+          markStart: '{MARK_RESIDENCE_START}',
+          markEnd: '{MARK_RESIDENCE_END}',
+          description
+        })
     }
 
     switch (this.accessResidence?.periodType) {
@@ -963,10 +1062,53 @@ export default class BPGPage extends Mixins(
     }
   }
 
+  public validateBabyResidenceSuitesExclusives(description: string) {
+    if (!this.accessBabyResidence) {
+      description = this.removeMarksSuitesExclusives({
+        markStart: '{MARK_BABY_RESIDENCE_SECTION_START}',
+        markEnd: '{MARK_BABY_RESIDENCE_SECTION_END}',
+        description
+      })
+      if (!this.accessBabyResidence && !this.accessResidence)
+        return this.removeMarksSuitesExclusives({
+          markStart: '{MARK_RESIDENCE_START}',
+          markEnd: '{MARK_RESIDENCE_END}',
+          description
+        })
+    }
+    switch (this.accessBabyResidence?.periodType) {
+      case PeriodType.YEAR:
+        return description.replace(
+          '{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}',
+          this.$t('yearsAndVigencyYear', {
+            VIGENCY: String(this.accessBabyResidence?.dateToText),
+            ACCESS_YEAR: String(this.accessBabyResidence?.accessYear)
+          }) as string
+        )
+      case PeriodType.TOTAL:
+        return description.replace(
+          '{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}',
+          this.$t('yearsAndVigencyTotal', {
+            level: this.$t('residence') as string,
+            VIGENCY: String(this.accessBabyResidence?.dateToText),
+            ACCESS_YEAR: String(this.accessBabyResidence?.accessYear)
+          }) as string
+        )
+      default:
+        return description.replace('{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}', '')
+    }
+  }
+
   public validateSuitesExclusives(description: string) {
     const separatorEnd = ` ${this.$t('or') as string} `
 
-    if (!this.accessVillas && !this.accessResidence && !this.accessDiamond)
+    if (
+      !this.accessVillas &&
+      !this.accessResidence &&
+      !this.accessDiamond &&
+      !this.accessBabyResidence &&
+      !this.accessBabyVillas
+    )
       return this.removeMarksSuitesExclusives({
         markStart: '{MARK_LEVELS_START}',
         markEnd: '{MARK_LEVELS_END}',
@@ -975,8 +1117,10 @@ export default class BPGPage extends Mixins(
 
     const levels: any = [
       this.accessDiamond ? (this.$t('diamondPresidential') as string) : undefined,
-      this.accessVillas ? (this.$t('villa') as string) : undefined,
-      this.accessResidence ? (this.$t('residence') as string) : undefined
+      this.accessVillas || this.accessBabyVillas ? (this.$t('villa') as string) : undefined,
+      this.accessResidence || this.accessBabyResidence
+        ? (this.$t('residence') as string)
+        : undefined
     ].map(access => access)
 
     return description.replace('{LEVELS}', this.createStringElements(levels, separatorEnd))
@@ -1061,6 +1205,37 @@ export default class BPGPage extends Mixins(
       )
     default:
       return description.replace('{MARK_ACCESS_VIGENCY_VILLAS}', '')
+    }
+  }
+
+  public validateBabyVillasSuitesExclusives(description: string) {
+    if (!this.accessBabyVillas || this.accessBabyVillas?.dateTo === this.accessVillas?.dateTo) {
+      return this.removeMarksSuitesExclusives({
+        markStart: '{MARK_BABY_VILLAS_SECTION_START}',
+        markEnd: '{MARK_BABY_VILLAS_SECTION_END}',
+        description
+      })
+    }
+    switch (this.accessBabyVillas?.periodType) {
+      case PeriodType.YEAR:
+        return description.replace(
+          '{MARK_ACCESS_VIGENCY_BABY_VILLAS}',
+          this.$t('yearsAndVigencyYear', {
+            VIGENCY: String(this.accessBabyVillas?.dateToText),
+            ACCESS_YEAR: String(this.accessBabyVillas?.accessYear)
+          }) as string
+        )
+      case PeriodType.TOTAL:
+        return description.replace(
+          '{MARK_ACCESS_VIGENCY_BABY_VILLAS}',
+          this.$t('yearsAndVigencyTotal', {
+            level: this.$t('villa') as string,
+            VIGENCY: String(this.accessBabyVillas?.dateToText),
+            ACCESS_YEAR: String(this.accessBabyVillas?.accessYear)
+          }) as string
+        )
+      default:
+        return description.replace('{MARK_ACCESS_VIGENCY_BABY_VILLAS}', '')
     }
   }
 
@@ -1425,10 +1600,6 @@ export default class BPGPage extends Mixins(
     )
   }
 
-  public get isNational() {
-    return this.bpgStore.affiliateInfo.isNational
-  }
-
   public extractPromotions(products: Product[], promotions: Promotion[], infoMember: any) {
 
     const bpg20 = this.minimumStay.find(minStay => minStay.discountRate === 'D20')
@@ -1448,10 +1619,7 @@ export default class BPGPage extends Mixins(
           if (codes.includes(Provisions.YATE)) {
             return {
               ...promotion,
-              description: description.replace(
-                '{DISCOUNT_YATE}',
-                `${infoMember?.yachtDiscount}%`
-              )
+              description: description.replace('{DISCOUNT_YATE}', `${infoMember?.yachtDiscount}%`)
             }
           }
 
@@ -1520,22 +1688,22 @@ export default class BPGPage extends Mixins(
   }) {
     let rewardsValues: any = [
       {idPromotion: 25, stay: 10, nights: 4},
-      {idPromotion: 7, stay: 7, nights: 3},
-      {idPromotion: 27, stay: 5, nights: 1}
+      {idPromotion: 7, stay: 7, nights: 3}
     ]
 
     rewardsValues = rewardsValues.filter(({idPromotion}: {idPromotion: number}, index: number) =>
       rewards.find((reward: any) => reward.idPromocion === idPromotion)
     )
 
-    const rewardsValuesLong = rewardsValues.map(
+    const rewardsValuesLong = [...rewardsValues, {idPromotion: 27, stay: 5, nights: 1}].map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotion', {
           stay: String(stay),
           nights: String(nights)
         }) as string
     )
-    const rewardsValuesShort = rewardsValues.map(
+
+    const rewardsValuesShort = [...rewardsValues, {idPromotion: 27, stay: 4, nights: 1}].map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotionShort', {
           stay: String(stay),
@@ -1543,7 +1711,9 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesNumbers = rewardsValues.map(({nights}: any) => nights)
+    const rewardsValuesNumbers = [...rewardsValues, {idPromotion: 27, stay: 5, nights: 1}].map(
+      ({nights}: any) => nights
+    )
 
     return description
       .replace(
@@ -1691,16 +1861,6 @@ export default class BPGPage extends Mixins(
           if (b.bpg > a.bpg) return -1
           return 0
         }) || []
-        //.sort((a: any, b: any) => {
-        //if (a.discountRate === 30) {
-        //console.log(a, b)
-        //
-        //}
-        //return 0
-        //var indiceA = SequentSuitesBPGEspecial[a.hotel].indexOf(a.)
-        //var indiceA = SequentSuitesBPGEspecial[b.hotel].indexOf(b.)
-        //return indiceA - indiceB;
-        //}) || []
     )
   }
 
@@ -1885,13 +2045,208 @@ export default class BPGPage extends Mixins(
       this.sisturPromotions = []
     }
   }
+
+  public showModalAccessSuitesMobile: boolean = false
+
+  public get accessSuitesConsideration(): Consideration {
+    return this.considerationsList.find(
+      (consideration: Consideration) => consideration.code === 'ACCESS_SUITES'
+    )
+  }
+
+  public onClickExpansionPanel(value: boolean, index: number) {
+    if (this.considerationsList[index]?.code === 'ACCESS_SUITES' && this.isMobile) {
+      this.considerationsValues[index] = false
+      this.propertieSelectedMobile = {
+        name: this.hotelsTableAccess[0]?.name!,
+        titleMobile: this.hotelsTableAccess[0]?.titleMobile!
+      }
+      console.log(this.accessGroupMapper)
+      this.showModalAccessSuitesMobile = !this.showModalAccessSuitesMobile
+    }
+  }
+
+  public get accessGroupMapperMobile() {
+    return this.accessGroupMapper
+      .filter(({accessNumber, hotel}: any) => accessNumber !== '')
+      .map((access: any) => ({
+        ...access,
+        hotel: this.accessGroupMapper
+          .filter(
+            (acc: any) =>
+              acc.keyQuantityGroup === access.keyQuantityGroup &&
+              acc.hotel.includes(this.propertieSelectedMobile?.name)
+          )
+          ?.map((acc: any) => acc.hotel),
+        title: `${access.accessNumber.replaceAll('<br>', '')}:`,
+        access: this.accessGroupMapper.filter(
+          (acc: any) =>
+            acc.keyQuantityGroup === access.keyQuantityGroup &&
+            acc.hotel.includes(this.propertieSelectedMobile?.name)
+        )
+      }))
+      .filter((access: any) => access.hotel.length > 0)
+  }
+
+  public get accessGroupMapper() {
+    let accessGroup: any = []
+    let accessPerYear: any[] = []
+
+    for (const [keyGroup, group] of this.accessGroup) {
+      let tempGroups = new Map()
+
+      for (const [keyQuantityGroup, QuantityGroup] of group) {
+        const groupIdRandom = Math.floor(Math.random() * 1000 + 1)
+        const keyQuantityGroupAccess: number = keyQuantityGroup
+
+        accessPerYear.push({
+          keyQuantityGroup: keyQuantityGroupAccess,
+          groupIdRandom
+        })
+
+        const tempKeys = Array.from(group.keys())
+
+        const keyIndex = tempKeys.indexOf(keyQuantityGroup)
+
+        let quantityToPrint = keyQuantityGroup
+
+        if (tempKeys.length !== keyIndex + 1) quantityToPrint -= tempKeys[keyIndex + 1] as any
+
+        tempGroups = this.mergeAccessMaps(QuantityGroup, tempGroups)
+
+        for (const [keyRoomGroup, RoomsGroup] of tempGroups) {
+          let accessNumber = ''
+
+          if (RoomsGroup.periodType.includes('Y'))
+            accessNumber = this.$t('accessPerYear', {access: quantityToPrint}) as string
+
+          if (RoomsGroup.periodType.includes('T'))
+            accessNumber = this.$t('accessValidTo', {
+              quantityToPrint: quantityToPrint,
+              date: this.i18nDayjs('MMMM DD, YYYY', RoomsGroup.dateTo[0].substr(0, 10)),
+              access: RoomsGroup.accessYear[0]
+            }) as string
+
+          accessGroup.push({
+            ...RoomsGroup,
+            groupId: keyGroup,
+            accessNumber,
+            groupIdRandom,
+            keyQuantityGroup: keyQuantityGroupAccess
+          })
+        }
+      }
+    }
+
+    accessPerYear = accessPerYear.map((access, index) => ({
+      ...access,
+      color: Boolean((index + 1) % 2)
+    }))
+
+    let accGroup: any = []
+    accessPerYear = accessPerYear.map((accessNumber: any) => {
+      //busca las categorias "Standar" excepto la "Standar Suite"
+      let accessStandar = accessGroup.filter(
+        (access: any) =>
+          access.groupIdRandom === accessNumber.groupIdRandom &&
+          access.group === 'Standard' &&
+          access.roomTypeId !== 'J'
+      )
+
+      //busca solo la categoria "Standar Suite"
+      let accessStandarSuite = accessGroup.find(
+        (access: any) =>
+          access.roomTypeId === 'J' &&
+          access.groupIdRandom === accessNumber.groupIdRandom &&
+          access.group === 'Standard'
+      )
+
+      if (accessStandar.length > 0 && accessStandarSuite) {
+        accessStandar.map((access: any) => {
+          accessStandarSuite = {
+            ...accessStandarSuite,
+            hotel: [...accessStandarSuite.hotel, ...access.hotel]
+          }
+        })
+
+        accessGroup = [
+          accessStandarSuite,
+          ...accessGroup.filter(
+            (accessG: any) =>
+              accessG.groupIdRandom !== accessNumber.groupIdRandom && accessG.group !== 'Standard'
+          )
+        ]
+      }
+
+      accGroup = [
+        ...accGroup,
+        ...accessGroup
+          .filter((access: any) => access.groupIdRandom === accessNumber.groupIdRandom)
+          .map((access: any, index: number) => ({
+            ...access,
+            accessNumber: index > 0 ? '' : access.accessNumber,
+            color: accessNumber.color,
+            roomTypeDescription:
+              access.roomTypeId === 'DP' ||
+              access.roomTypeDescription.indexOf('iamond') >= 0 ||
+              access.roomTypeDescription.indexOf('iamante') > 0
+                ? `${access.roomTypeDescription} *`
+                : access.roomTypeDescription
+          }))
+      ]
+    })
+    return accGroup
+  }
+
+  mergeAccessMaps(map1: any, map2: any) {
+    const mergedMap = new Map()
+
+    for (const [key, value] of map1.entries()) {
+      mergedMap.set(key, value)
+    }
+
+    for (const [key, value] of map2.entries()) {
+      if (mergedMap.has(key)) {
+        const existingValue = mergedMap.get(key)
+        mergedMap.set(key, {
+          roomTypeId: existingValue.roomTypeId,
+          roomTypeDescription: existingValue.roomTypeDescription,
+          hotel: [...existingValue.hotel, ...value.hotel],
+          roomTypeGroupId: [...existingValue.roomTypeGroupId, ...value.roomTypeGroupId],
+          roomTypeGroupDescription: existingValue.roomTypeGroupDescription,
+          roomTypeCategory: [...existingValue.roomTypeCategory, ...value.roomTypeCategory],
+          group: existingValue.group,
+          validity: [...existingValue.validity, ...value.validity],
+          periodType: [...existingValue.periodType, ...value.periodType],
+          accessYear: [...existingValue.accessYear, ...value.accessYear],
+          dateFrom: [...existingValue.dateFrom, ...value.dateFrom],
+          dateTo: [...existingValue.dateTo, ...value.dateTo]
+        })
+      } else {
+        mergedMap.set(key, value)
+      }
+    }
+
+    return mergedMap
+  }
+
+  public propertieSelectedMobile = {name: '', titleMobile: ''}
+
+  public closeModalExpansionPanel() {
+    this.showModalAccessSuitesMobile = false
+  }
 }
 </script>
 <style>
 .interval-description-mobile p {
   text-align: center !important;
 }
+
 .interval-description p {
   text-align: justify !important;
+}
+
+.content-mobile-access::-webkit-scrollbar:vertical {
+  width: 10px;
 }
 </style>

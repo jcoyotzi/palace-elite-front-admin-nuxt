@@ -33,7 +33,6 @@ import { Locale } from '~/src/app/auth/domain/entities/locale';
 
 @Component({
   name: 'LoginPage',
-  layout: 'guest',
   meta: {
     auth: false,
   },
