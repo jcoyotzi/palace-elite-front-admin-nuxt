@@ -61,7 +61,6 @@ import { getAffiliationLangToLocale } from '../utils/affiliationLangToLocale';
 
 @Component({
   name: 'AffiliateSearchPage',
-  layout: 'authenticated',
   meta: {
     auth: true,
     breadcrumb: ['home', 'affiliateSearch']

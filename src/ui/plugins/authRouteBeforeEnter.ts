@@ -12,7 +12,7 @@ const isAuthenticated = async () => {
 }
 
 const plugin: Plugin = function plugin({app, route}) {
-  app.router?.beforeEach(async (to, _from, next) => {
+  app.router?.beforeEach(async (_to, _from, next) => {
     const needAuth = route.meta?.reduce((auth: boolean, meta: any) => meta.auth || auth, false) || false
 
     if (needAuth) {

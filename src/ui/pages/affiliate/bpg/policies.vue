@@ -51,7 +51,6 @@ import {TypeTabPolicies} from '~/src/app/bpg/domain/entities/strapiBpg'
 
 @Component({
   name: 'BPGPolicies',
-  layout: 'authenticated',
   meta: {
     auth: true,
     breadcrumb: ['home', 'affiliateSearch', 'bpg', 'bpg.policies']
