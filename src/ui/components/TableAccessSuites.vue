@@ -83,7 +83,6 @@
 <script lang="ts">
 import {Component, Prop, Mixins} from 'vue-property-decorator'
 import {IHeader} from '~/src/app/bpg/domain/dto/tableAccess'
-import {GroupAccess} from '~/src/app/bpg/domain/entities/strapiBpg'
 import i18nDayjsMixin from '../mixins/i18nDayjsMixin'
 import i18n from '~/src/ui/i18n/messages/bpg.lang'
 
@@ -91,121 +90,11 @@ import i18n from '~/src/ui/i18n/messages/bpg.lang'
   i18n
 })
 export default class TableAccessSuites extends Mixins(i18nDayjsMixin) {
-  @Prop({default: () => [], type: Map}) accessGroup!: any
+  @Prop({default: () => [], type: Map}) accessGroupMapper!: any
 
   @Prop({default: () => [], type: Array}) headers!: IHeader[]
 
-  @Prop({default: () => [], type: Array}) groups!: any
-
   public groupItem: any = ''
-
-  public get accessGroupMapper() {
-    let accessGroup: any = []
-    let accessPerYear: any[] = []
-
-    for (const [keyGroup, group] of this.accessGroup) {
-      let tempGroups = new Map()
-
-      for (const [keyQuantityGroup, QuantityGroup] of group) {
-        const groupIdRandom = Math.floor(Math.random() * 1000 + 1)
-        const keyQuantityGroupAccess: number = keyQuantityGroup
-
-        accessPerYear.push({
-          keyQuantityGroup: keyQuantityGroupAccess,
-          groupIdRandom
-        })
-
-        const tempKeys = Array.from(group.keys())
-
-        const keyIndex = tempKeys.indexOf(keyQuantityGroup)
-
-        let quantityToPrint = keyQuantityGroup
-
-        if (tempKeys.length !== keyIndex + 1) quantityToPrint -= tempKeys[keyIndex + 1] as any
-
-        tempGroups = this.mergeAccessMaps(QuantityGroup, tempGroups)
-
-        for (const [keyRoomGroup, RoomsGroup] of tempGroups) {
-          let accessNumber = ''
-
-          if (RoomsGroup.periodType.includes('Y'))
-            accessNumber = this.$t('accessPerYear', {access: quantityToPrint}) as string
-
-          if (RoomsGroup.periodType.includes('T'))
-            accessNumber = this.$t('accessValidTo', {
-              quantityToPrint: quantityToPrint,
-              date: this.i18nDayjs('MMMM DD, YYYY', RoomsGroup.dateTo[0].substr(0, 10)),
-              access: RoomsGroup.accessYear[0]
-            }) as string
-
-          accessGroup.push({
-            ...RoomsGroup,
-            groupId: keyGroup,
-            accessNumber,
-            groupIdRandom,
-            keyQuantityGroup: keyQuantityGroupAccess
-          })
-        }
-      }
-    }
-
-    accessPerYear = accessPerYear.map((access, index) => ({
-      ...access,
-      color: Boolean((index + 1) % 2)
-    }))
-
-    let accGroup: any = []
-    accessPerYear = accessPerYear.map((accessNumber: any) => {
-      // busca las categorias "Standar" excepto la "Standar Suite"
-      let accessStandar = accessGroup.filter(
-        (access: any) =>
-          access.groupIdRandom === accessNumber.groupIdRandom &&
-          access.group === 'Standard' &&
-          access.roomTypeId !== 'J'
-      )
-
-      // busca solo la categoria "Standar Suite"
-      let accessStandarSuite = accessGroup.find(
-        (access: any) =>
-          access.roomTypeId === 'J' &&
-          access.groupIdRandom === accessNumber.groupIdRandom &&
-          access.group === 'Standard'
-      )
-
-      if (accessStandar.length > 0 && accessStandarSuite) {
-        accessStandar.map((access: any) => {
-          accessStandarSuite = {
-            ...accessStandarSuite,
-            hotel: [...accessStandarSuite.hotel, ...access.hotel]
-          }
-        })
-
-        accessGroup = [
-          accessStandarSuite,
-          ...accessGroup.filter(
-            (accessG: any) =>
-              accessG.groupIdRandom !== accessNumber.groupIdRandom && accessG.group !== 'Standard'
-          )
-        ]
-      }
-
-      accGroup = [
-        ...accGroup,
-        ...accessGroup
-          .filter((access: any) => access.groupIdRandom === accessNumber.groupIdRandom)
-          .map((access: any, index: number) => ({
-            ...access,
-            accessNumber: index > 0 ? '' : access.accessNumber,
-            color: accessNumber.color,
-            roomTypeDescription:
-              access.roomTypeId === 'DP' || access.roomTypeDescription.indexOf("iamond") >= 0 || access.roomTypeDescription.indexOf("iamante") > 0
-                ? `${access.roomTypeDescription} *`
-                : access.roomTypeDescription
-          }))
-      ]
-    })
-    return accGroup
-  }
 
   public get accessColorMapper() {
     return this.accessGroupMapper.map((access: any) => access.groupIdRandom)

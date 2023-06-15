@@ -10,7 +10,6 @@ export enum MembershipLevelsAccessDiamante {
 
 export enum MembershipLevelsAccessVIP {
   VIP_PLATINUM_SILVER_LB = 'PS',
-  VIP = 'V',
   VIP_PLATINUM_LB = 'VL',
   VIP_PLATINUM_SILVER_LB_VP = 'VP',
   VIP_SILVER = 'VS'
