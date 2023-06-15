@@ -1695,7 +1695,11 @@ export default class BPGPage extends Mixins(
       rewards.find((reward: any) => reward.idPromocion === idPromotion)
     )
 
-    const rewardsValuesLong = [...rewardsValues, {idPromotion: 40, stay: 5, nights: 1}].map(
+    const tempRewardsLong = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 5, nights: 1}] : [...rewardsValues]
+
+    const tempRewardsShort = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 4, nights: 1}] : [...rewardsValues]
+
+    const rewardsValuesLong = tempRewardsLong.map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotion', {
           stay: String(stay),
@@ -1703,7 +1707,7 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesShort = [...rewardsValues, {idPromotion: 40, stay: 4, nights: 1}].map(
+    const rewardsValuesShort = tempRewardsShort.map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotionShort', {
           stay: String(stay),
@@ -1711,7 +1715,7 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesNumbers = [...rewardsValues, {idPromotion: 40, stay: 5, nights: 1}].map(
+    const rewardsValuesNumbers = tempRewardsLong.map(
       ({nights}: any) => nights
     )
 
