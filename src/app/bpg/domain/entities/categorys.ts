@@ -2,6 +2,7 @@ export interface Category extends DataStrapi {
   order?: number
   title: string
   bpg: string
+  hotelDescription?: string
   maxNumberOfGuests?: string
   rmType: string
   resume?: string

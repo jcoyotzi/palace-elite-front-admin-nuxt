@@ -34,7 +34,7 @@
         :src="propertie?.url"
         class="h-[180px] w-full rounded-t-[12px] object-cover"
       />
-      <div class="w-full ms-bg-black-light rounded-b-[12px] ms-p-[24px]">
+      <div class="w-full ms-bg-gray-500 rounded-b-[12px] ms-p-[24px]">
         <div class="ms-text-blue-light ms-font-sans ms-font-bold ms-text-[22px]">
           {{ propertie?.title }}
         </div>
