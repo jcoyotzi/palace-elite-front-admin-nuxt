@@ -988,7 +988,7 @@ export default class BPGPage extends Mixins(
       this.bpgStore.maxOccupanciesByHotel = {}
       await this.getMaxOccupanciesByHotel()
 
-      await this.getMinStay()
+      // await this.getMinStay()
       await this.getRoomAccessHotel()
       this.loadingCategories = false
 
