@@ -21,16 +21,28 @@ export default class BPGServiceRepository implements BPGRepository {
     @inject(httpTypes.strapiHttpApi) private readonly httpStrapi: HttpApi
   ) {}
 
-  getCategorysByProperty(application: string): Promise<Response<any>> {
-    return this.httpApi.get(`/membership/api/v1/admin/room-access-hotel?application=${application}`)
+  getURLWithQueryAffiliation(url: string, query: QueryAffiliation): string {
+    const queryParams = [
+      `application=${query.application}`,
+      `company=${query.company}`
+    ].join('&')
+
+    return `${url}?${queryParams}`
   }
 
-  getProductsElitePromotions(application: string): Promise<Response<any>> {
-    return this.httpApi.get(`/membership/api/v1/admin/promotions-list?application=${application}`)
+  getCategorysByProperty(query: QueryAffiliation): Promise<Response<any>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/room-access-hotel`, query)
+    return this.httpApi.get(url)
   }
 
-  getProductsEliteBenefits(application: string): Promise<Response<any>> {
-    return this.httpApi.get(`/membership/api/v1/admin/provisions?application=${application}`)
+  getProductsElitePromotions(query: QueryAffiliation): Promise<Response<any>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/promotions-list`, query)
+    return this.httpApi.get(url)
+  }
+
+  getProductsEliteBenefits(query: QueryAffiliation): Promise<Response<any>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/provisions`, query)
+    return this.httpApi.get(url)
   }
 
   getAllZones({accessProperties, locale}: GetAllZonesRequest): Promise<Response<any>> {
@@ -51,51 +63,49 @@ export default class BPGServiceRepository implements BPGRepository {
     return this.httpApi.get(`/membership/api/v1/admin/info?application=${application}`)
   }
 
-  getMinimumStay(application: string): Promise<Response<Response<MinimumStay[]>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/minimum-stay?application=${application}`)
+  getMinimumStay(query: QueryAffiliation): Promise<Response<Response<MinimumStay[]>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/minimum-stay`, query)
+    return this.httpApi.get(url)
   }
 
-  getAccessGolf(application: string): Promise<Response<Response<GolfAccess>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/golf-access?application=${application}`)
+  getAccessGolf(query: QueryAffiliation): Promise<Response<Response<GolfAccess>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/golf-access`, query)
+    return this.httpApi.get(url)
   }
 
-  getAccessProperties(application: string, company: number, isNational: number): Promise<Response<Response<string[]>>> {
-    const query = [
-      `application=${application}`,
-      `company=${company}`,
-      `isNational=${isNational}`,
+  getAccessProperties(query: QueryAffiliation): Promise<Response<Response<string[]>>> {
+    const queryParams = [
+      `application=${query.application}`,
+      `company=${query.company}`,
+      `isNational=${query.isNational}`,
     ].join('&')
 
-    return this.httpApi.get(`/membership/api/v1/admin/hotel-access?${query}`)
+    return this.httpApi.get(`/membership/api/v1/admin/hotel-access?${queryParams}`)
   }
 
-  getValidateAccessGroup(application: string): Promise<Response<Response<any[]>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/validity-access/group?application=${application}`)
+  getValidateAccessGroup(query: QueryAffiliation): Promise<Response<Response<any[]>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/validity-access/group`, query)
+    return this.httpApi.get(url)
   }
 
-  getExtraFeeGolf(application: string): Promise<Response<Response<ExtraFeeGolfDto[]>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/golf/extra-fee?application=${application}`)
+  getExtraFeeGolf(query: QueryAffiliation): Promise<Response<Response<ExtraFeeGolfDto[]>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/golf/extra-fee`, query)
+    return this.httpApi.get(url)
   }
 
-  getEliteProductsGolf(application: string): Promise<Response<Response<EliteProductsGolf[]>>> {
-    return this.httpApi.get(`/membership/api/v1/admin/elite-products?application=${application}`)
+  getEliteProductsGolf(query: QueryAffiliation): Promise<Response<Response<EliteProductsGolf[]>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/elite-products`, query)
+    return this.httpApi.get(url)
   }
 
-  getTermsAndConditions(application: string, company: number): Promise<Response<Response<any>>> {
-    const query = [
-      `application=${application}`,
-      `company=${company}`,
-    ].join('&')
-
-    return this.httpApi.get(`/membership/api/v1/admin/terms-and-conditions?${query}`)
+  getTermsAndConditions(query: QueryAffiliation): Promise<Response<Response<any>>> {
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/terms-and-conditions`, query)
+    return this.httpApi.get(url)
   }
 
   getBenefitsAdditionals(query: QueryAffiliation): Promise<Response<Response<BenefitsAdditionalsDto[]>>> {
-    const queryParams = [
-      `application=${query.application}`,
-      `company=${query.company}`
-    ].join('&')
-    return this.httpApi.get(`/benefit/api/v1/admin/additional?${queryParams}`)
+    const url = this.getURLWithQueryAffiliation(`/benefit/api/v1/admin/additional`, query)
+    return this.httpApi.get(url)
   }
 
   getMaxOccupancyByHotel(request: GetMaxOccupancyByHotelRequest): Promise<Response<Response<MaxOccupancyByHotelDTO[]>>> {
@@ -109,10 +119,7 @@ export default class BPGServiceRepository implements BPGRepository {
   }
 
   getResortCredits(query: QueryAffiliation): Promise<Response<Response<SisturPromotion[]>>> {
-    const queryParams = [
-      `application=${query.application}`,
-      `company=${query.company}`
-    ].join('&')
-    return this.httpApi.get(`/membership/api/v1/admin/sistur-promotion?${queryParams}`)
+    const url = this.getURLWithQueryAffiliation(`/membership/api/v1/admin/sistur-promotion`, query)
+    return this.httpApi.get(url)
   }
 }

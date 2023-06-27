@@ -24,6 +24,7 @@ import GetMaxOccupancyByHotelUseCase from '~/src/app/bpg/application/getMaxOccup
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel'
 import GetResortCreditsUseCase from '~/src/app/bpg/application/getResortCreditsUseCase'
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto'
+import { AffiliateInfo } from '~/src/app/bpg/domain/entities/affiliateInfo'
 
 @Store({
   name: 'BPGStore'
@@ -106,7 +107,7 @@ export class BPGStore extends Pinia {
 
   public async getMimimumStay() {
     try {
-      const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo.application)
+      const {data} = await this.getMinimumStayUseCase.run(this.affiliateInfo)
       this.minimumStay = data?.data! || []
     } catch (error) {
       console.log(error)
@@ -128,7 +129,7 @@ export class BPGStore extends Pinia {
   }
 
   public async getCategorysByProperty() {
-    const {data} = await this.getCategorysByPropertyUseCase.run(this.affiliateInfo.application)
+    const {data} = await this.getCategorysByPropertyUseCase.run(this.affiliateInfo)
     return await Promise.all(
       data?.data.map(async (categorie: Category) => ({
         ...categorie,
@@ -156,24 +157,24 @@ export class BPGStore extends Pinia {
   }
 
   public async getProductsElitePromotions(): Promise<Response<any>> {
-    return await this.getProductsElitePromotionsUseCase.run(this.affiliateInfo.application)
+    return await this.getProductsElitePromotionsUseCase.run(this.affiliateInfo)
   }
 
   public async getProductsEliteBenefits(): Promise<Response<any>> {
-    return await this.getProductsEliteBenefitsUseCase.run(this.affiliateInfo.application)
+    return await this.getProductsEliteBenefitsUseCase.run(this.affiliateInfo)
   }
 
   public async getValidateAccessGroup() {
-    const response = await this.getValidateAccessGroupUseCase.run(this.affiliateInfo.application)
+    const response = await this.getValidateAccessGroupUseCase.run(this.affiliateInfo)
     return response.data
   }
 
   public async getExtraFeeGolf() {
-    return await this.getExtraFeeGolfUseCase.run(this.affiliateInfo.application)
+    return await this.getExtraFeeGolfUseCase.run(this.affiliateInfo)
   }
 
   public async getEliteProductsGolf() {
-    return await this.getEliteProductsGolfUseCase.run(this.affiliateInfo.application)
+    return await this.getEliteProductsGolfUseCase.run(this.affiliateInfo)
   }
 
   public async getTermsAndConditions() {
@@ -192,12 +193,14 @@ export class BPGStore extends Pinia {
 
   /* ----------------------------------------------------------- */
 
-  public affiliateInfo: any = {}
+  public affiliateInfo: AffiliateInfo = {} as AffiliateInfo
 
-  public async getAffiliateInfo(application: string) {
+  public async getAffiliateInfo(application: string): Promise<AffiliateInfo> {
     const { data } = await this.getInfoAffiliation(application)
 
-    this.affiliateInfo = data?.data.find((_info: any, index: number) => index === 0) || {}
+    if (data?.data[0]) {
+      this.affiliateInfo = data?.data[0]
+    }
 
     return this.affiliateInfo
   }
