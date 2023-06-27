@@ -698,7 +698,7 @@ export default class BPGPage extends Mixins(
 
         case 'ACCESS_SUITES':
           const standard = this.groups.find((group: any) => group.groupId === 'S')
-          const presidential = this.groups.find((group: any) => group.groupId === 'P')
+          const presidential = this.groups.find((group: any) => group.groupId === 'P' || group.groupId === 'PS')
 
           if (standard && presidential)
             description = description.replace(
@@ -988,7 +988,7 @@ export default class BPGPage extends Mixins(
       this.bpgStore.maxOccupanciesByHotel = {}
       await this.getMaxOccupanciesByHotel()
 
-      await this.getMinStay()
+      // await this.getMinStay()
       await this.getRoomAccessHotel()
       this.loadingCategories = false
 
@@ -1687,15 +1687,19 @@ export default class BPGPage extends Mixins(
     rewards: any
   }) {
     let rewardsValues: any = [
-      {idPromotion: 25, stay: 10, nights: 4},
-      {idPromotion: 7, stay: 7, nights: 3}
+      {idPromotion: 39, stay: 10, nights: 4},
+      {idPromotion: 38, stay: 7, nights: 3}
     ]
 
     rewardsValues = rewardsValues.filter(({idPromotion}: {idPromotion: number}, index: number) =>
       rewards.find((reward: any) => reward.idPromocion === idPromotion)
     )
 
-    const rewardsValuesLong = [...rewardsValues, {idPromotion: 27, stay: 5, nights: 1}].map(
+    const tempRewardsLong = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 5, nights: 1}] : [...rewardsValues]
+
+    const tempRewardsShort = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 4, nights: 1}] : [...rewardsValues]
+
+    const rewardsValuesLong = tempRewardsLong.map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotion', {
           stay: String(stay),
@@ -1703,7 +1707,7 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesShort = [...rewardsValues, {idPromotion: 27, stay: 4, nights: 1}].map(
+    const rewardsValuesShort = tempRewardsShort.map(
       ({stay, nights}: any) =>
         this.$t('rewardTextPromotionShort', {
           stay: String(stay),
@@ -1711,14 +1715,14 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesNumbers = [...rewardsValues, {idPromotion: 27, stay: 5, nights: 1}].map(
+    const rewardsValuesNumbers = tempRewardsLong.map(
       ({nights}: any) => nights
     )
 
     return description
       .replace(
         '{MARK_REWARDS_DYNAMIC}',
-        this.createStringElements(rewardsValuesLong, ` ${this.$t('or')} `, '%')
+        this.createStringElements(rewardsValuesLong, ` ${this.$t('or')} `)
       )
       .replace(
         '{MARK_NIGHTS_DYNAMIC}',
