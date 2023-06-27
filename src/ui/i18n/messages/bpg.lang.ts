@@ -165,7 +165,7 @@ export default {
       accessPerYear: '({access}) por ano',
       accessValidTo: `({quantityToPrint}) no total <br> válido até {date} <br> para usar ({access}) por ano`,
       yearsAndVigencyTotal:
-        'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
+        'O total de acessos estabelecidos no seu Acordo são válidos até <b>{VIGENCY}</b> e devem ser utilizados <b>({ACCESS_YEAR})</b> por ano.',
       yearsAndVigencyYear:
         'Cada acesso <b>{level}</b> aplica-se <b>({ACCESS_YEAR})</b> vez por ano e válido até <b>( {VIGENCY} )</b>.',
       diamondPresidential: 'Suite Presidencial Diamante',
@@ -174,15 +174,15 @@ export default {
       affiliatesDiamond: 'Diamond',
       suitesToChoose: 'Suites to Choose',
       access: 'Access',
-      Affiliates: 'Afiliados', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Referrend: 'Referente', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Guest: 'Convidado', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Beneficiaries: 'Beneficiários', //no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Affiliates: 'Afiliados', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Referrend: 'Referente', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Guest: 'Convidado', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Beneficiaries: 'Beneficiários', // no se agrega camelCase, por que asi es obtenido de la base de datos...
       withoutDescription: 'Sans descriptif.',
       problems:
-        'Si tiene algún problema, póngase en contacto con nosotros en: {phone} o escriba a <span class="text-blue-light">{email}</span>',
-      about: 'ACERCA DE PALACE RESORTS | POLÍTICA DE PRIVACIDAD',
-      terms: 'Términos de uso © {year} · Palace Resorts · Todos los derechos reservados',
+        'Se tiver algum problema, entre em contato conosco pelo número: {phone} ou envie um email para <span class="text-blue-light">{email}</span>',
+      about: 'SOBRE O PALACE RESORTS | POLÍTICA DE PRIVACIDADE',
+      terms: 'Termos de uso © {year} · Palace Resorts · Todos os direitos reservados',
       loadingData: 'Carregando dados...',
       textLoadingCategories: 'Carregando Categorias...',
       staysMinRef: 'Estadias Mínimas Referidas',
