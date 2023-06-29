@@ -1,14 +1,5 @@
 <template>
   <div
-    v-if="showContentMicroSite"
-    class="ms-relative ms-text-center ms-container ms-pb-20 md:ms-mt-24"
-  >
-    <span class="ms-text-gray-500 ms-font-sans">
-      {{ $t('bpgSecurity') }}
-    </span>
-  </div>
-  <div
-    v-else
     class="ms-mt-4 lg:ms-mt-12"
   >
     <!-- Resume -->
@@ -80,11 +71,12 @@
         :seeLess="$t('seeLess')"
         v-bind="product"
         :dark="false"
+        @open-modal-terms="openModalTermsMobile"
         @show-more="showMorePromotion(product.code, index)"
       >
         <template
-          #button
           v-if="product?.label"
+          #button
         >
           <PEButton
             flat
@@ -212,10 +204,38 @@
       </div>
     </div>
 
+    <aside
+      class="fixed px-6 py-6 top-0 right-0 h-full pe-w-[100%] transform overflow-auto bg-black-light transition-all duration-300 ease-in-out justify-between xl:hidden"
+      style="z-index: 99999"
+      v-if="showModalTermsMobile"
+    >
+      <div class="flex justify-end">
+        <div
+          @click.prevent="closeModalTermsMobile"
+          class="p-2"
+        >
+          <PEIcon
+            size="24"
+            class="text-white"
+            >close-circle</PEIcon
+          >
+        </div>
+      </div>
+      <h2 class="pe-text-white pe-text-center pe-text-[24px] pe-font-sans pe-mb-5 pe-uppercase">
+        {{ textsProvitions.termsAndConditions }}
+      </h2>
+      <div
+        v-for="(term, index) in termsAndConditionsMobile"
+        :key="index"
+        class="pe-text-white pe-mb-6 pe-font-sans"
+        v-html="term.htmlBody"
+      />
+    </aside>
+
     <div class="ms-flex lg:ms-mt-8 ms-justify-end ms-divide-x ms-divide-gray-500 ms-text-blue-dark lg:ms-p-2">
       <nuxt-link class="ms-px-4" :to="localePath('/affiliate/bpg/policies')">Policies</nuxt-link>
       <nuxt-link class="ms-px-4" :to="localePath('/affiliate/bpg/privacy-policy')">Privacy Policy</nuxt-link>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -291,6 +311,7 @@ import {
   MembershipLevelsAccessVIP
 } from '~/src/app/bpg/domain/enum/membershipLevels'
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
+import {ConsiderationTypes} from '~/src/app/bpg/domain/enum/considerationsTypes'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
@@ -699,7 +720,7 @@ export default class BPGPage extends Mixins(
         let {description, code} = consideration
 
         switch (code) {
-        case 'MPPC':
+        case ConsiderationTypes.MPPC:
           return {
             ...consideration,
             description: description!
@@ -707,9 +728,11 @@ export default class BPGPage extends Mixins(
               .replace('{NUM_ACCESS}', String(this.mppc?.totalAccess))
           }
 
-        case 'ACCESS_SUITES':
+        case ConsiderationTypes.ACCESS_SUITES:
           const standard = this.groups.find((group: any) => group.groupId === 'S')
-          const presidential = this.groups.find((group: any) => group.groupId === 'P' || group.groupId === 'PS')
+          const presidential = this.groups.find(
+            (group: any) => group.groupId === 'P' || group.groupId === 'PS'
+          )
 
           if (!this.accessBaglioni)
             description = this.removeMarksSuitesExclusives({
@@ -828,6 +851,10 @@ export default class BPGPage extends Mixins(
           return {
             ...consideration,
             description: description
+              .replace('{IN_TOTAL_VILLAS}', '')
+              .replace('{IN_TOTAL_BABY_VILLAS}', '')
+              .replace('{IN_TOTAL_BABY_RESIDENCE}', '')
+              .replace('{IN_TOTAL_RESIDENCE}', '')
               .replace('{MARK_LEVELS_START}', '')
               .replace('{MARK_LEVELS_END}', '')
               .replace('{MARK_RESIDENCE_START}', '')
@@ -994,11 +1021,13 @@ export default class BPGPage extends Mixins(
       this.isMobile = window.innerWidth < 768
 
       await this.getInfoAffiliation()
+
+      // if (this.infoMember?.stayByMarket) return this.$router.push({path: '/preferential-weeks'})
+
       this.redirectToLocalePage()
 
       this.strapiPage = await this.loadStrapiPageData(BasePageSlugs.BPG)
       await this.bpgStore.getMimimumStay()
-      // if (this.infoMember?.stayByMarket) return
 
       await this.getAccessProperties()
       await this.getAllZones()
@@ -1069,14 +1098,16 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     case PeriodType.TOTAL:
-      return description.replace(
-        '{MARK_ACCESS_VIGENCY_RESIDENCE}',
-        this.$t('yearsAndVigencyTotal', {
-          level: this.$t('residence') as string,
-          VIGENCY: String(this.accessResidence?.dateToText),
-          ACCESS_YEAR: String(this.accessResidence?.accessYear)
-        }) as string
-      )
+      return description
+        .replace(
+          '{MARK_ACCESS_VIGENCY_RESIDENCE}',
+          this.$t('yearsAndVigencyTotal', {
+            level: this.$t('residence') as string,
+            VIGENCY: String(this.accessResidence?.dateToText),
+            ACCESS_YEAR: String(this.accessResidence?.accessYear)
+          }) as string
+        )
+        .replace('{IN_TOTAL_RESIDENCE}', ` ${this.$t('inTotal')}`)
     default:
       return description.replace('{MARK_ACCESS_VIGENCY_RESIDENCE}', '')
     }
@@ -1097,16 +1128,17 @@ export default class BPGPage extends Mixins(
         })
     }
     switch (this.accessBabyResidence?.periodType) {
-      case PeriodType.YEAR:
-        return description.replace(
-          '{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}',
-          this.$t('yearsAndVigencyYear', {
-            VIGENCY: String(this.accessBabyResidence?.dateToText),
-            ACCESS_YEAR: String(this.accessBabyResidence?.accessYear)
-          }) as string
-        )
-      case PeriodType.TOTAL:
-        return description.replace(
+    case PeriodType.YEAR:
+      return description.replace(
+        '{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}',
+        this.$t('yearsAndVigencyYear', {
+          VIGENCY: String(this.accessBabyResidence?.dateToText),
+          ACCESS_YEAR: String(this.accessBabyResidence?.accessYear)
+        }) as string
+      )
+    case PeriodType.TOTAL:
+      return description
+        .replace(
           '{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}',
           this.$t('yearsAndVigencyTotal', {
             level: this.$t('residence') as string,
@@ -1114,8 +1146,9 @@ export default class BPGPage extends Mixins(
             ACCESS_YEAR: String(this.accessBabyResidence?.accessYear)
           }) as string
         )
-      default:
-        return description.replace('{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}', '')
+        .replace('{IN_TOTAL_BABY_RESIDENCE}', ` ${this.$t('inTotal')}`)
+    default:
+      return description.replace('{MARK_ACCESS_VIGENCY_BABY_RESIDENCE}', '')
     }
   }
 
@@ -1215,14 +1248,16 @@ export default class BPGPage extends Mixins(
         }) as string
       )
     case PeriodType.TOTAL:
-      return description.replace(
-        '{MARK_ACCESS_VIGENCY_VILLAS}',
-        this.$t('yearsAndVigencyTotal', {
-          level: this.$t('villa') as string,
-          VIGENCY: String(this.accessVillas?.dateToText),
-          ACCESS_YEAR: String(this.accessVillas?.accessYear)
-        }) as string
-      )
+      return description
+        .replace(
+          '{MARK_ACCESS_VIGENCY_VILLAS}',
+          this.$t('yearsAndVigencyTotal', {
+            level: this.$t('villa') as string,
+            VIGENCY: String(this.accessVillas?.dateToText),
+            ACCESS_YEAR: String(this.accessVillas?.accessYear)
+          }) as string
+        )
+        .replace('{IN_TOTAL_VILLAS}', ` ${this.$t('inTotal')}`)
     default:
       return description.replace('{MARK_ACCESS_VIGENCY_VILLAS}', '')
     }
@@ -1237,16 +1272,17 @@ export default class BPGPage extends Mixins(
       })
     }
     switch (this.accessBabyVillas?.periodType) {
-      case PeriodType.YEAR:
-        return description.replace(
-          '{MARK_ACCESS_VIGENCY_BABY_VILLAS}',
-          this.$t('yearsAndVigencyYear', {
-            VIGENCY: String(this.accessBabyVillas?.dateToText),
-            ACCESS_YEAR: String(this.accessBabyVillas?.accessYear)
-          }) as string
-        )
-      case PeriodType.TOTAL:
-        return description.replace(
+    case PeriodType.YEAR:
+      return description.replace(
+        '{MARK_ACCESS_VIGENCY_BABY_VILLAS}',
+        this.$t('yearsAndVigencyYear', {
+          VIGENCY: String(this.accessBabyVillas?.dateToText),
+          ACCESS_YEAR: String(this.accessBabyVillas?.accessYear)
+        }) as string
+      )
+    case PeriodType.TOTAL:
+      return description
+        .replace(
           '{MARK_ACCESS_VIGENCY_BABY_VILLAS}',
           this.$t('yearsAndVigencyTotal', {
             level: this.$t('villa') as string,
@@ -1254,8 +1290,9 @@ export default class BPGPage extends Mixins(
             ACCESS_YEAR: String(this.accessBabyVillas?.accessYear)
           }) as string
         )
-      default:
-        return description.replace('{MARK_ACCESS_VIGENCY_BABY_VILLAS}', '')
+        .replace('{IN_TOTAL_BABY_VILLAS}', ` ${this.$t('inTotal')}`)
+    default:
+      return description.replace('{MARK_ACCESS_VIGENCY_BABY_VILLAS}', '')
     }
   }
 
@@ -1707,17 +1744,25 @@ export default class BPGPage extends Mixins(
     rewards: any
   }) {
     let rewardsValues: any = [
-      {idPromotion: 39, stay: 10, nights: 4},
-      {idPromotion: 38, stay: 7, nights: 3}
+      {idPromotion: Number(Promotions.REWARDS_UK), stay: 10, nights: 4},
+      {idPromotion: Number(Promotions.REWARDS), stay: 7, nights: 3}
     ]
 
     rewardsValues = rewardsValues.filter(({idPromotion}: {idPromotion: number}, index: number) =>
       rewards.find((reward: any) => reward.idPromocion === idPromotion)
     )
 
-    const tempRewardsLong = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 5, nights: 1}] : [...rewardsValues]
+    const tempRewardsLong = rewards.find(
+      (reward: any) => reward.idPromocion === Number(Promotions.REWARDS_PLUS)
+    )
+      ? [...rewardsValues, {idPromotion: Number(Promotions.REWARDS_PLUS), stay: 5, nights: 1}]
+      : [...rewardsValues]
 
-    const tempRewardsShort = rewards.find((reward: any) => reward.idPromocion === 40) ? [...rewardsValues, {idPromotion: 40, stay: 4, nights: 1}] : [...rewardsValues]
+    const tempRewardsShort = rewards.find(
+      (reward: any) => reward.idPromocion === Number(Promotions.REWARDS_PLUS)
+    )
+      ? [...rewardsValues, {idPromotion: Number(Promotions.REWARDS_PLUS), stay: 4, nights: 1}]
+      : [...rewardsValues]
 
     const rewardsValuesLong = tempRewardsLong.map(
       ({stay, nights}: any) =>
@@ -1735,9 +1780,7 @@ export default class BPGPage extends Mixins(
         }) as string
     )
 
-    const rewardsValuesNumbers = tempRewardsLong.map(
-      ({nights}: any) => nights
-    )
+    const rewardsValuesNumbers = tempRewardsLong.map(({nights}: any) => nights)
 
     return description
       .replace(
@@ -2074,12 +2117,15 @@ export default class BPGPage extends Mixins(
 
   public get accessSuitesConsideration(): Consideration {
     return this.considerationsList.find(
-      (consideration: Consideration) => consideration.code === 'ACCESS_SUITES'
+      (consideration: Consideration) => consideration.code === ConsiderationTypes.ACCESS_SUITES
     )
   }
 
   public onClickExpansionPanel(value: boolean, index: number) {
-    if (this.considerationsList[index]?.code === 'ACCESS_SUITES' && this.isMobile) {
+    if (
+      this.considerationsList[index]?.code === ConsiderationTypes.ACCESS_SUITES &&
+      this.isMobile
+    ) {
       this.considerationsValues[index] = false
       this.propertieSelectedMobile = {
         name: this.hotelsTableAccess[0]?.name!,
@@ -2262,6 +2308,19 @@ export default class BPGPage extends Mixins(
 
   public closeModalExpansionPanel() {
     this.showModalAccessSuitesMobile = false
+  }
+
+  public showModalTermsMobile: boolean = false
+
+  public termsAndConditionsMobile: any = []
+
+  public openModalTermsMobile(event: any) {
+    this.termsAndConditionsMobile = event.termsAndConditions
+    this.showModalTermsMobile = true
+  }
+
+  public closeModalTermsMobile(event: any) {
+    this.showModalTermsMobile = false
   }
 }
 </script>

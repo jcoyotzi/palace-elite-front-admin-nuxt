@@ -573,6 +573,9 @@ export default class CardCategoryTabs extends Vue {
     this.propertieTabType = second
 
     this.propertieIndexTab = index
+
+    if (second === 'mobile') this.onClickProperty(this.tabMobile.properties[index])
+
     setTimeout(() => {
       this.loadingDataPropertie = false
     }, 1500)

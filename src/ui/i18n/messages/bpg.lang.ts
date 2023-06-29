@@ -75,9 +75,11 @@ export default {
       loading: 'Cargando...',
       rewardTextPromotion: '({stay}) noches de estancia o más, y ganar ({nights}) Noches Rewards',
       rewardTextPromotionShort: '({stay}) noches más ({nights}) Noches Rewards',
+      inTotal: 'en total',
       benefits: 'Beneficios',
     },
     en: {
+      inTotal: 'in total',
       rewardTextPromotion: '({stay}) nights stay or more and earn ({nights}) Rewards Nights',
       rewardTextPromotionShort: '({stay}) nights plus ({nights}) Rewards Nights',
       loading: 'Loading...',
@@ -154,6 +156,7 @@ export default {
       suitesToChoose: 'Suites to Choose'
     },
     pt: {
+      inTotal: 'no total',
       or: 'ou',
       rewardTextPromotion: '({stay}) noites de estadia ou mais e ganhar ({nights}) Rewards Nights',
       rewardTextPromotionShort: '({stay}) noites mais ({nights}) Noites Rewards',
