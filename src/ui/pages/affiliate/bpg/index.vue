@@ -306,6 +306,7 @@ import {
 } from '~/src/app/bpg/domain/enum/catalogProvitions'
 import {baglioniCodes} from '~/src/app/property/domain/data/baglioniCodes'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
+import {LockOffTypes} from '~/src/app/bpg/domain/enum/lockOffTypes'
 import {
   MembershipLevelsAccessDiamante,
   MembershipLevelsAccessVIP
@@ -1089,6 +1090,13 @@ export default class BPGPage extends Mixins(
         })
     }
 
+    const lockOff = this.roomHotelAccess.find((access: any) =>
+      Object.keys(LockOffTypes).includes(access.roomTypeId)
+    )
+
+    if (lockOff) description = description.replace('{RESIDENCE_NAME}', 'Residence Suite / Lock Off')
+    else description = description.replace('{RESIDENCE_NAME}', 'Residence Suite')
+
     switch (this.accessResidence?.periodType) {
     case PeriodType.YEAR:
       return description.replace(
@@ -1128,6 +1136,14 @@ export default class BPGPage extends Mixins(
           description
         })
     }
+
+    const lockOff = this.roomHotelAccess.find((access: any) =>
+      Object.keys(LockOffTypes).includes(access.roomTypeId)
+    )
+    if (lockOff)
+      description = description.replace('{BABY_RESIDENCE_NAME}', 'Residence Suite / Lock Off')
+    else description = description.replace('{BABY_RESIDENCE_NAME}', 'Residence Suite')
+
     switch (this.accessBabyResidence?.periodType) {
     case PeriodType.YEAR:
       return description.replace(

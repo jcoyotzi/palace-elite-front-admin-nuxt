@@ -333,7 +333,7 @@
 import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
 // import PELoadingData from './PELoadingData.vue'
 import SkeletonLine from '~/src/ui/components/skeletonLine.vue'
-import i18n from '~/src/ui/i18n/bpg.lang'
+import i18n from '~/src/ui/i18n/messages/bpg.lang'
 
 interface CategoryBPG {
   title: string
@@ -438,7 +438,7 @@ export default class CardCategoryTabs extends Vue {
   }
 
   public get getTitleSelectedMobile(): string {
-    return this.$t(this.headersWithoutCategory[this.indexHeaderBPGMobile]?.titleMobile) as string
+    return this.$t(this.headersWithoutCategory[this.indexHeaderBPGMobile]?.titleMobile || '') as string
   }
 
   public get headerPreviousColumn() {
