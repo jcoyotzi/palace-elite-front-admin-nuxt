@@ -1932,36 +1932,43 @@ export default class BPGPage extends Mixins(
   public get roomHotelAccessFormatted() {
     const accessShow: any = {}
 
+    const access = this.roomHotelAccess
+      .filter(
+        (access: any) =>
+          !this.validatePartRoom(access?.roomTypeId) &&
+          access?.discountRate > 0 &&
+          access.hotel === this.propertySelectedTab?.code
+      )
+      .map((access: any) => ({
+        ...access,
+        title: access?.roomTypeDescription || '-',
+        //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
+        code: access?.roomTypeId || '-',
+        property: this.propertySelectedTab?.code,
+        bpg: `${access?.discountRate}%` || '-',
+        ocupacion_max: access.maxOccupancy,
+        tooltip: ''
+      }))
+      .filter((access: any) => {
+        if (!accessShow[access['roomTypeDescription']]) {
+          accessShow[access['roomTypeDescription']] = true
+          return true
+        }
+        return false
+      })
+      .sort((a: any, b: any) => {
+        if (a.discountRate === 20 && (a.code === 'RL' || a.code === 'RLCB')) {
+          return -1;
+        }
+        return 1
+      })
+
     return (
-      this.roomHotelAccess
-        .filter(
-          (access: any) =>
-            !this.validatePartRoom(access?.roomTypeId) &&
-            access?.discountRate > 0 &&
-            access.hotel === this.propertySelectedTab?.code
-        )
-        .map((access: any) => ({
-          ...access,
-          title: access?.roomTypeDescription || '-',
-          //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
-          code: access?.roomTypeId || '-',
-          property: this.propertySelectedTab?.code,
-          bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access) > 0 ? this.getMaxOccupanciesByHotelAndRoomType(access) : access.maxOccupancy,
-          tooltip: ''
-        }))
-        .filter((access: any) => {
-          if (!accessShow[access.roomTypeDescription]) {
-            accessShow[access.roomTypeDescription] = true
-            return true
-          }
-          return false
-        })
-        .sort((a: any, b: any) => {
-          if (b.bpg < a.bpg) return 1
-          if (b.bpg > a.bpg) return -1
-          return 0
-        }) || []
+      access.sort((a: any, b: any) => {
+        if (b.bpg < a.bpg) return 1
+        if (b.bpg > a.bpg) return -1
+        return 0
+      }) || []
     )
   }
 
