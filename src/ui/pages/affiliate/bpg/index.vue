@@ -148,7 +148,7 @@
     </div>
 
     <div
-      class="md:pe-hidden pe-p-[24px] pe-bg-black-medium pe-z-[31] pe-w-full pe-rounded-t-[20px] pe-mx-auto pe-h-[80%] pe-fixed pe-bottom-0"
+      class="md:ms-hidden ms-p-[24px] ms-bg-black-medium ms-z-[31] ms-w-full ms-rounded-t-[20px] ms-mx-auto ms-h-[80%] ms-fixed ms-bottom-0"
       v-if="showModalAccessSuitesMobile"
     >
       <div class="flex justify-end">
@@ -164,11 +164,11 @@
         </div>
       </div>
       <div
-        class="pe-mt[24px] pe-text-white pe-text-center pe-uppercase pe-font-bold pe-text-[18px]"
+        class="ms-mt[24px] ms-text-white ms-text-center ms-uppercase ms-font-bold ms-text-[18px]"
       >
         {{ accessSuitesConsideration?.title }}
       </div>
-      <div class="pe-mt-[24px]">
+      <div class="ms-mt-[24px]">
         <PESelect
           :items="hotelsTableAccess"
           item-value="name"
@@ -177,19 +177,19 @@
           v-model="propertieSelectedMobile"
         />
       </div>
-      <div class="content-mobile-access pe-overflow-y-auto pe-my-4 pe-h-[100%]">
-        <div class="pe-mt-[24px] pe-text-white pe-font-sans"> Aplica en: </div>
+      <div class="content-mobile-access ms-overflow-y-auto ms-my-4 ms-h-[100%]">
+        <div class="ms-mt-[24px] ms-text-white ms-font-sans"> Aplica en: </div>
         <div
           v-for="access in accessGroupMapperMobile"
-          class="pe-text-white"
+          class="ms-text-white"
         >
           <div
             v-html="access.title"
             class="my-4"
           />
-          <div class="pe-gap-y-4 pe-w-full">
+          <div class="ms-gap-y-4 ms-w-full">
             <div
-              class="pe-px-4 pe-mb-2 pe-py-2 pe-text-white pe-font-sans pe-text-[14px] pe-bg-blue-light pe-rounded-[12px]"
+              class="ms-px-4 ms-mb-2 ms-py-2 ms-text-white ms-font-sans ms-text-[14px] ms-bg-blue-light ms-rounded-[12px]"
               style="width: fit-content; height: fit-content"
               v-for="acc in access.access"
             >
@@ -198,14 +198,14 @@
           </div>
         </div>
         <div
-          class="pe-my-6 pe-text-white"
+          class="ms-my-6 ms-text-white"
           v-html="accessSuitesConsideration?.description"
         />
       </div>
     </div>
 
     <aside
-      class="fixed px-6 py-6 top-0 right-0 h-full pe-w-[100%] transform overflow-auto bg-black-light transition-all duration-300 ease-in-out justify-between xl:hidden"
+      class="fixed px-6 py-6 top-0 right-0 h-full ms-w-[100%] transform overflow-auto bg-black-light transition-all duration-300 ease-in-out justify-between xl:hidden"
       style="z-index: 99999"
       v-if="showModalTermsMobile"
     >
@@ -221,13 +221,13 @@
           >
         </div>
       </div>
-      <h2 class="pe-text-white pe-text-center pe-text-[24px] pe-font-sans pe-mb-5 pe-uppercase">
+      <h2 class="ms-text-white ms-text-center ms-text-[24px] ms-font-sans ms-mb-5 ms-uppercase">
         {{ textsProvitions.termsAndConditions }}
       </h2>
       <div
         v-for="(term, index) in termsAndConditionsMobile"
         :key="index"
-        class="pe-text-white pe-mb-6 pe-font-sans"
+        class="ms-text-white ms-mb-6 ms-font-sans"
         v-html="term.htmlBody"
       />
     </aside>
@@ -453,6 +453,7 @@ export default class BPGPage extends Mixins(
   public get bindCardCategoryTabs(): CardCategoryTabsDto {
     return {
       headersTable: this.headersTable,
+      isMobile: this.isMobile,
       texts: {
         minStaysBaglioni: this.$t('minStaysBaglioni') as string,
         bpgSuiteAccessYears: this.$t('bpgSuiteAccessYears') as string,
