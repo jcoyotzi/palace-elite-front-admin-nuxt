@@ -46,7 +46,8 @@ export enum Promotions {
   REWARDS_PLUS = '40', // antes 27
   REWARDS_UK = '39', // antes 25
   PLUS_PLAN = '29',
-  PLUS_PLAN_AND_TOURS = '31',
+  PLUS_PLAN_AND_TOURS1 = '30',
+  PLUS_PLAN_AND_TOURS2 = '31',
   RESORT_CREDIT = '28'
 }
 

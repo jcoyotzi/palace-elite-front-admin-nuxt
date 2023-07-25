@@ -1180,7 +1180,7 @@ export default class BPGPage extends Mixins(
     return description.replace('{LEVELS}', this.createStringElements(levels, separatorEnd))
   }
 
-  public constructWeeksAndNightsString(description: string) {
+  public constructWeeksAndNightsString(description: string, withoutNumber: boolean = false) {
     const separatorEnd = ` ${this.$t('or') as string} `
 
     let benefits = this.benefits
@@ -1201,11 +1201,15 @@ export default class BPGPage extends Mixins(
     let anniversarys: string[] | string = []
     const allProvitions: string[] = []
 
-    if (benefits.includes(CatalogImperials.IMPWKS))
-      imperials.push(this.$t('imperialWeeks') as string)
+    if (benefits.includes(CatalogImperials.IMPWKS)) {
+      let imperialStr: string = withoutNumber ? 'imperialWeeksWithoutNumber' : 'imperialWeeks'
+      imperials.push(this.$t(imperialStr) as string)
+    }
 
-    if (benefits.includes(CatalogImperials.IMPNIG))
-      imperials.push(this.$t('imperialNights') as string)
+    if (benefits.includes(CatalogImperials.IMPNIG)) {
+      let imperialStr: string = withoutNumber ? 'imperialNightsWithoutNumber' : 'imperialNights'
+      imperials.push(this.$t(imperialStr) as string)
+    }
 
     imperials = this.createStringElements(imperials, separatorEnd)
 
@@ -1214,11 +1218,19 @@ export default class BPGPage extends Mixins(
     if (benefits.includes(CatalogIncentivo.INCWKS))
       allProvitions.push(this.$t('incentiveWeek') as string)
 
-    if (benefits.includes(CatalogAnniversary.ANVWKS))
-      anniversarys.push(this.$t('anniversaryWeeks') as string)
+    if (benefits.includes(CatalogAnniversary.ANVWKS)) {
+      let anniversaryStr: string = withoutNumber
+        ? 'anniversaryWeeksWithoutNumber'
+        : 'anniversaryWeeks'
+      anniversarys.push(this.$t(anniversaryStr) as string)
+    }
 
-    if (benefits.includes(CatalogAnniversary.ANVNIG))
-      anniversarys.push(this.$t('anniversaryNights') as string)
+    if (benefits.includes(CatalogAnniversary.ANVNIG)) {
+      let anniversaryStr: string = withoutNumber
+        ? 'anniversaryNightsWithoutNumber'
+        : 'anniversaryNights'
+      anniversarys.push(this.$t(anniversaryStr) as string)
+    }
 
     anniversarys = this.createStringElements(anniversarys, separatorEnd)
 
@@ -1697,9 +1709,16 @@ export default class BPGPage extends Mixins(
 
           // si hizo match el producto entre Strapi y back, retornamos ambas infos
           if (prod) {
-
-            if (String(prod.idPromocion) === Promotions.PLUS_PLAN)
+            if (
+              [
+                Promotions.PLUS_PLAN,
+                Promotions.PLUS_PLAN_AND_TOURS1,
+                Promotions.PLUS_PLAN_AND_TOURS2
+              ].includes(String(prod.idPromocion) as Promotions)
+            ) {
               description = description.replace('{NIGHTS}', String(bpg20?.applicableStay))
+              description = this.constructWeeksAndNightsString(description, true)
+            }
 
             if (
               codes.includes(Promotions.REWARDS) ||
