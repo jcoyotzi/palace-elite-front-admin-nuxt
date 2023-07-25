@@ -13,9 +13,15 @@
       />
     </div>
 
-    <div class="ms-my-[100px] ms-text-gray-500 wrapper-tabs">
+    <div class="ms-my-14 ms-text-gray-500 wrapper-tabs">
       <div
-        class="ms-text-gray-500 ms-font-sans ms-font-normal ms-text-[16px]"
+        class="ms-mb-[24px] ms-text-gray-500 ms-text-center md:ms-text-left ms-font-semibold ms-text-[18px] ms-uppercase"
+        v-if="titleNameText"
+      >
+        {{ titleNameText }}
+      </div>
+      <div
+        class="ms-text-justify ms-text-white-light ms-font-sans ms-font-normal ms-text-[14px] md:ms-text-[16px]"
         v-if="showContentCollection"
         v-html="contentTab?.content"
       />
@@ -72,6 +78,10 @@ export default class BPGPolicies extends Mixins(
 
   public contentPage: any = {
     content: []
+  }
+
+  public get titleNameText() {
+    return this.contentPage?.tabs?.find((tab: any) => tab.code === this.indexTabs)?.name || ''
   }
 
   public get showConsiderationsList(): boolean {

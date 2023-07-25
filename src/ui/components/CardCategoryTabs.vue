@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- start version mobile -->
     <div class="mt-[40px] carousel w-full md:!ms-hidden">
       <div
         v-for="(tab, index) in tabsComputed"
@@ -44,11 +45,15 @@
               <tr>
                 <td
                   class="ms-pb-2 ms-font-sans ms-font-bold ms-text-normal ms-text-blue-light"
-                  v-for="(header, index) in headersTableComputed"
-                  v-if="!header.hidden"
-                  :class="constructClassHeader(header)"
+                  :class="constructClassHeader(headersTableComputed[0])"
                 >
-                  {{ header.title }}
+                  {{ headersTableComputed[0]?.title }}
+                </td>
+                <td
+                  class="ms-pb-2 ms-font-sans ms-font-bold ms-text-normal ms-text-blue-light"
+                  :class="constructClassHeader(headersWithoutCategory[indexHeaderBPGMobile])"
+                >
+                  {{ getTitleSelectedMobile }}
                 </td>
               </tr>
             </thead>
@@ -64,20 +69,42 @@
                 </td>
                 <td
                   class="ms-w-[20%] ms-pb-2 text-center ms-font-sans ms-text-[14px] ms-text-white ms-font-normal"
-                  >{{ row.bpg }}</td
+                  >{{ getValueSelectedMobile(row) }}</td
                 >
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="ms-mt-[24px] ms-justify-end ms-flex">
-          <div class="ms-justify-end ms-flex">
-            <div class="font-sans text-white">
-              {{ headerHiddenFirst }}
+        <div
+          class="ms-mt-[24px] ms-flex"
+          :class="getClassMobileColumns"
+        >
+          <div
+            class="ms-justify-start ms-flex"
+            @click.prevent="previousColumnBPG"
+            v-if="headerPreviousColumn"
+          >
+            <PEIcon
+              size="24"
+              class="ms-pt-2 text-blue-light ms-cursor-pointer"
+              >chevron-left</PEIcon
+            >
+            <div class="ms-font-sans ms-text-blue-light ms-cursor-pointer">
+              {{ headerPreviousColumn }}
+            </div>
+          </div>
+
+          <div
+            class="ms-justify-end ms-flex"
+            @click.prevent="nextColumnBPG"
+            v-if="headerNextColumn"
+          >
+            <div class="ms-font-sans ms-text-blue-light ms-cursor-pointer">
+              {{ headerNextColumn }}
             </div>
             <PEIcon
               size="24"
-              class="ms-pt-2 text-white"
+              class="ms-pt-2 text-blue-light ms-cursor-pointer"
               >chevron-right</PEIcon
             >
           </div>
@@ -85,6 +112,9 @@
       </div>
     </div>
 
+    <!-- end version mobile -->
+
+    <!-- start version web -->
     <div
       class="w-full rounded-[12px] p-[32px] ms-hidden md:!ms-flow-root"
       :class="backgroundClasses"
@@ -288,7 +318,6 @@
           >
         </div>
       </div>
-
       <div
         v-if="!loadingDataPropertie"
         class="mt-6 font-sans"
@@ -296,6 +325,7 @@
         v-html="bpgSuiteAccessYears"
       ></div>
     </div>
+    <!-- end version web -->
   </div>
 </template>
 
@@ -303,6 +333,7 @@
 import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
 // import PELoadingData from './PELoadingData.vue'
 import SkeletonLine from '~/src/ui/components/skeletonLine.vue'
+import i18n from '~/src/ui/i18n/messages/bpg.lang'
 
 interface CategoryBPG {
   title: string
@@ -329,12 +360,14 @@ interface MainTab {
 interface HeaderTable {
   title: string
   name: string
+  titleMobile?: string
   width: string
   align: string
   hidden?: boolean
 }
 
 @Component({
+  i18n,
   name: 'CardCategoryTabs',
   components: {
     SkeletonLine,
@@ -347,6 +380,8 @@ export default class CardCategoryTabs extends Vue {
   @Prop({default: true, type: Boolean}) loadingCategories!: boolean
 
   @Prop({default: false, type: Boolean}) showZones!: boolean
+
+  @Prop({default: false, type: Boolean}) isMobile!: boolean
 
   @Prop() mppc!: any
 
@@ -378,6 +413,8 @@ export default class CardCategoryTabs extends Vue {
 
   public loadingDataPropertie = false
 
+  public indexHeaderBPGMobile: number = 0
+  
   public indexesImagesProperties: number[] = [0, 1, 2]
 
   public get bpgSuiteAccessYears(): string {
@@ -386,8 +423,28 @@ export default class CardCategoryTabs extends Vue {
     return this.propertie?.bpgSuiteAccessYears?.replace('{YEARS}', this.mppc?.validity) || ''
   }
 
-  public get headerHiddenFirst() {
-    return this.headersTableComputed.find(header => header.hidden)?.title
+  public get headersWithoutCategory() {
+    return this.headersTableComputed.filter((header, index) => index > 0)
+  }
+
+  public get headerNextColumn() {
+    return this.headersWithoutCategory.find(
+      (header, index) => index === this.indexHeaderBPGMobile + 1
+    )?.title
+  }
+
+  public getValueSelectedMobile(row: any) {
+    return row[this.headersWithoutCategory[this.indexHeaderBPGMobile]?.name]
+  }
+
+  public get getTitleSelectedMobile(): string {
+    return this.$t(this.headersWithoutCategory[this.indexHeaderBPGMobile]?.titleMobile || '') as string
+  }
+
+  public get headerPreviousColumn() {
+    return this.headersWithoutCategory.find(
+      (header, index) => index === this.indexHeaderBPGMobile - 1
+    )?.title
   }
 
   public get indexesImagesPropertiesComputed(): number[] {
@@ -412,6 +469,13 @@ export default class CardCategoryTabs extends Vue {
 
   public get showPropertiesSecondsTabs() {
     return this.tab?.propertiesSecond && this.tab?.propertiesSecond.length > 0
+  }
+
+  public get getClassMobileColumns() {
+    return {
+      'ms-justify-between': this.headerPreviousColumn,
+      'ms-justify-end': !this.headerPreviousColumn
+    }
   }
 
   public get tabsComputed(): MainTab[] {
@@ -572,7 +636,12 @@ export default class CardCategoryTabs extends Vue {
 
     this.propertieTabType = second
 
+    this.indexHeaderBPGMobile = 0
+
     this.propertieIndexTab = index
+
+    if (second === 'mobile') this.onClickProperty(this.tabMobile.properties[index])
+
     setTimeout(() => {
       this.loadingDataPropertie = false
     }, 1500)
@@ -584,6 +653,15 @@ export default class CardCategoryTabs extends Vue {
 
   public showHeaderTable(header: HeaderTable): boolean {
     return header.name !== 'estancias_min' || this.showMinStays
+  }
+
+  public nextColumnBPG() {
+    if (this.indexHeaderBPGMobile < this.headersWithoutCategory.length - 1)
+      this.indexHeaderBPGMobile++
+  }
+
+  public previousColumnBPG() {
+    if (this.indexHeaderBPGMobile > 0) this.indexHeaderBPGMobile--
   }
 
   get backgroundClasses() {

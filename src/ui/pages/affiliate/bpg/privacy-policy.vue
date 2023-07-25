@@ -1,14 +1,14 @@
 <template>
   <div class="ms-px-4 ms-mx-auto ms-pb-20 md:ms-mt-24">
     <div
-      class="ms-my-20 ms-text-blue-light ms-font-semibold ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
+      class="ms-my-[32px] md:ms-my-14 ms-text-blue-light ms-font-semibold ms-text-[22px] md:ms-text-[40px] ms-flex ms-justify-center ms-uppercase"
     >
       {{ contentPage?.title }}
     </div>
 
     <div>
       <div
-        class="ms-text-white-light ms-font-sans ms-font-normal"
+        class="ms-text-gray-500 ms-font-sans ms-font-normal ms-text-[14px] md:ms-text-[16px]"
         v-html="contentPage?.content"
       />
     </div>
