@@ -1720,12 +1720,26 @@ export default class BPGPage extends Mixins(
               }
             }
 
+            const insentive = this.benefits.find(
+              benefit => benefit.category === CatalogIncentivo.INCWKS
+            )
+
+            if (String(prod.idPromocion) === Promotions.RESORT_CREDIT && !insentive) {
+              description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_INCENTIVE_RESORTS_START}',
+                markEnd: '{MARK_INCENTIVE_RESORTS_END}',
+                description
+              })
+            }
+
             return {
               ...prod,
               ...promotion,
               description: description
                 .replace('{MARK_DINAMIC_START}', '')
                 .replace('{MARK_DINAMIC_END}', '')
+                .replace('{MARK_INCENTIVE_RESORTS_START}', '')
+                .replace('{MARK_INCENTIVE_RESORTS_END}', '')
             }
           }
 
@@ -2268,7 +2282,6 @@ export default class BPGPage extends Mixins(
         if (access.roomTypeId === 'J' && access.groupId === 'S') access.hotel.push('BH')
         return access
       })
-
     })
     return accGroup
   }
