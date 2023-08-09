@@ -45,10 +45,15 @@ export default {
       imperialWeeks: '(1) Semana Imperial',
       imperialNights: '(7) Noches Imperiales',
       imperialWeeksOrNights: '(1) Semana Imperial o (7) Noches Imperiales',
+      imperialWeeksWithoutNumber: 'Semana Imperial',
+      imperialNightsWithoutNumber: 'Noches Imperiales',
+      anniversaryWeeksWithoutNumber: '(1) Semana Aniversario',
+      anniversaryNightsWithoutNumber: '(7) Noches Aniversario',
       anniversaryWeeks: '(1) Semana Aniversario',
       anniversaryNights: '(7) Noches Aniversario',
       anniversaryWeeksOrNights: '(1) Semana Aniversario o (7) Noches Aniversario',
       incentiveWeek: '(1) Semana Incentivo',
+      incentiveWeekWithoutNumber: 'Semana Incentivo',
       or: 'ó',
       accessPerYear: '({access}) por año',
       accessValidTo: `({quantityToPrint}) en total <br> válido hasta el {date} <br> para usar ({access}) por año.`,
@@ -151,7 +156,12 @@ export default {
       benefits: 'Benefits',
       preferentialWeeksAndNights: 'Preferential Weeks And Nights',
       noResultsFound: 'No Results Found...',
-      suitesToChoose: 'Suites to Choose'
+      suitesToChoose: 'Suites to Choose',
+      anniversaryWeeksWithoutNumber: 'Anniversary Week',
+      anniversaryNightsWithoutNumber: 'Anniversary Nights',
+      incentiveWeekWithoutNumber: 'Incentive Week',
+      imperialNightsWithoutNumber: 'Imperial Nights',
+      imperialWeeksWithoutNumber: 'Imperial Week',
     },
     pt: {
       or: 'ou',
@@ -165,7 +175,7 @@ export default {
       accessPerYear: '({access}) por ano',
       accessValidTo: `({quantityToPrint}) no total <br> válido até {date} <br> para usar ({access}) por ano`,
       yearsAndVigencyTotal:
-        'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
+        'O total de acessos estabelecidos no seu Acordo são válidos até <b>{VIGENCY}</b> e devem ser utilizados <b>({ACCESS_YEAR})</b> por ano.',
       yearsAndVigencyYear:
         'Cada acesso <b>{level}</b> aplica-se <b>({ACCESS_YEAR})</b> vez por ano e válido até <b>( {VIGENCY} )</b>.',
       diamondPresidential: 'Suite Presidencial Diamante',
@@ -174,15 +184,15 @@ export default {
       affiliatesDiamond: 'Diamond',
       suitesToChoose: 'Suites to Choose',
       access: 'Access',
-      Affiliates: 'Afiliados', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Referrend: 'Referente', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Guest: 'Convidado', //no se agrega camelCase, por que asi es obtenido de la base de datos...
-      Beneficiaries: 'Beneficiários', //no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Affiliates: 'Afiliados', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Referrend: 'Referente', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Guest: 'Convidado', // no se agrega camelCase, por que asi es obtenido de la base de datos...
+      Beneficiaries: 'Beneficiários', // no se agrega camelCase, por que asi es obtenido de la base de datos...
       withoutDescription: 'Sans descriptif.',
       problems:
-        'Si tiene algún problema, póngase en contacto con nosotros en: {phone} o escriba a <span class="text-blue-light">{email}</span>',
-      about: 'ACERCA DE PALACE RESORTS | POLÍTICA DE PRIVACIDAD',
-      terms: 'Términos de uso © {year} · Palace Resorts · Todos los derechos reservados',
+        'Se tiver algum problema, entre em contato conosco pelo número: {phone} ou envie um email para <span class="text-blue-light">{email}</span>',
+      about: 'SOBRE O PALACE RESORTS | POLÍTICA DE PRIVACIDADE',
+      terms: 'Termos de uso © {year} · Palace Resorts · Todos os direitos reservados',
       loadingData: 'Carregando dados...',
       textLoadingCategories: 'Carregando Categorias...',
       staysMinRef: 'Estadias Mínimas Referidas',
@@ -209,13 +219,18 @@ export default {
       benefits: 'Benefícios',
       preferentialWeeksAndNights: 'Semanas e Noites Preferenciais',
       imperialWeeks: '(1) Semana Imperial',
+      imperialWeeksWithoutNumber: 'Semana Imperial',
       imperialNights: '(7) Noites Imperiais',
       imperialWeeksOrNights: '(1) Semana Imperial ou (7) Noites Imperiais',
       anniversaryWeeks: '(1) Semana Aniversário',
       anniversaryNights: '(7) Noites Aniversário',
+      anniversaryNightsWithoutNumber: '(7) Noites de Aniversário',
+      imperialNightsWithoutNumber: 'Noites Imperiais',
+      anniversaryWeeksWithoutNumber: '(1) Semana de Aniversário',
       anniversaryWeeksOrNights: '(1) Semana Aniversário ou (7) Noites Aniversário',
       incentiveWeek: '(1) Semana Incentivo',
       villaOrResidence: 'Villas ou Residence',
+      incentiveWeekWithoutNumber: 'Semana de Incentivo',
       villa: 'Villas',
       residence: 'Residência',
       notFoundMessage: 'Nenhum acesso encontrado para esta propriedade.',

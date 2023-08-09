@@ -45,7 +45,10 @@ export enum Promotions {
   REWARDS = '38',
   REWARDS_PLUS = '40',
   REWARDS_UK = '39',
-  PLUS_PLAN = '29'
+  PLUS_PLAN = '29',
+  PLUS_PLAN_AND_TOURS1 = '30',
+  PLUS_PLAN_AND_TOURS2 = '31',
+  RESORT_CREDIT = '28'
 }
 
 export enum CatalogGroupsIds {
