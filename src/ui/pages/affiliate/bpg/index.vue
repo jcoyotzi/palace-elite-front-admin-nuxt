@@ -298,6 +298,7 @@ import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLocale';
+import {LockOffTypes} from '~/src/app/bpg/domain/enum/lockOffTypes'
 
 @Component({
   name: 'BPGPage',
@@ -428,10 +429,11 @@ export default class BPGPage extends Mixins(
     }))
   }
 
+  public get accessBaglioni(): boolean {
+    return this.accessProperties.some(propertie => baglioniCodes.includes(propertie as string))
+  }
+
   public get bindCardCategoryTabs(): CardCategoryTabsDto {
-    const accessBaglioni = this.accessProperties.some(propertie =>
-      baglioniCodes.includes(propertie as string)
-    )
 
     return {
       headersTable: this.headersTable,
@@ -444,7 +446,7 @@ export default class BPGPage extends Mixins(
       showZones: this.zones.length > 0,
       mppc: this.mppc,
       baglioniCodes,
-      mainTabs: accessBaglioni
+      mainTabs: this.accessBaglioni
         ? this.zones.map(zone => ({
           ...zone,
           properties: zone.properties
@@ -607,7 +609,7 @@ export default class BPGPage extends Mixins(
   }
 
   public get hotelsTableAccess() {
-    return [...new Set(this.roomHotelAccess.map((property: any) => property.hotel))]
+    const hotelsAccess = [...new Set(this.roomHotelAccess.map((property: any) => property.hotel))]
       .filter(hotel => !Object.keys(DiscartedHotels).includes(hotel as DiscartedHotels))
       .map(hotel => this.roomHotelAccess.find((access: any) => access.hotel === hotel))
       .map(hotel => ({
@@ -621,6 +623,20 @@ export default class BPGPage extends Mixins(
       .sort((a: any, b: any) => {
         return a.order - b.order
       })
+
+    return this.accessBaglioni
+      ? [
+          ...hotelsAccess,
+          {
+            title: 'BH',
+            titleMobile: 'Baglioni Hotels',
+            name: 'BH',
+            width: '15%',
+            align: 'center',
+            order: 99
+          }
+        ]
+      : hotelsAccess
   }
 
   public get accessVillas(): any {
@@ -700,6 +716,13 @@ export default class BPGPage extends Mixins(
           const standard = this.groups.find((group: any) => group.groupId === 'S')
           const presidential = this.groups.find((group: any) => group.groupId === 'P' || group.groupId === 'PS')
 
+          if (!this.accessBaglioni)
+              description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_BAGLIONI_HOTELS_START}',
+                markEnd: '{MARK_BAGLIONI_HOTELS_END}',
+                description
+              })
+
           if (standard && presidential)
             description = description.replace(
               '{LEVELS}',
@@ -716,7 +739,9 @@ export default class BPGPage extends Mixins(
 
           return {
             ...consideration,
-            description,
+            description: description
+                .replace('{MARK_BAGLIONI_HOTELS_START}', '')
+                .replace('{MARK_BAGLIONI_HOTELS_END}', ''),
             component: {
               component: () => import('~/src/ui/components/TableAccessSuites.vue'),
               headers: [
@@ -1039,6 +1064,12 @@ export default class BPGPage extends Mixins(
         })
     }
 
+    const lockOff = this.roomHotelAccess.find((access: any) =>
+      Object.keys(LockOffTypes).includes(access.roomTypeId)
+    )
+    if (lockOff) description = description.replace('{RESIDENCE_NAME}', 'Residence Suite / Lock Off')
+    else description = description.replace('{RESIDENCE_NAME}', 'Residence Suite')
+
     switch (this.accessResidence?.periodType) {
     case PeriodType.YEAR:
       return description.replace(
@@ -1076,6 +1107,14 @@ export default class BPGPage extends Mixins(
           description
         })
     }
+
+    const lockOff = this.roomHotelAccess.find((access: any) =>
+      Object.keys(LockOffTypes).includes(access.roomTypeId)
+    )
+    if (lockOff)
+      description = description.replace('{BABY_RESIDENCE_NAME}', 'Residence Suite / Lock Off')
+    else description = description.replace('{BABY_RESIDENCE_NAME}', 'Residence Suite')
+
     switch (this.accessBabyResidence?.periodType) {
       case PeriodType.YEAR:
         return description.replace(
@@ -1126,7 +1165,7 @@ export default class BPGPage extends Mixins(
     return description.replace('{LEVELS}', this.createStringElements(levels, separatorEnd))
   }
 
-  public constructWeeksAndNightsString(description: string) {
+  public constructWeeksAndNightsString(description: string, withoutNumber: boolean = false) {
     const separatorEnd = ` ${this.$t('or') as string} `
 
     let benefits = this.benefits
@@ -1147,12 +1186,16 @@ export default class BPGPage extends Mixins(
     let anniversarys: string[] | string = []
     const allProvitions: string[] = []
 
-    if (benefits.includes(CatalogImperials.IMPWKS))
-      imperials.push(this.$t('imperialWeeks') as string)
+    if (benefits.includes(CatalogImperials.IMPWKS)) {
+      let imperialStr: string = withoutNumber ? 'imperialWeeksWithoutNumber' : 'imperialWeeks'
+      imperials.push(this.$t(imperialStr) as string)
+    }
 
-    if (benefits.includes(CatalogImperials.IMPNIG))
-      imperials.push(this.$t('imperialNights') as string)
-
+    if (benefits.includes(CatalogImperials.IMPNIG)) {
+      let imperialStr: string = withoutNumber ? 'imperialNightsWithoutNumber' : 'imperialNights'
+      imperials.push(this.$t(imperialStr) as string)
+    }
+    
     imperials = this.createStringElements(imperials, separatorEnd)
 
     if (imperials) allProvitions.push(imperials)
@@ -1160,11 +1203,19 @@ export default class BPGPage extends Mixins(
     if (benefits.includes(CatalogIncentivo.INCWKS))
       allProvitions.push(this.$t('incentiveWeek') as string)
 
-    if (benefits.includes(CatalogAnniversary.ANVWKS))
-      anniversarys.push(this.$t('anniversaryWeeks') as string)
+    if (benefits.includes(CatalogAnniversary.ANVWKS)) {
+      let anniversaryStr: string = withoutNumber
+        ? 'anniversaryWeeksWithoutNumber'
+        : 'anniversaryWeeks'
+      anniversarys.push(this.$t(anniversaryStr) as string)
+    }
 
-    if (benefits.includes(CatalogAnniversary.ANVNIG))
-      anniversarys.push(this.$t('anniversaryNights') as string)
+    if (benefits.includes(CatalogAnniversary.ANVNIG)) {
+      let anniversaryStr: string = withoutNumber
+        ? 'anniversaryNightsWithoutNumber'
+        : 'anniversaryNights'
+      anniversarys.push(this.$t(anniversaryStr) as string)
+    }
 
     anniversarys = this.createStringElements(anniversarys, separatorEnd)
 
@@ -1640,8 +1691,16 @@ export default class BPGPage extends Mixins(
           // si hizo match el producto entre Strapi y back, retornamos ambas infos
           if (prod) {
 
-            if (String(prod.idPromocion) === Promotions.PLUS_PLAN)
+            if (
+              [
+                Promotions.PLUS_PLAN,
+                Promotions.PLUS_PLAN_AND_TOURS1,
+                Promotions.PLUS_PLAN_AND_TOURS2
+              ].includes(String(prod.idPromocion) as Promotions)
+            ) {
               description = description.replace('{NIGHTS}', String(bpg20?.applicableStay))
+              description = this.constructWeeksAndNightsString(description, true)
+            }
 
             if (
               codes.includes(Promotions.REWARDS) ||
@@ -1662,12 +1721,25 @@ export default class BPGPage extends Mixins(
               }
             }
 
+            const insentive = this.benefits.find(
+              benefit => benefit.category === CatalogIncentivo.INCWKS
+            )
+            if (String(prod.idPromocion) === Promotions.RESORT_CREDIT && !insentive) {
+              description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_INCENTIVE_RESORTS_START}',
+                markEnd: '{MARK_INCENTIVE_RESORTS_END}',
+                description
+              })
+            }
+
             return {
               ...prod,
               ...promotion,
               description: description
                 .replace('{MARK_DINAMIC_START}', '')
                 .replace('{MARK_DINAMIC_END}', '')
+                .replace('{MARK_INCENTIVE_RESORTS_START}', '')
+                .replace('{MARK_INCENTIVE_RESORTS_END}', '')
             }
           }
 
@@ -1835,36 +1907,46 @@ export default class BPGPage extends Mixins(
   public get roomHotelAccessFormatted() {
     const accessShow: any = {}
 
+    const access = this.roomHotelAccess
+      .filter(
+        (access: any) =>
+          !this.validatePartRoom(access?.roomTypeId) &&
+          access?.discountRate > 0 &&
+          access.hotel === this.propertySelectedTab?.code
+      )
+      .map((access: any) => ({
+        ...access,
+        title: access?.roomTypeDescription || '-',
+        //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
+        code: access?.roomTypeId || '-',
+        property: this.propertySelectedTab?.code,
+        bpg: `${access?.discountRate}%` || '-',
+        ocupacion_max:
+          this.getMaxOccupanciesByHotelAndRoomType(access) > 0
+            ? this.getMaxOccupanciesByHotelAndRoomType(access)
+            : access.maxOccupancy,
+        tooltip: ''
+      }))
+      .filter((access: any) => {
+        if (!accessShow[access['roomTypeDescription']]) {
+          accessShow[access['roomTypeDescription']] = true
+          return true
+        }
+        return false
+      })
+      .sort((a: any, b: any) => {
+        if (a.discountRate === 20 && (a.code === 'RL' || a.code === 'RLCB')) {
+          return -1;
+        }
+        return 1
+      })
+
     return (
-      this.roomHotelAccess
-        .filter(
-          (access: any) =>
-            !this.validatePartRoom(access?.roomTypeId) &&
-            access?.discountRate > 0 &&
-            access.hotel === this.propertySelectedTab?.code
-        )
-        .map((access: any) => ({
-          ...access,
-          title: access?.roomTypeDescription || '-',
-          //title: `${access?.roomTypeDescription} / ${access.roomTypeId}` || '-',
-          code: access?.roomTypeId || '-',
-          property: this.propertySelectedTab?.code,
-          bpg: `${access?.discountRate}%` || '-',
-          ocupacion_max: this.getMaxOccupanciesByHotelAndRoomType(access) > 0 ? this.getMaxOccupanciesByHotelAndRoomType(access) : access.maxOccupancy,
-          tooltip: ''
-        }))
-        .filter((access: any) => {
-          if (!accessShow[access.roomTypeDescription]) {
-            accessShow[access.roomTypeDescription] = true
-            return true
-          }
-          return false
-        })
-        .sort((a: any, b: any) => {
-          if (b.bpg < a.bpg) return 1
-          if (b.bpg > a.bpg) return -1
-          return 0
-        }) || []
+      access.sort((a: any, b: any) => {
+        if (b.bpg < a.bpg) return 1
+        if (b.bpg > a.bpg) return -1
+        return 0
+      }) || []
     )
   }
 
@@ -2197,7 +2279,11 @@ export default class BPGPage extends Mixins(
                 ? `${access.roomTypeDescription} *`
                 : access.roomTypeDescription
           }))
-      ]
+      ].map(access => {
+        if (access.roomTypeId === 'J' && access.groupId === 'S') access.hotel.push('BH')
+        return access
+      })
+
     })
     return accGroup
   }
