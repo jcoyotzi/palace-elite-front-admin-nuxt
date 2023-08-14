@@ -84,8 +84,10 @@ export default {
       rewardTextPromotionShort: '({stay}) noches más ({nights}) Noches Rewards',
       inTotal: 'en total',
       benefits: 'Beneficios',
+      imperials: '{TEXT} Imperiales'
     },
     en: {
+      imperials: 'Imperials {TEXT}',
       inTotal: 'in total',
       rewardTextPromotion: '({stay}) nights stay or more and earn ({nights}) Rewards Nights',
       rewardTextPromotionShort: '({stay}) nights plus ({nights}) Rewards Nights',
@@ -170,6 +172,7 @@ export default {
       imperialWeeksWithoutNumber: 'Imperial Week',
     },
     pt: {
+      imperials: '{TEXT} Imperial',
       inTotal: 'no total',
       or: 'ou',
       rewardTextPromotion: '({stay}) noites de estadia ou mais e ganhar ({nights}) Rewards Nights',
