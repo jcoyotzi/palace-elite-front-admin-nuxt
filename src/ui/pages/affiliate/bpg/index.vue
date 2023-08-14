@@ -317,6 +317,7 @@ import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLocale';
+import {LockOffTypes} from '~/src/app/bpg/domain/enum/lockOffTypes'
 
 @Component({
   name: 'BPGPage',
@@ -742,6 +743,13 @@ export default class BPGPage extends Mixins(
               markEnd: '{MARK_BAGLIONI_HOTELS_END}',
               description
             })
+
+          if (!this.accessBaglioni)
+              description = this.removeMarksSuitesExclusives({
+                markStart: '{MARK_BAGLIONI_HOTELS_START}',
+                markEnd: '{MARK_BAGLIONI_HOTELS_END}',
+                description
+              })
 
           if (standard && presidential)
             description = description.replace(
@@ -1213,6 +1221,13 @@ export default class BPGPage extends Mixins(
 
     benefits = [...new Set(benefits)]
 
+    if (benefits.length < 1)
+      return this.removeMarksSuitesExclusives({
+        markStart: '{MARK_WEEKS_NIGHTS_START}',
+        markEnd: '{MARK_WEEKS_NIGHTS_END}',
+        description
+      })
+
     let imperials: string[] | string = []
     let anniversarys: string[] | string = []
     const allProvitions: string[] = []
@@ -1226,7 +1241,7 @@ export default class BPGPage extends Mixins(
       let imperialStr: string = withoutNumber ? 'imperialNightsWithoutNumber' : 'imperialNights'
       imperials.push(this.$t(imperialStr) as string)
     }
-
+    
     imperials = this.createStringElements(imperials, separatorEnd)
 
     if (imperials) allProvitions.push(imperials)
@@ -1252,10 +1267,10 @@ export default class BPGPage extends Mixins(
 
     if (anniversarys) allProvitions.push(anniversarys)
 
-    return description.replace(
-      '{STRING_WEEKS_NIGHTS}',
-      this.createStringElements(allProvitions, separatorEnd)
-    )
+    return description
+      .replace('{STRING_WEEKS_NIGHTS}', this.createStringElements(allProvitions, separatorEnd))
+      .replace('{MARK_WEEKS_NIGHTS_START}', '')
+      .replace('{MARK_WEEKS_NIGHTS_END}', '')
   }
 
   public validateVillasSuitesExclusives(description: string) {
@@ -1725,6 +1740,7 @@ export default class BPGPage extends Mixins(
 
           // si hizo match el producto entre Strapi y back, retornamos ambas infos
           if (prod) {
+
             if (
               [
                 Promotions.PLUS_PLAN,
@@ -1962,7 +1978,10 @@ export default class BPGPage extends Mixins(
         code: access?.roomTypeId || '-',
         property: this.propertySelectedTab?.code,
         bpg: `${access?.discountRate}%` || '-',
-        ocupacion_max: access.maxOccupancy,
+        ocupacion_max:
+          this.getMaxOccupanciesByHotelAndRoomType(access) > 0
+            ? this.getMaxOccupanciesByHotelAndRoomType(access)
+            : access.maxOccupancy,
         tooltip: ''
       }))
       .filter((access: any) => {

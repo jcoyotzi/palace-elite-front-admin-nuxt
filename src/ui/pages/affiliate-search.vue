@@ -58,7 +58,7 @@ import { TranslateResult } from 'vue-i18n';
 import i18n from '../i18n/messages/affiliate-search.lang';
 import { BPGStore } from '../store/bpgStore';
 import { getAffiliationLangToLocale } from '../utils/affiliationLangToLocale';
-import { AffiliateInfo } from '~/src/app/bpg/domain/entities/affiliateInfo';
+// import { AffiliateInfo } from '~/src/app/bpg/domain/entities/affiliateInfo';
 
 @Component({
   name: 'AffiliateSearchPage',
@@ -127,7 +127,7 @@ export default class AffiliateSearchPage extends Vue {
 
       this.form.loading = true;
 
-      this.bpgStore.affiliateInfo = {} as AffiliateInfo;
+      this.bpgStore.affiliateInfo = {}// as AffiliateInfo;
 
       await this.bpgStore.getAffiliateInfo(this.form.affiliationNumber);
 
