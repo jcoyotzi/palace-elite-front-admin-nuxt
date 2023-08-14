@@ -1700,6 +1700,14 @@ export default class BPGPage extends Mixins(
     )
   }
 
+  public get imperialWeeks() {
+    return this.benefits.filter(benefit => CatalogImperials.IMPWKS === benefit.category)
+  }
+
+  public get imperialNights() {
+    return this.benefits.filter(benefit => CatalogImperials.IMPNIG === benefit.category)
+  }
+
   public extractPromotions(products: Product[], promotions: Promotion[], infoMember: any) {
 
     const bpg20 = this.minimumStay.find(minStay => minStay.discountRate === 'D20')
@@ -1774,12 +1782,29 @@ export default class BPGPage extends Mixins(
               benefit => benefit.category === CatalogIncentivo.INCWKS
             )
 
-            if (String(prod.idPromocion) === Promotions.RESORT_CREDIT && !insentive) {
-              description = this.removeMarksSuitesExclusives({
-                markStart: '{MARK_INCENTIVE_RESORTS_START}',
-                markEnd: '{MARK_INCENTIVE_RESORTS_END}',
-                description
-              })
+            if (codes.includes(Promotions.RESORT_CREDIT)) {
+              if (!insentive) {
+                description = this.removeMarksSuitesExclusives({
+                  markStart: '{MARK_INCENTIVE_RESORTS_START}',
+                  markEnd: '{MARK_INCENTIVE_RESORTS_END}',
+                  description
+                })
+              }
+              if (this.imperialWeeks.length < 1 && this.imperialNights.length < 1) {
+                description = this.removeMarksSuitesExclusives({
+                  markStart: '{MARK_WEEKS_NIGHTS_TEXT_START}',
+                  markEnd: '{MARK_WEEKS_NIGHTS_TEXT_END}',
+                  description
+                })
+              }
+              const imperialsTexts: string[] = []
+              if (this.imperialWeeks.length > 0) {
+                imperialsTexts.push(this.$t('weeks') as string)
+              }
+              if (this.imperialNights.length > 0) {
+                imperialsTexts.push(this.$t('nights') as string)
+              }
+              description = description.replace('{MARK_WEEKS_NIGHTS_TEXT}', `${this.$t('imperials', {TEXT: this.createStringElements(imperialsTexts, '/', ',')})}`)
             }
 
             return {
@@ -1788,6 +1813,8 @@ export default class BPGPage extends Mixins(
               description: description
                 .replace('{MARK_DINAMIC_START}', '')
                 .replace('{MARK_DINAMIC_END}', '')
+                .replace('{MARK_WEEKS_NIGHTS_TEXT_START}', '')
+                .replace('{MARK_WEEKS_NIGHTS_TEXT_END}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_START}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_END}', '')
             }
