@@ -26,8 +26,13 @@ export class ContentDataPageMapper {
     return {
       title: attributes?.title,
       tabs: [
-        {code: 0, title: policies?.collection?.title, content: policies?.collection?.content},
-        {code: 1, title: policies?.titleReservations, content: policies?.reservations}
+        {
+          code: 0,
+          name: policies?.titleCollection,
+          title: policies?.collection?.title,
+          content: policies?.collection?.content
+        },
+        {code: 1, name: '', title: policies?.titleReservations, content: policies?.reservations}
       ],
       description: description?.description
     }

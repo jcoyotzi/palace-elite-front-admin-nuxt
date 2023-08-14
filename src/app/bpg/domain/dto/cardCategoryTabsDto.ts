@@ -4,6 +4,7 @@ import ValidityAccessDTO from './validateAccess'
 
 export default interface CardCategoryTabsDto {
   headersTable: HeaderTable[]
+  isMobile: boolean
   showZones: boolean
   mainTabs: Zone[]
   texts: any
@@ -33,6 +34,7 @@ export interface Tabs {
 
 export interface HeaderTable {
   title: string
+  titleMobile?: string
   hidden?: boolean
   name: string
   width: string

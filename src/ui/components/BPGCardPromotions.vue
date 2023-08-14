@@ -159,7 +159,7 @@
       </div>
 
       <PEModal
-        v-model="showModal"
+        v-model="showModalWeb"
         :dark="dark"
         class="ms-z-70 text-justify"
       >
@@ -297,6 +297,18 @@ export default class BPGCardPromotions extends Vue {
     }
   }
 
+  public get showModalWeb() {
+    return this.showModal && !this.isMobile
+  }
+
+  public set showModalWeb(value: boolean) {
+    this.showModal = value
+  }
+
+  public get showModalMobile() {
+    return this.showModal && this.isMobile
+  }
+
   @Emit('show-more')
   showMore() {}
 
@@ -346,6 +358,8 @@ export default class BPGCardPromotions extends Vue {
       }))
 
     this.termsAndConditions = termsAndConditions
+
+    if (this.isMobile) this.$emit('open-modal-terms', {termsAndConditions})
 
     this.showModal = true
   }

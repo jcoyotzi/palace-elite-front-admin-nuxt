@@ -42,9 +42,9 @@ export enum Additionals {
 
 export enum Promotions {
   KIDS_AND_TEENS = '18',
-  REWARDS = '38',
-  REWARDS_PLUS = '40',
-  REWARDS_UK = '39',
+  REWARDS = '38', // antes 7
+  REWARDS_PLUS = '40', // antes 27
+  REWARDS_UK = '39', // antes 25
   PLUS_PLAN = '29',
   PLUS_PLAN_AND_TOURS1 = '30',
   PLUS_PLAN_AND_TOURS2 = '31',

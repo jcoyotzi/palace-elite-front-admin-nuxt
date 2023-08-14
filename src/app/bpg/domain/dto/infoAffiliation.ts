@@ -13,4 +13,5 @@ export interface InfoAffiliationData {
 export interface QueryAffiliation {
     application: string
     company: number
+    isNational?: number
 }
