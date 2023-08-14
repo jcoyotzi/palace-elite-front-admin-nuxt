@@ -1182,6 +1182,13 @@ export default class BPGPage extends Mixins(
 
     benefits = [...new Set(benefits)]
 
+    if (benefits.length < 1)
+      return this.removeMarksSuitesExclusives({
+        markStart: '{MARK_WEEKS_NIGHTS_START}',
+        markEnd: '{MARK_WEEKS_NIGHTS_END}',
+        description
+      })
+
     let imperials: string[] | string = []
     let anniversarys: string[] | string = []
     const allProvitions: string[] = []
@@ -1221,10 +1228,10 @@ export default class BPGPage extends Mixins(
 
     if (anniversarys) allProvitions.push(anniversarys)
 
-    return description.replace(
-      '{STRING_WEEKS_NIGHTS}',
-      this.createStringElements(allProvitions, separatorEnd)
-    )
+    return description
+      .replace('{STRING_WEEKS_NIGHTS}', this.createStringElements(allProvitions, separatorEnd))
+      .replace('{MARK_WEEKS_NIGHTS_START}', '')
+      .replace('{MARK_WEEKS_NIGHTS_END}', '')
   }
 
   public validateVillasSuitesExclusives(description: string) {
