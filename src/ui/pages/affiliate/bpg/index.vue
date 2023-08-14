@@ -317,7 +317,6 @@ import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
 import { MaxOccupancyByHotelAndRoomType } from '~/src/app/bpg/domain/entities/maxOccupancyByHotel';
 import SisturPromotion from '~/src/app/bpg/domain/dto/sisturPromotionDto';
 import { getAffiliationLangToLocale } from '~/src/ui/utils/affiliationLangToLocale';
-import {LockOffTypes} from '~/src/app/bpg/domain/enum/lockOffTypes'
 
 @Component({
   name: 'BPGPage',
