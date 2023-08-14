@@ -312,7 +312,7 @@
           </div>
           <span
             v-if="!showMinStays"
-            class="font-sans text-[16px]"
+            class="font-sans text-[16px] ms-mt-12"
             :class="textColorClasses"
             >{{ texts.minStaysBaglioni }}</span
           >
