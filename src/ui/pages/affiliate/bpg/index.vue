@@ -494,22 +494,7 @@ export default class BPGPage extends Mixins(
     return str
   }
 
-  // public get userIsAuthenticated() {
-  //   return this.authStore.isAuthenticated
-  // }
-
   public itemsResumeMicroSite: ItemsResume[] = []
-
-  // methods
-  // async mounted() {
-  //   if (this.userIsAuthenticated) this.$nuxt.setLayout('default')
-  //   else this.$nuxt.setLayout('auth')
-  // }
-
-  // @Watch('$route.hash')
-  // onRouteHashChanged(_newHash: string) {
-  //   this.scrollIntoView()
-  // }
 
   public get attributesPage() {
     return this.strapiPage.data[0]?.attributes
@@ -1034,7 +1019,6 @@ export default class BPGPage extends Mixins(
 
       await this.bpgStore.getTermsAndConditions()
 
-      // this.scrollIntoView()
     } catch (error) {
       console.log(error)
     }
@@ -1182,6 +1166,13 @@ export default class BPGPage extends Mixins(
 
     benefits = [...new Set(benefits)]
 
+    if (benefits.length < 1)
+      return this.removeMarksSuitesExclusives({
+        markStart: '{MARK_WEEKS_NIGHTS_START}',
+        markEnd: '{MARK_WEEKS_NIGHTS_END}',
+        description
+      })
+
     let imperials: string[] | string = []
     let anniversarys: string[] | string = []
     const allProvitions: string[] = []
@@ -1221,10 +1212,10 @@ export default class BPGPage extends Mixins(
 
     if (anniversarys) allProvitions.push(anniversarys)
 
-    return description.replace(
-      '{STRING_WEEKS_NIGHTS}',
-      this.createStringElements(allProvitions, separatorEnd)
-    )
+    return description
+      .replace('{STRING_WEEKS_NIGHTS}', this.createStringElements(allProvitions, separatorEnd))
+      .replace('{MARK_WEEKS_NIGHTS_START}', '')
+      .replace('{MARK_WEEKS_NIGHTS_END}', '')
   }
 
   public validateVillasSuitesExclusives(description: string) {
@@ -1651,6 +1642,14 @@ export default class BPGPage extends Mixins(
     )
   }
 
+  public get imperialWeeks() {
+    return this.benefits.filter(benefit => CatalogImperials.IMPWKS === benefit.category)
+  }
+
+  public get imperialNights() {
+    return this.benefits.filter(benefit => CatalogImperials.IMPNIG === benefit.category)
+  }
+
   public extractPromotions(products: Product[], promotions: Promotion[], infoMember: any) {
 
     const bpg20 = this.minimumStay.find(minStay => minStay.discountRate === 'D20')
@@ -1724,12 +1723,30 @@ export default class BPGPage extends Mixins(
             const insentive = this.benefits.find(
               benefit => benefit.category === CatalogIncentivo.INCWKS
             )
-            if (String(prod.idPromocion) === Promotions.RESORT_CREDIT && !insentive) {
-              description = this.removeMarksSuitesExclusives({
-                markStart: '{MARK_INCENTIVE_RESORTS_START}',
-                markEnd: '{MARK_INCENTIVE_RESORTS_END}',
-                description
-              })
+
+            if (codes.includes(Promotions.RESORT_CREDIT)) {
+              if (!insentive) {
+                description = this.removeMarksSuitesExclusives({
+                  markStart: '{MARK_INCENTIVE_RESORTS_START}',
+                  markEnd: '{MARK_INCENTIVE_RESORTS_END}',
+                  description
+                })
+              }
+              if (this.imperialWeeks.length < 1 && this.imperialNights.length < 1) {
+                description = this.removeMarksSuitesExclusives({
+                  markStart: '{MARK_WEEKS_NIGHTS_TEXT_START}',
+                  markEnd: '{MARK_WEEKS_NIGHTS_TEXT_END}',
+                  description
+                })
+              }
+              const imperialsTexts: string[] = []
+              if (this.imperialWeeks.length > 0) {
+                imperialsTexts.push(this.$t('weeks') as string)
+              }
+              if (this.imperialNights.length > 0) {
+                imperialsTexts.push(this.$t('nights') as string)
+              }
+              description = description.replace('{MARK_WEEKS_NIGHTS_TEXT}', `${this.$t('imperials', {TEXT: this.createStringElements(imperialsTexts, '/', ',')})}`)
             }
 
             return {
@@ -1738,6 +1755,8 @@ export default class BPGPage extends Mixins(
               description: description
                 .replace('{MARK_DINAMIC_START}', '')
                 .replace('{MARK_DINAMIC_END}', '')
+                .replace('{MARK_WEEKS_NIGHTS_TEXT_START}', '')
+                .replace('{MARK_WEEKS_NIGHTS_TEXT_END}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_START}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_END}', '')
             }
@@ -1806,20 +1825,6 @@ export default class BPGPage extends Mixins(
         this.createStringElements(rewardsValuesShort, ` ${this.$t('or')} `)
       )
   }
-
-  // public async scrollIntoView() {
-  //   const fullPath = this.$route.fullPath
-  //   const hashtag = fullPath.slice(fullPath.indexOf('#'))
-
-  //   if (['#promotions', '#benefits'].includes(hashtag)) {
-  //     //@ts-ignore
-  //     this.$refs.promotions.scrollIntoView({behavior: 'smooth'})
-
-  //     if (hashtag.search('promotions') > -1) this.bindingTab = 'promotions'
-
-  //     if (hashtag.search('benefits') > -1) this.bindingTab = 'benefits'
-  //   }
-  // }
 
   // public async getInfoAffiliation() {
   public getInfoAffiliation() {
