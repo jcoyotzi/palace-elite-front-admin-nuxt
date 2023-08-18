@@ -1218,6 +1218,45 @@ export default class BPGPage extends Mixins(
       .replace('{MARK_WEEKS_NIGHTS_END}', '')
   }
 
+  public constructWeeksString(description: string) {
+    const separatorEnd = ` ${this.$t('or') as string} `
+    let benefits = this.benefits
+      .filter(benefit =>
+        [
+          CatalogImperials.IMPWKS,
+          CatalogAnniversary.ANVWKS,
+          CatalogIncentivo.INCWKS
+        ].includes(benefit.category as any)
+      )
+      .map(({category}) => category)
+    benefits = [...new Set(benefits)]
+    if (benefits.length < 1)
+      return this.removeMarksSuitesExclusives({
+        markStart: '{MARK_WEEKS_NIGHTS_START}',
+        markEnd: '{MARK_WEEKS_NIGHTS_END}',
+        description
+      })
+    let imperials: string[] | string = []
+    let anniversarys: string[] | string = []
+    const allProvitions: string[] = []
+    if (benefits.includes(CatalogImperials.IMPWKS)) {
+      imperials.push(this.$t('imperialWeeksWithoutNumber') as string)
+    }
+    imperials = this.createStringElements(imperials, separatorEnd)
+    if (imperials) allProvitions.push(imperials)
+    if (benefits.includes(CatalogIncentivo.INCWKS))
+      allProvitions.push(this.$t('incentiveWeekWithoutNumber') as string)
+    if (benefits.includes(CatalogAnniversary.ANVWKS)) {
+      anniversarys.push(this.$t('anniversaryWeeksWithoutNumber') as string)
+    }
+    anniversarys = this.createStringElements(anniversarys, separatorEnd)
+    if (anniversarys) allProvitions.push(anniversarys)
+    return description
+      .replace('{STRING_WEEKS_NIGHTS}', this.createStringElements(allProvitions, separatorEnd))
+      .replace('{MARK_WEEKS_NIGHTS_START}', '')
+      .replace('{MARK_WEEKS_NIGHTS_END}', '')
+  }
+
   public validateVillasSuitesExclusives(description: string) {
     if (!this.accessVillas) {
       return this.removeMarksSuitesExclusives({
@@ -1698,7 +1737,7 @@ export default class BPGPage extends Mixins(
               ].includes(String(prod.idPromocion) as Promotions)
             ) {
               description = description.replace('{NIGHTS}', String(bpg20?.applicableStay))
-              description = this.constructWeeksAndNightsString(description, true)
+              description = this.constructWeeksString(description)
             }
 
             if (
