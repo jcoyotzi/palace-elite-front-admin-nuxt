@@ -72,7 +72,7 @@ export default {
       yearsAndVigencyTotal:
         'Los accesos en total indicados en su Contrato son válidos hasta el <b>{VIGENCY}</b>, y deben usarse <b>({ACCESS_YEAR})</b> por año.',
       yearsAndVigencyYear:
-        'Cada acceso <b>{level}</b> aplica <b>({ACCESS_YEAR})</b> veces por año y será válida hasta <b>( {VIGENCY} )</b>.',
+        'Cada acceso <b>{level}</b> aplica <b>({ACCESS_YEAR})</b> vez/veces por año y será válida hasta <b>( {VIGENCY} )</b>.',
       notFound: 'NO ENCONTRADO.',
       notFoundMessage: 'No se encontró acceso para esta propiedad.',
       minStaysBaglioni: '* Aplican las estancias mínimas vigentes al momento de reservar.',
@@ -94,7 +94,7 @@ export default {
       notFoundMessage: 'No access found for this property.',
       notFound: 'NOT FOUND.',
       yearsAndVigencyTotal:
-        'The total accesses stated in your Agreement are valid through <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
+        'The total accesses stated in your contract are valid until <b>{VIGENCY}</b>, and must be used <b>({ACCESS_YEAR})</b> per year.',
       yearsAndVigencyYear:
         'Each access <b>{level}</b> applies <b>({ACCESS_YEAR})</b> per year and is valid until <b>( {VIGENCY} )</b>.',
       and: 'and',
@@ -184,7 +184,7 @@ export default {
       diamondPresidential: 'Suite Presidencial Diamante',
       minStaysBaglioni: '* Aplicam-se estadias mínimas em vigor no momento da reserva.',
       affiliatesVIP: 'VIP',
-      affiliatesDiamond: 'Diamond',
+      affiliatesDiamond: 'Diamante',
       suitesToChoose: 'Suites to Choose',
       access: 'Access',
       Affiliates: 'Afiliados', // no se agrega camelCase, por que asi es obtenido de la base de datos...
