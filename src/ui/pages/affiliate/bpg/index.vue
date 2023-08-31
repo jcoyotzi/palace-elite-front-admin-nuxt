@@ -594,7 +594,7 @@ export default class BPGPage extends Mixins(
   }
 
   public get hotelsTableAccess() {
-    const hotelsAccess = [...new Set(this.roomHotelAccess.map((property: any) => property.hotel))]
+    return [...new Set(this.roomHotelAccess.map((property: any) => property.hotel))]
       .filter(hotel => !Object.keys(DiscartedHotels).includes(hotel as DiscartedHotels))
       .map(hotel => this.roomHotelAccess.find((access: any) => access.hotel === hotel))
       .map(hotel => ({
@@ -608,20 +608,6 @@ export default class BPGPage extends Mixins(
       .sort((a: any, b: any) => {
         return a.order - b.order
       })
-
-    return this.accessBaglioni
-      ? [
-          ...hotelsAccess,
-          {
-            title: 'BH',
-            titleMobile: 'Baglioni Hotels',
-            name: 'BH',
-            width: '15%',
-            align: 'center',
-            order: 99
-          }
-        ]
-      : hotelsAccess
   }
 
   public get accessVillas(): any {
@@ -701,13 +687,6 @@ export default class BPGPage extends Mixins(
           const standard = this.groups.find((group: any) => group.groupId === 'S')
           const presidential = this.groups.find((group: any) => group.groupId === 'P' || group.groupId === 'PS')
 
-          if (!this.accessBaglioni)
-              description = this.removeMarksSuitesExclusives({
-                markStart: '{MARK_BAGLIONI_HOTELS_START}',
-                markEnd: '{MARK_BAGLIONI_HOTELS_END}',
-                description
-              })
-
           if (standard && presidential)
             description = description.replace(
               '{LEVELS}',
@@ -724,9 +703,7 @@ export default class BPGPage extends Mixins(
 
           return {
             ...consideration,
-            description: description
-                .replace('{MARK_BAGLIONI_HOTELS_START}', '')
-                .replace('{MARK_BAGLIONI_HOTELS_END}', ''),
+            description: description,
             component: {
               component: () => import('~/src/ui/components/TableAccessSuites.vue'),
               headers: [
