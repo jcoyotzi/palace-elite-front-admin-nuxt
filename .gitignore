@@ -93,4 +93,3 @@ package-lock.json
 .vscode/
 
 .env
-.env.qa
