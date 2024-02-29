@@ -1790,6 +1790,21 @@ export default class BPGPage extends Mixins(
                   description
                 })
               }
+
+              if (
+                !Object.values(MembershipLevelsAccessDiamante).includes(
+                  this.infoMember.program as MembershipLevelsAccessDiamante
+                )
+              ) {
+
+                description = this.removeMarksSuitesExclusives({
+                  markStart: '{MARK_RESIDENCE_RC_START}',
+                  markEnd: '{MARK_RESIDENCE_RC_END}',
+                  description
+                })
+
+              }
+
               if (this.imperialWeeks.length < 1 && this.imperialNights.length < 1) {
                 description = this.removeMarksSuitesExclusives({
                   markStart: '{MARK_WEEKS_NIGHTS_TEXT_START}',
@@ -1817,6 +1832,8 @@ export default class BPGPage extends Mixins(
                 .replace('{MARK_WEEKS_NIGHTS_TEXT_END}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_START}', '')
                 .replace('{MARK_INCENTIVE_RESORTS_END}', '')
+                .replace('{MARK_RESIDENCE_RC_START}', '')
+                .replace('{MARK_RESIDENCE_RC_END}', '')
             }
           }
 
