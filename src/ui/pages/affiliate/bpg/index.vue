@@ -291,7 +291,8 @@ import {baglioniCodes} from '~/src/app/property/domain/data/baglioniCodes'
 import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAdditionalsDto'
 import {
   MembershipLevelsAccessDiamante,
-  MembershipLevelsAccessVIP
+  MembershipLevelsAccessVIP,
+  MembershipResidenceLevel
 } from '~/src/app/bpg/domain/enum/membershipLevels'
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import CardCategoryTabs from '~/src/ui/components/CardCategoryTabs.vue'
@@ -1752,8 +1753,8 @@ export default class BPGPage extends Mixins(
               console.log({ infoMember })
 
               if (
-                !Object.values(MembershipLevelsAccessDiamante).includes(
-                  this.infoMember.program as MembershipLevelsAccessDiamante
+                !Object.values(MembershipResidenceLevel).includes(
+                  this.infoMember.program as MembershipResidenceLevel
                 )
               ) {
 
