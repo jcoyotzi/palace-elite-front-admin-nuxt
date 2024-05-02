@@ -309,7 +309,8 @@ import BenefitsAdditionalsDto from '~/src/app/bpg/domain/dto/getBenefitsAddition
 import {LockOffTypes} from '~/src/app/bpg/domain/enum/lockOffTypes'
 import {
   MembershipLevelsAccessDiamante,
-  MembershipLevelsAccessVIP
+  MembershipLevelsAccessVIP,
+  MembershipResidenceLevel
 } from '~/src/app/bpg/domain/enum/membershipLevels'
 import {PeriodType} from '~/src/app/bpg/domain/enum/periodType'
 import {ConsiderationTypes} from '~/src/app/bpg/domain/enum/considerationsTypes'
@@ -1792,8 +1793,8 @@ export default class BPGPage extends Mixins(
               }
 
               if (
-                !Object.values(MembershipLevelsAccessDiamante).includes(
-                  this.infoMember.program as MembershipLevelsAccessDiamante
+                !Object.values(MembershipResidenceLevel).includes(
+                  this.infoMember.program as MembershipResidenceLevel
                 )
               ) {
 
